@@ -45,6 +45,7 @@
     git
     curl
     wget
+    arangodb
   ];
 
   # Firewall
