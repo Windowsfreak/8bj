@@ -11,6 +11,8 @@
   networking.hostName = "8bj";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Users
   users.groups = {
     arango = {};
