@@ -74,7 +74,6 @@
       enable = true;
       package = pkgs.mariadb;
       dataDir = "/var/lib/mysql";
-      socket = "/run/mysqld/mysqld.sock";
     };
   };
 }
