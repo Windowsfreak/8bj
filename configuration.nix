@@ -6,6 +6,8 @@
   ];
   # Basic System Configuration
   boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.devices = [ "/dev/sda" ];
   networking.hostName = "8bj";
   i18n.defaultLocale = "en_US.UTF-8";
 
