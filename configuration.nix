@@ -61,7 +61,7 @@
   ];
 
   # Firewall
-  networking.firewall.allowedTCPPorts = [ 80 443 8529 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 8529 ];
   networking.firewall.allowedUDPPorts = [ 443 ];
 
   # Services
@@ -82,5 +82,9 @@
       package = pkgs.mariadb;
       dataDir = "/var/lib/mysql";
     };
+    openssh = {
+      enable = true;
+    };
   };
+  system.stateVersion="23.05";
 }
