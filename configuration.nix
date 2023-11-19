@@ -65,6 +65,11 @@
         }
       '';
     };
+    arangodb = {
+      enable = true;
+      package = pkgs.arangodb;
+      dataDir = "/var/lib/arangodb";
+    };
     mysql = {
       enable = true;
       package = pkgs.mariadb;
