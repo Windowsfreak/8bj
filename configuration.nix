@@ -18,7 +18,7 @@
       allowedTCPPorts = [ 22 80 443 8529 ];
       allowedUDPPorts = [ 443 ];
     };
-  }
+  };
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
 
