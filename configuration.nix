@@ -78,7 +78,6 @@
     caddy = {
       enable = true;
       email = "lazer.erazer@gmail.com";
-      agree = true;
       virtualHosts."localhost" = {
         extraConfig = ''
           root * /var/www
