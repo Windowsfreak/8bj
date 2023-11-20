@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./arangodb.nix
   ];
   # Basic System Configuration
   boot.loader = {
@@ -35,11 +36,6 @@
     caddy = {
       isSystemUser = true;
       home = "/var/lib/caddy";
-    };
-    arango = {
-      isSystemUser = true;
-      home = "/var/lib/arango";
-      group = "arango";
     };
     dpv = {
       isSystemUser = true;
@@ -75,6 +71,9 @@
 
   # Services
   services = {
+    arangodb = {
+      enable = true;
+    }
     caddy = {
       enable = true;
       email = "lazer.erazer@gmail.com";
@@ -107,5 +106,11 @@
       ];
     };
   };
-  system.stateVersion="23.05";
+  system = {
+    autoUpgrade = {
+      enable = true;
+      allowReboot = true;
+    };
+    stateVersion="23.05";
+  };
 }
