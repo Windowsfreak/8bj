@@ -73,7 +73,7 @@
   services = {
     arangodb = {
       enable = true;
-    }
+    };
     caddy = {
       enable = true;
       email = "lazer.erazer@gmail.com";
