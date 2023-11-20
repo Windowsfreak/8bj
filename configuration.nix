@@ -96,7 +96,7 @@
     ntp.enable = false;
     openssh = {
       enable = true;
-      passwordAuthentication = lib.mkDefault false;
+      passwordAuthentication = false;
     };
     timesyncd = {
       enable = true;
