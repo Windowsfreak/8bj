@@ -5,10 +5,21 @@
     ./hardware-configuration.nix
   ];
   # Basic System Configuration
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.devices = [ "/dev/sda" ];
-  networking.hostName = "8bj";
+  boot.loader = {
+    grub = {
+      enable = true;
+      devices = [ "/dev/sda" ];
+    };
+    timeout = 2;
+  };
+  networking = {
+    hostName = "8bj";
+    firewall = {
+      allowedTCPPorts = [ 22 80 443 8529 ];
+      allowedUDPPorts = [ 443 ];
+    };
+  }
+  time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
 
   security.sudo.wheelNeedsPassword = false;
@@ -62,30 +73,39 @@
     arangodb
   ];
 
-  # Firewall
-  networking.firewall.allowedTCPPorts = [ 22 80 443 8529 ];
-  networking.firewall.allowedUDPPorts = [ 443 ];
-
   # Services
   services = {
     caddy = {
       enable = true;
-      config = ''
-        :443 {
+      email = "lazer.erazer@gmail.com";
+      agree = true;
+      virtualHosts."localhost" = {
+        extraConfig = ''
           root * /var/www
           file_server {
             index index.htm
           }
-        }
-      '';
+        '';
+      };
     };
     mysql = {
       enable = true;
       package = pkgs.mariadb;
       dataDir = "/var/lib/mysql";
     };
+    ntp.enable = false;
     openssh = {
       enable = true;
+      passwordAuthentication = lib.mkDefault false;
+    };
+    timesyncd = {
+      enable = true;
+      servers = [
+        "0.de.pool.ntp.org"
+        "1.de.pool.ntp.org"
+        "2.de.pool.ntp.org"
+        "3.de.pool.ntp.org"
+      ];
     };
   };
   system.stateVersion="23.05";
