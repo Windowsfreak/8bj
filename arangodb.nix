@@ -95,6 +95,7 @@ in
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/arangod --configuration ${writeConfFile "arangod.conf" cfg.arangodConf}";
+        WorkingDirectory = "${cfg.package}/";
         User = "arangodb";
         Group = "arangodb";
         LimitNOFILE = 100000;
