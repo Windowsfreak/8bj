@@ -92,7 +92,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      environment.TZ_DATA = "${cfg.package}/share/arangodb3/tzdata"
+      environment.TZ_DATA = "${cfg.package}/share/arangodb3/tzdata";
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/arangod --configuration ${writeConfFile "arangod.conf" cfg.arangodConf}";
