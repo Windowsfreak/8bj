@@ -107,6 +107,11 @@
               }
             }
           }
+          handle /obj/* {
+            file_server {
+              index index.htm index.html
+            }
+          }
           handle_errors {
             @404 {
               expression {http.error.status_code} == 404
