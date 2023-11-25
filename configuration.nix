@@ -66,7 +66,7 @@
       group = "php";
     };
   };
-  users.groups.php = {}
+  users.groups.php = {};
 
   # Packages
   environment.systemPackages = with pkgs; [
@@ -94,17 +94,16 @@
           }
           handle @php {
             php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
-            @keyword path_regexp ^/[^\.\/]+$
+            @keyword {
+              path_regexp ^/[^\.\/]+$
+              not file
+            }
             handle @keyword {
-              file_server {
-                index index.htm index.html index.php
-                try_files {path} {path}/ /?{path}
-              }
+              rewrite * /?{path}
             }
             handle * {
               file_server {
                 index index.htm index.html index.php
-                try_files {path} {path}/
               }
             }
           }
