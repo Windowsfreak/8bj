@@ -72,7 +72,7 @@ in
     };
     users.extraGroups.arangodb.gid = /*config.ids.gids.arangodb*/600;
 
-    boot.kernel.sysctl."vm.max_map_count" = lib.mkDefault 256000;
+    # boot.kernel.sysctl."vm.max_map_count" = lib.mkDefault 256000;
 
     environment.systemPackages = [
       (pkgs.stdenv.mkDerivation {

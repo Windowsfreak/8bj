@@ -1,8 +1,47 @@
 { config, pkgs, ... }:
 
-{
+let
+  caddyfile = ''
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    @php not path /obj/* # /**/
+    root * /var/www
+    handle /api/* { # /**/
+      reverse_proxy * unix//var/run/dpv/apiserver1.sock
+    }
+    handle @php {
+      # @keyword {
+      #   path_regexp ^/[^\.\/]+$
+      #   not file
+      # }
+      # handle @keyword {
+      #   rewrite * /index.php?{path}
+      # }
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        try_files {path} {path}/index.php {path}/index.htm {path}/index.html index.php
+      }
+      file_server {
+        index index.htm index.html
+      }
+    }
+    handle /obj/* { # /**/
+      file_server {
+        index index.htm index.html
+      }
+    }
+    handle_errors {
+      @404 expression `{http.error.status_code} == 404`
+      handle @404 {
+        rewrite * "/404.htm"
+        file_server
+      }
+    }
+    # /**/
+  '';
+in {
   imports = [
     ./hardware-configuration.nix
+    ./network.nix
     ./arangodb.nix
   ];
   # Basic System Configuration
@@ -12,13 +51,6 @@
       devices = [ "/dev/sda" ];
     };
     timeout = 2;
-  };
-  networking = {
-    hostName = "8bj";
-    firewall = {
-      allowedTCPPorts = [ 22 80 443 8529 ];
-      allowedUDPPorts = [ 443 ];
-    };
   };
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -61,7 +93,6 @@
     };
     php = {
       isSystemUser = true;
-      createHome = true;
       home = "/var/www";
       group = "php";
     };
@@ -75,6 +106,9 @@
     wget
     arangodb
     php
+    gnumake
+    go
+    nodejs
   ];
 
   # Services
@@ -85,40 +119,14 @@
     caddy = {
       enable = true;
       email = "lazer.erazer@gmail.com";
-      virtualHosts."localhost" = {
-        extraConfig = ''
-          @php not path /obj/*
-          root * /var/www
-          handle /api/* {
-            reverse_proxy * unix//tmp/dpv1.sock
-          }
-          handle @php {
-            php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
-            @keyword {
-              path_regexp ^/[^\.\/]+$
-              not file
-            }
-            handle @keyword {
-              rewrite * /?{path}
-            }
-            handle * {
-              file_server {
-                index index.htm index.html index.php
-              }
-            }
-          }
-          handle /obj/* {
-            file_server {
-              index index.htm index.html
-            }
-          }
-          handle_errors {
-            @404 {
-              expression {http.error.status_code} == 404
-            }
-            respond @404 "/404.htm" 404
-          }
-        '';
+      virtualHosts."localhost:80" = {
+        extraConfig = caddyfile;
+      };
+      virtualHosts."srv.windowsfreak.de" = {
+        extraConfig = caddyfile;
+      };
+      virtualHosts."srv.8bj.de" = {
+        extraConfig = caddyfile;
       };
     };
     mysql = {
@@ -129,7 +137,7 @@
     ntp.enable = false;
     openssh = {
       enable = true;
-      passwordAuthentication = false;
+      settings.PasswordAuthentication = false;
     };
     phpfpm.pools = {
       php = {
@@ -137,6 +145,12 @@
         group = "php";
         settings = {
           "listen.owner" = config.services.caddy.user;
+          "pm" = "dynamic";
+          "pm.max_children" = 32;
+          "pm.max_requests" = 500;
+          "pm.start_servers" = 2;
+          "pm.min_spare_servers" = 2;
+          "pm.max_spare_servers" = 5;
         };
       };
     };
@@ -155,6 +169,6 @@
       enable = true;
       allowReboot = true;
     };
-    stateVersion="23.05";
+    stateVersion="23.11";
   };
 }
