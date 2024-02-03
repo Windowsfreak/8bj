@@ -82,6 +82,41 @@ in {
       package = pkgs.mariadb;
       dataDir = "/var/lib/mysql";
     };
+    nextcloud = {
+      enable = true;
+      configureRedis = true;
+      package = pkgs.nextcloud28;
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
+      };
+      hostName = "localhost";
+      https = false;
+      config.adminpassFile = "/var/config/nextcloud-admin-pass.txt";
+      extraOptions = {
+        mail_smtpmode = "sendmail";
+        mail_sendmailmode = "pipe";
+        enabledPreviewProviders = [
+          "OC\\Preview\\BMP"
+          "OC\\Preview\\GIF"
+          "OC\\Preview\\JPEG"
+          "OC\\Preview\\Krita"
+          "OC\\Preview\\MarkDown"
+          "OC\\Preview\\MP3"
+          "OC\\Preview\\OpenDocument"
+          "OC\\Preview\\PNG"
+          "OC\\Preview\\TXT"
+          "OC\\Preview\\XBitmap"
+          "OC\\Preview\\HEIC"
+        ];
+      };
+      maxUploadSize = "1G";
+      secretFile = "/var/config/nextcloud-secrets.json";
+    };
+    nginx.virtualHosts."localhost" = {
+      listen = [ { addr = "127.0.0.1"; port = 8080; } ];
+      forceSSL = true;
+      enableACME = true;
+    };
     ntp.enable = false;
     openssh = {
       enable = true;
