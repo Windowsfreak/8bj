@@ -39,6 +39,9 @@ let
     # /**/
   '';
   caddyfileNext = ''
+    redir /.well-known/carddav /remote.php/dav 301
+    redir /.well-known/caldav /remote.php/dav 301
+
     reverse_proxy http://localhost:8080 {
       # forward host info to nextcloud
       header_up Host {host}
