@@ -39,6 +39,9 @@ let
     # /**/
   '';
   caddyfileNext = ''
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+
     redir /.well-known/carddav /remote.php/dav 301
     redir /.well-known/caldav /remote.php/dav 301
 
@@ -52,12 +55,15 @@ let
     }
   '';
   caddyfileNext2 = ''
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+
     redir /.well-known/carddav /remote.php/dav 301
     redir /.well-known/caldav /remote.php/dav 301
 
     root * ${pkgs.nextcloud28}
 
-    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+    php_fastcgi unix/${config.services.phpfpm.pools.nextcloud2.socket} {
       env front_controller_active true
     }
   '';
@@ -151,6 +157,25 @@ in {
         group = "php";
         settings = {
           "listen.owner" = config.services.caddy.user;
+          "listen.group" = config.services.caddy.group;
+          "pm" = "dynamic";
+          "pm.max_children" = 32;
+          "pm.max_requests" = 500;
+          "pm.start_servers" = 2;
+          "pm.min_spare_servers" = 2;
+          "pm.max_spare_servers" = 5;
+        };
+      };
+      nextcloud2 = {
+        user = "nextcloud";
+        group = "nextcloud";
+        phpEnv = {
+          NEXTCLOUD_CONFIG_DIR = "/var/lib/nextcloud/config";
+          PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
+        };
+        settings = {
+          "listen.owner" = config.services.caddy.user;
+          "listen.group" = config.services.caddy.group;
           "pm" = "dynamic";
           "pm.max_children" = 32;
           "pm.max_requests" = 500;
