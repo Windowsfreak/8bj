@@ -51,6 +51,16 @@ let
       header_up X-Forwarded-Proto {scheme}
     }
   '';
+  caddyfileNext2 = ''
+    redir /.well-known/carddav /remote.php/dav 301
+    redir /.well-known/caldav /remote.php/dav 301
+
+    root * ${pkgs.nextcloud-with-apps}
+
+    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+      env front_controller_active true
+    }
+  '';
 in {
   imports = [
     ./hardware-configuration.nix
@@ -81,7 +91,7 @@ in {
       enable = true;
       email = "lazer.erazer@gmail.com";
       virtualHosts."localhost:80" = {
-        extraConfig = caddyfile;
+        extraConfig = caddyfileNext2;
       };
       virtualHosts."srv.windowsfreak.de" = {
         extraConfig = caddyfile;
