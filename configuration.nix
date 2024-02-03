@@ -120,7 +120,14 @@ in {
       package = pkgs.nextcloud28;
       hostName = "localhost";
       https = false;
-      config.adminpassFile = "/var/config/nextcloud-admin-pass.txt";
+      database.createLocally = true;
+      config = {
+        adminpassFile = "/var/config/nextcloud-admin-pass.txt";
+        dbtype = "pgsql";
+        dbname = "nextcloud";
+        dbuser = "nextcloud";
+        dbpassFile = "/var/config/nextcloud-pgsql-pass.txt";
+      };
       extraOptions = {
         mail_smtpmode = "sendmail";
         mail_sendmailmode = "pipe";
