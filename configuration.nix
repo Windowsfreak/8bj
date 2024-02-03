@@ -9,11 +9,6 @@ let
     handle /api/* { # /**/
       reverse_proxy * unix//var/run/dpv/apiserver1.sock
     }
-    reverse_proxy /next/* http://localhost:8080 {
-      # if Nextcloud is configured to run in a subfolder, strip the prefix:
-      header_up X-Forwarded-Prefix /next
-      without /next
-    }
     handle @php {
       # @keyword {
       #   path_regexp ^/[^\.\/]+$
@@ -42,6 +37,16 @@ let
       }
     }
     # /**/
+  '';
+  caddyfileNext = ''
+    reverse_proxy http://localhost:8080 {
+      # forward host info to nextcloud
+      header_up Host {host}
+      header_up X-Real-IP {remote}
+      header_up X-Forwarded-For {remote}
+      header_up X-Forwarded-Port {server_port}
+      header_up X-Forwarded-Proto {scheme}
+    }
   '';
 in {
   imports = [
@@ -82,7 +87,7 @@ in {
         extraConfig = caddyfile;
       };
       virtualHosts."share.parkour-deutschland.de" = {
-        extraConfig = caddyfile;
+        extraConfig = caddyfileNext;
       };
     };
     mysql = {
