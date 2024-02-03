@@ -157,37 +157,57 @@ in {
       enable = true;
       settings.PasswordAuthentication = false;
     };
-    phpfpm.pools = {
-      php = {
-        user = "php";
-        group = "php";
-        settings = {
-          "listen.owner" = config.services.caddy.user;
-          "listen.group" = config.services.caddy.group;
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.max_requests" = 500;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 5;
+    phpfpm = {
+      phpOptions = ''
+        output_buffering = "0";
+        short_open_tag = "Off";
+        expose_php = "Off";
+        error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
+        display_errors = "stderr";
+        "opcache.enable_cli" = "1";
+        "opcache.interned_strings_buffer" = "32";
+        "opcache.max_accelerated_files" = "10000";
+        "opcache.memory_consumption" = "128";
+        "opcache.revalidate_freq" = "1";
+        "opcache.fast_shutdown" = "1";
+        "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
+        catch_workers_output = "yes";
+        extension=${pkgs.phpExtensions.redis}/lib/php/extensions/redis.so
+        extension=${pkgs.phpExtensions.apcu}/lib/php/extensions/apcu.so
+        extension=${pkgs.phpExtensions.memcached}/lib/php/extensions/memcached.so
+      '';
+      pools = {
+        php = {
+          user = "php";
+          group = "php";
+          settings = {
+            "listen.owner" = config.services.caddy.user;
+            "listen.group" = config.services.caddy.group;
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.max_requests" = 500;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 5;
+          };
         };
-      };
-      nextcloud2 = {
-        user = "nextcloud";
-        group = "nextcloud";
-        phpEnv = {
-          NEXTCLOUD_CONFIG_DIR = "/var/lib/nextcloud/config";
-          PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
-        };
-        settings = {
-          "listen.owner" = config.services.caddy.user;
-          "listen.group" = config.services.caddy.group;
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.max_requests" = 500;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 5;
+        nextcloud2 = {
+          user = "nextcloud";
+          group = "nextcloud";
+          phpEnv = {
+            NEXTCLOUD_CONFIG_DIR = "/var/lib/nextcloud/config";
+            #PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
+          };
+          settings = {
+            "listen.owner" = config.services.caddy.user;
+            "listen.group" = config.services.caddy.group;
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.max_requests" = 500;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 5;
+          };
         };
       };
     };
