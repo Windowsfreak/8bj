@@ -134,6 +134,9 @@ in {
         };
       };
     };
+    redis.servers.nextcloud = {
+      requirePassFile = "/var/config/redis-password.txt";
+    };
     timesyncd = {
       enable = true;
       servers = [
