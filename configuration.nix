@@ -114,8 +114,8 @@ in {
     };
     nginx.virtualHosts."localhost" = {
       listen = [ { addr = "127.0.0.1"; port = 8080; } ];
-      forceSSL = true;
-      enableACME = true;
+      forceSSL = false;
+      enableACME = false;
     };
     ntp.enable = false;
     openssh = {
