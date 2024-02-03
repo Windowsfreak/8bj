@@ -51,11 +51,12 @@ let
       header_up X-Forwarded-Proto {scheme}
     }
   '';
+  nextRoot = pkgs.nextcloud;
   caddyfileNext2 = ''
     redir /.well-known/carddav /remote.php/dav 301
     redir /.well-known/caldav /remote.php/dav 301
 
-    root * ${pkgs.nextcloud-with-apps}
+    root * ${nextRoot}
 
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
       env front_controller_active true
