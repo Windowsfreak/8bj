@@ -9,6 +9,11 @@ let
     handle /api/* { # /**/
       reverse_proxy * unix//var/run/dpv/apiserver1.sock
     }
+    reverse_proxy /next/* http://localhost:8080 {
+      # if Nextcloud is configured to run in a subfolder, strip the prefix:
+      header_up X-Forwarded-Prefix /next
+      without /next
+    }
     handle @php {
       # @keyword {
       #   path_regexp ^/[^\.\/]+$
