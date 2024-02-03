@@ -76,6 +76,9 @@ in {
       virtualHosts."srv.8bj.de" = {
         extraConfig = caddyfile;
       };
+      virtualHosts."share.parkour-deutschland.de" = {
+        extraConfig = caddyfile;
+      };
     };
     mysql = {
       enable = true;
