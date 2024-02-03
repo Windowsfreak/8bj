@@ -84,7 +84,7 @@ in {
     };
     nextcloud = {
       enable = true;
-      configureRedis = true;
+      configureRedis = false;
       package = pkgs.nextcloud28;
       hostName = "localhost";
       https = false;
