@@ -126,7 +126,6 @@ in {
         dbtype = "pgsql";
         dbname = "nextcloud";
         dbuser = "nextcloud";
-        dbpassFile = "/var/config/nextcloud-pgsql-pass.txt";
       };
       extraOptions = {
         mail_smtpmode = "sendmail";
