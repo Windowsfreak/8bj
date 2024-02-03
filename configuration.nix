@@ -86,9 +86,6 @@ in {
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud28;
-      extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
-      };
       hostName = "localhost";
       https = false;
       config.adminpassFile = "/var/config/nextcloud-admin-pass.txt";
