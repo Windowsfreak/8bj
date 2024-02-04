@@ -63,7 +63,7 @@ let
 
     root * ${pkgs.nextcloud28}
 
-    php_fastcgi unix/${config.services.phpfpm.pools.nextcloud2.socket} {
+    php_fastcgi unix/${config.services.phpfpm.pools.nextcloud.socket} {
       env front_controller_active true
     }
   '';
@@ -146,6 +146,10 @@ in {
       };
       maxUploadSize = "1G";
       secretFile = "/var/config/nextcloud-secrets.json";
+    };
+    nginx = {
+      user = "caddy";
+      group = "caddy";
     };
     nginx.virtualHosts."localhost" = {
       listen = [ { addr = "127.0.0.1"; port = 8080; } ];
