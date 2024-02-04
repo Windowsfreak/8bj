@@ -66,6 +66,8 @@ let
     php_fastcgi unix/${config.services.phpfpm.pools.nextcloud.socket} {
       env front_controller_active true
     }
+
+    file_server
   '';
 in {
   imports = [
