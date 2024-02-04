@@ -2,7 +2,7 @@
 
 let
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
-    echo stop > ${config.systemd.sockets.minecraft-server.socketConfig.ListenFIFO}
+    echo stop > /run/minecraft-server.stdin
 
     # Wait for the PID of the minecraft server to disappear before
     # returning, so systemd doesn't attempt to SIGKILL it.
