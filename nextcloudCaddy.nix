@@ -1084,7 +1084,7 @@ in {
             @phpFile path *.php
             respond @phpFile 404
 
-            root * /var/lib/nextcloud/store-apps
+            root * /var/lib/nextcloud/
             file_server
           }
 
