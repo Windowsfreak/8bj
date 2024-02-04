@@ -163,7 +163,8 @@ in {
         short_open_tag = "Off";
         expose_php = "Off";
         error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
-        display_errors = "stderr";
+        display_errors = "stdout";
+        log_errors = true;
         error_log = "/var/log/php/php.log";
         "opcache.enable_cli" = "1";
         "opcache.interned_strings_buffer" = "32";
