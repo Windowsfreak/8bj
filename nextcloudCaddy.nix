@@ -1080,6 +1080,14 @@ in {
 
           root * ${webroot}
 
+          handle /store-apps/* {
+            @phpFile path *.php
+            not @phpFile
+
+            root * /var/lib/nextcloud/store-apps
+            file_server
+          }
+
           @forbidden {
             path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
             path /autotest* /occ* /issue* /indie* /db_* /console*
