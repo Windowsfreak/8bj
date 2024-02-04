@@ -100,7 +100,7 @@ in {
         extraConfig = caddyfileNext2;
       };
       virtualHosts."srv.windowsfreak.de" = {
-        extraConfig = caddyfile;
+        extraConfig = caddyfileNext2;
       };
       virtualHosts."srv.8bj.de" = {
         extraConfig = caddyfile;
@@ -183,24 +183,6 @@ in {
         php = {
           user = "php";
           group = "php";
-          settings = {
-            "listen.owner" = config.services.caddy.user;
-            "listen.group" = config.services.caddy.group;
-            "pm" = "dynamic";
-            "pm.max_children" = 32;
-            "pm.max_requests" = 500;
-            "pm.start_servers" = 2;
-            "pm.min_spare_servers" = 2;
-            "pm.max_spare_servers" = 5;
-          };
-        };
-        nextcloud2 = {
-          user = "nextcloud";
-          group = "nextcloud";
-          phpEnv = {
-            NEXTCLOUD_CONFIG_DIR = "/var/lib/nextcloud/config";
-            #PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
-          };
           settings = {
             "listen.owner" = config.services.caddy.user;
             "listen.group" = config.services.caddy.group;
