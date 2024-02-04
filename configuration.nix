@@ -48,6 +48,7 @@ in {
     ./arangodb.nix
     ./boot.nix
     ./users.nix
+    ./minecraft.nix
     ./nextcloudCaddy.nix
     ./dpv-api.nix
   ];

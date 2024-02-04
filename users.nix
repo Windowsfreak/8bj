@@ -16,6 +16,7 @@ in
     web = {};
     bjoern = {};
     php = {};
+    minecraft = {};
   };
   users.users = {
     caddy = {
@@ -48,6 +49,11 @@ in
       isSystemUser = true;
       home = "/var/www";
       group = "php";
+    };
+    minecraft = {
+      isSystemUser = true;
+      home = "/home/minecraft";
+      group = "minecraft";
     };
   };
 }
