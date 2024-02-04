@@ -1,4 +1,4 @@
-# Nextcloud {#module-services-nextcloud}
+# Nextcloud {#module-services-nextcloudCaddy}
 
 [Nextcloud](https://nextcloud.com/) is an open-source,
 self-hostable cloud platform. The server setup can be automated using
@@ -8,7 +8,7 @@ desktop client is packaged at `pkgs.nextcloud-client`.
 The current default by NixOS is `nextcloud28` which is also the latest
 major version available.
 
-## Basic usage {#module-services-nextcloud-basic-usage}
+## Basic usage {#module-services-nextcloudCaddy-basic-usage}
 
 Nextcloud is a PHP-based application which requires an HTTP server
 ([`services.nextcloudCaddy`](#opt-services.nextcloudCaddy.enable)
@@ -56,7 +56,7 @@ it's needed to add them to
 Auto updates for Nextcloud apps can be enabled using
 [`services.nextcloudCaddy.autoUpdateApps`](#opt-services.nextcloudCaddy.autoUpdateApps.enable).
 
-## Common problems {#module-services-nextcloud-pitfalls-during-upgrade}
+## Common problems {#module-services-nextcloudCaddy-pitfalls-during-upgrade}
 
 - **General notes.**
   Unfortunately Nextcloud appears to be very stateful when it comes to
@@ -121,7 +121,7 @@ Auto updates for Nextcloud apps can be enabled using
   This is not an end-to-end encryption, but can be used to encrypt files that will be persisted
   to external storage such as S3.
 
-## Using an alternative webserver as reverse-proxy (e.g. `httpd`) {#module-services-nextcloud-httpd}
+## Using an alternative webserver as reverse-proxy (e.g. `httpd`) {#module-services-nextcloudCaddy-httpd}
 
 By default, `nginx` is used as reverse-proxy for `nextcloud`.
 However, it's possible to use e.g. `httpd` by explicitly disabling
@@ -174,7 +174,7 @@ An exemplary configuration may look like this:
 }
 ```
 
-## Installing Apps and PHP extensions {#installing-apps-php-extensions-nextcloud}
+## Installing Apps and PHP extensions {#installing-apps-php-extensions-nextcloudCaddy}
 
 Nextcloud apps are installed statefully through the web interface.
 Some apps may require extra PHP extensions to be installed.
@@ -184,7 +184,7 @@ Alternatively, extra apps can also be declared with the [](#opt-services.nextclo
 When using this setting, apps can no longer be managed statefully because this can lead to Nextcloud updating apps
 that are managed by Nix. If you want automatic updates it is recommended that you use web interface to install apps.
 
-## Maintainer information {#module-services-nextcloud-maintainer-info}
+## Maintainer information {#module-services-nextcloudCaddy-maintainer-info}
 
 As stated in the previous paragraph, we must provide a clean upgrade-path for Nextcloud
 since it cannot move more than one major version forward on a single upgrade. This chapter

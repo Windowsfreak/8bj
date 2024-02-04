@@ -112,7 +112,7 @@ in {
         dbname = "nextcloud";
         dbuser = "nextcloud";
       };
-      extraOptions = {
+      settings = {
         mail_smtpmode = "sendmail";
         mail_sendmailmode = "pipe";
         enabledPreviewProviders = [
