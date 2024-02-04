@@ -2,6 +2,9 @@
 
 let
   caddyfile = ''
+    header /* {
+      -Server
+    }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     @php not path /obj/* # /**/

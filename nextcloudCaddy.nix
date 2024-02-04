@@ -1053,6 +1053,9 @@ in {
 
       services.caddy.virtualHosts."share.parkour-deutschland.de" = {
         extraConfig = ''
+          header /* {
+            -Server
+          }
           header Strict-Transport-Security max-age=63072000
           encode zstd gzip
 
