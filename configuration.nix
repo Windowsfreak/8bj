@@ -85,10 +85,7 @@ in {
       enable = true;
       email = "lazer.erazer@gmail.com";
       virtualHosts."localhost:80" = {
-        extraConfig = caddyfileNext2;
-      };
-      virtualHosts."srv.windowsfreak.de" = {
-        extraConfig = caddyfileNext2;
+        extraConfig = caddyfile;
       };
       virtualHosts."srv.8bj.de" = {
         extraConfig = caddyfile;
