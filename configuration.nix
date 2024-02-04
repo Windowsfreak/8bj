@@ -61,7 +61,7 @@ in {
     ./arangodb.nix
     ./boot.nix
     ./users.nix
-    ./nextcloud.nix
+    ./nextcloudCaddy.nix
   ];
 
   # Packages
