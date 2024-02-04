@@ -49,6 +49,7 @@ in {
     ./boot.nix
     ./users.nix
     ./nextcloudCaddy.nix
+    ./dpv-api.nix
   ];
 
   # Packages
@@ -58,9 +59,6 @@ in {
     wget
     arangodb
     php
-    gnumake
-    go
-    nodejs
   ];
 
   # Services

@@ -12,14 +12,12 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 
 ### php-fpm
 - available via socket
-- TODO: hide `X-Powered-By` header
 
 ### dpv
 - put server code in `/var/dpv/api/` and build
 - prepare `config.yml`
 - run server with socket `/var/run/dpv/apiserver1.sock`
-- remember to `make test` before restarting
-- TODO: deploy as systemd service
+- remember to `make test` before restarting `dpv1` or `dpv2` via `systemctl`
 
 ### 502 Gateway Error
 - check api server running
@@ -38,3 +36,28 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 - connection problems:
   - check IP address again
   - make sure you use HTTP
+
+### NextCloud
+- adds a hardcoded VirtualHost to caddy
+- uses its own php-fpm pool using nextcloud user and group, caddy is in nextcloud group
+- caddyfile redirects `/store-apps` to `/var/lib/nextcloud/store-apps` because the symlink didn't work
+- `/var/config/nextcloud-admin-pass.txt` contains a string
+- `/var/config/nextcloud-pgsql-pass.txt` contains a string (but it's probably not needed as we're using unix socket auth!)
+- `/var/config/redis-password.txt` contains a string
+- `/var/content/nextcloud-secrets.json` contains:
+```json
+{
+  "passwordsalt": "***",
+  "secret": "***",
+  "instanceid": "***",
+  "redis": {
+    "password": "same as redis-password.txt"
+  },
+  "trusted_domains": ["localhost", "share.parkour-deutschland.de"],
+  "trusted_proxies": ["127.0.0.1"],
+  "default_language": "de",
+  "default_locale": "de_DE",
+  "default_phone_region": "de",
+  "overwriteprotocol": "https"
+}
+```
