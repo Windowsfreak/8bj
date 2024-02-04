@@ -197,34 +197,34 @@ let
 in {
 
   imports = [
-    (mkRemovedOptionModule [ "services" "nextcloud" "enableBrokenCiphersForSSE" ] ''
+    (mkRemovedOptionModule [ "services" "nextcloudCaddy" "enableBrokenCiphersForSSE" ] ''
       This option has no effect since there's no supported Nextcloud version packaged here
       using OpenSSL for RC4 SSE.
     '')
-    (mkRemovedOptionModule [ "services" "nextcloud" "config" "dbport" ] ''
+    (mkRemovedOptionModule [ "services" "nextcloudCaddy" "config" "dbport" ] ''
       Add port to services.nextcloudCaddy.config.dbhost instead.
     '')
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "logLevel" ] [ "services" "nextcloud" "settings" "loglevel" ])
+      [ "services" "nextcloudCaddy" "logLevel" ] [ "services" "nextcloudCaddy" "settings" "loglevel" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "logType" ] [ "services" "nextcloud" "settings" "log_type" ])
+      [ "services" "nextcloudCaddy" "logType" ] [ "services" "nextcloudCaddy" "settings" "log_type" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "config" "defaultPhoneRegion" ] [ "services" "nextcloud" "settings" "default_phone_region" ])
+      [ "services" "nextcloudCaddy" "config" "defaultPhoneRegion" ] [ "services" "nextcloudCaddy" "settings" "default_phone_region" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "config" "overwriteProtocol" ] [ "services" "nextcloud" "settings" "overwriteprotocol" ])
+      [ "services" "nextcloudCaddy" "config" "overwriteProtocol" ] [ "services" "nextcloudCaddy" "settings" "overwriteprotocol" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "skeletonDirectory" ] [ "services" "nextcloud" "settings" "skeletondirectory" ])
+      [ "services" "nextcloudCaddy" "skeletonDirectory" ] [ "services" "nextcloudCaddy" "settings" "skeletondirectory" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "globalProfiles" ] [ "services" "nextcloud" "settings" "profile.enabled" ])
+      [ "services" "nextcloudCaddy" "globalProfiles" ] [ "services" "nextcloudCaddy" "settings" "profile.enabled" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "config" "extraTrustedDomains" ] [ "services" "nextcloud" "settings" "trusted_domains" ])
+      [ "services" "nextcloudCaddy" "config" "extraTrustedDomains" ] [ "services" "nextcloudCaddy" "settings" "trusted_domains" ])
     (mkRenamedOptionModule
-      [ "services" "nextcloud" "config" "trustedProxies" ] [ "services" "nextcloud" "settings" "trusted_proxies" ])
-    (mkRenamedOptionModule ["services" "nextcloud" "extraOptions" ] [ "services" "nextcloud" "settings" ])
+      [ "services" "nextcloudCaddy" "config" "trustedProxies" ] [ "services" "nextcloudCaddy" "settings" "trusted_proxies" ])
+    (mkRenamedOptionModule ["services" "nextcloudCaddy" "extraOptions" ] [ "services" "nextcloudCaddy" "settings" ])
   ];
 
   options.services.nextcloudCaddy = {
-    enable = mkEnableOption (lib.mdDoc "nextcloud");
+    enable = mkEnableOption (lib.mdDoc "nextcloudCaddy");
 
     hostName = mkOption {
       type = types.str;
