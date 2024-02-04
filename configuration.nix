@@ -61,10 +61,15 @@ let
     redir /.well-known/carddav /remote.php/dav 301
     redir /.well-known/caldav /remote.php/dav 301
 
-    root * ${pkgs.nextcloud28}
+    root * ${config.services.nextcloud.package}
+
+    @forbidden {
+      path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
+      path /autotest* /occ* /issue* /indie* /db_* /console*
+    }
+    respond @forbidden 404
 
     php_fastcgi unix/${config.services.phpfpm.pools.nextcloud.socket} {
-      resolve_root_symlink true
       env front_controller_active true
     }
 
