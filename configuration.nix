@@ -38,22 +38,6 @@ let
     }
     # /**/
   '';
-  caddyfileNext = ''
-    header Strict-Transport-Security max-age=63072000
-    encode zstd gzip
-
-    redir /.well-known/carddav /remote.php/dav 301
-    redir /.well-known/caldav /remote.php/dav 301
-
-    reverse_proxy http://localhost:8080 {
-      # forward host info to nextcloud
-      header_up Host {host}
-      header_up X-Real-IP {remote}
-      header_up X-Forwarded-For {remote}
-      header_up X-Forwarded-Port {server_port}
-      header_up X-Forwarded-Proto {scheme}
-    }
-  '';
 in {
   imports = [
     ./hardware-configuration.nix
@@ -90,8 +74,8 @@ in {
       virtualHosts."srv.8bj.de" = {
         extraConfig = caddyfile;
       };
-      virtualHosts."share.parkour-deutschland.de" = {
-        extraConfig = caddyfileNext;
+      virtualHosts."srv.windowsfreak.de" = {
+        extraConfig = caddyfile;
       };
     };
     mysql = {
@@ -131,15 +115,6 @@ in {
       };
       maxUploadSize = "1G";
       secretFile = "/var/config/nextcloud-secrets.json";
-    };
-    nginx = {
-      user = "caddy";
-      group = "caddy";
-    };
-    nginx.virtualHosts."localhost" = {
-      listen = [ { addr = "127.0.0.1"; port = 8080; } ];
-      forceSSL = false;
-      enableACME = false;
     };
     ntp.enable = false;
     openssh = {
