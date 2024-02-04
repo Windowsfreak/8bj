@@ -64,6 +64,7 @@ let
     root * ${pkgs.nextcloud28}
 
     php_fastcgi unix/${config.services.phpfpm.pools.nextcloud.socket} {
+      resolve_root_symlink true
       env front_controller_active true
     }
 
