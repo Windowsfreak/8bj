@@ -2,7 +2,7 @@
 
 [Nextcloud](https://nextcloud.com/) is an open-source,
 self-hostable cloud platform. The server setup can be automated using
-[services.nextcloudCaddy](#opt-services.nextcloudCaddy.enable). A
+`services.nextcloudCaddy`. A
 desktop client is packaged at `pkgs.nextcloud-client`.
 
 The current default by NixOS is `nextcloud28` which is also the latest
@@ -11,16 +11,16 @@ major version available.
 ## Basic usage {#module-services-nextcloudCaddy-basic-usage}
 
 Nextcloud is a PHP-based application which requires an HTTP server
-([`services.nextcloudCaddy`](#opt-services.nextcloudCaddy.enable)
+`services.nextcloudCaddy`
 and optionally supports
 [`services.nginx`](#opt-services.nginx.enable)).
 
 For the database, you can set
-[`services.nextcloud.config.dbtype`](#opt-services.nextcloud.config.dbtype) to
+`services.nextcloud.config.dbtype`] to
 either `sqlite` (the default), `mysql`, or `pgsql`. The simplest is `sqlite`,
 which will be automatically created and managed by the application. For the
 last two, you can easily create a local database by setting
-[`services.nextcloud.database.createLocally`](#opt-services.nextcloud.database.createLocally)
+`services.nextcloud.database.createLocally`
 to `true`, Nextcloud will automatically be configured to connect to it through
 socket.
 
@@ -51,10 +51,10 @@ to ensure that changes can be applied by changing the module's options.
 In case the application serves multiple domains (those are checked with
 [`$_SERVER['HTTP_HOST']`](https://www.php.net/manual/en/reserved.variables.server.php))
 it's needed to add them to
-[`services.nextcloudCaddy.settings.trusted_domains`](#opt-services.nextcloudCaddy.settings.trusted_domains).
+`services.nextcloudCaddy.settings.trusted_domains`.
 
 Auto updates for Nextcloud apps can be enabled using
-[`services.nextcloudCaddy.autoUpdateApps`](#opt-services.nextcloudCaddy.autoUpdateApps.enable).
+`services.nextcloudCaddy.autoUpdateApps`.
 
 ## Common problems {#module-services-nextcloudCaddy-pitfalls-during-upgrade}
 
@@ -125,7 +125,7 @@ Auto updates for Nextcloud apps can be enabled using
 
 By default, `nginx` is used as reverse-proxy for `nextcloud`.
 However, it's possible to use e.g. `httpd` by explicitly disabling
-`nginx` using [](#opt-services.nginx.enable) and fixing the
+`nginx` using `services.nginx.enable` and fixing the
 settings `listen.owner` &amp; `listen.group` in the
 [corresponding `phpfpm` pool](#opt-services.phpfpm.pools).
 
@@ -178,9 +178,9 @@ An exemplary configuration may look like this:
 
 Nextcloud apps are installed statefully through the web interface.
 Some apps may require extra PHP extensions to be installed.
-This can be configured with the [](#opt-services.nextcloudCaddy.phpExtraExtensions) setting.
+This can be configured with the `services.nextcloudCaddy.phpExtraExtensions` setting.
 
-Alternatively, extra apps can also be declared with the [](#opt-services.nextcloudCaddy.extraApps) setting.
+Alternatively, extra apps can also be declared with the `services.nextcloudCaddy.extraApps` setting.
 When using this setting, apps can no longer be managed statefully because this can lead to Nextcloud updating apps
 that are managed by Nix. If you want automatic updates it is recommended that you use web interface to install apps.
 
@@ -198,7 +198,7 @@ To provide simple upgrade paths it's generally useful to backport those as well 
 branches. As long as the package-default isn't altered, this won't break existing setups.
 After that, the versioning-warning in the `nextcloud`-module should be
 updated to make sure that the
-[package](#opt-services.nextcloudCaddy.package)-option selects the latest version
+`services.nextcloudCaddy.package`-option selects the latest version
 on fresh setups.
 
 If major-releases will be abandoned by upstream, we should check first if those are needed
