@@ -1223,5 +1223,5 @@ in {
     }
   ]);
 
-  meta.doc = ./nextcloud.md;
+  meta.doc = ./nextcloudCaddy.md;
 }
