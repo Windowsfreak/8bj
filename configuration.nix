@@ -174,9 +174,6 @@ in {
         opcache.fast_shutdown = "1";
         openssl.cafile = "/etc/ssl/certs/ca-certificates.crt";
         catch_workers_output = "yes";
-        extension=${pkgs.phpExtensions.redis}/lib/php/extensions/redis.so
-        extension=${pkgs.phpExtensions.apcu}/lib/php/extensions/apcu.so
-        extension=${pkgs.phpExtensions.memcached}/lib/php/extensions/memcached.so
       '';
       pools = {
         php = {
