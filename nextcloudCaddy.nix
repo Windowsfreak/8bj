@@ -1082,7 +1082,7 @@ in {
 
           handle /store-apps/* {
             @phpFile path *.php
-            not @phpFile
+            respond @phpFile 404
 
             root * /var/lib/nextcloud/store-apps
             file_server
