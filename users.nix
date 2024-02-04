@@ -52,6 +52,7 @@ in
     };
     minecraft = {
       isSystemUser = true;
+      createHome = true;
       home = "/home/minecraft";
       group = "minecraft";
     };
