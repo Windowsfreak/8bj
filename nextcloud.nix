@@ -202,7 +202,7 @@ in {
       using OpenSSL for RC4 SSE.
     '')
     (mkRemovedOptionModule [ "services" "nextcloud" "config" "dbport" ] ''
-      Add port to services.nextcloud.config.dbhost instead.
+      Add port to services.nextcloudCaddy.config.dbhost instead.
     '')
     (mkRenamedOptionModule
       [ "services" "nextcloud" "logLevel" ] [ "services" "nextcloud" "settings" "loglevel" ])
