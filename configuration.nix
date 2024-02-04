@@ -54,27 +54,6 @@ let
       header_up X-Forwarded-Proto {scheme}
     }
   '';
-  caddyfileNext2 = ''
-    header Strict-Transport-Security max-age=63072000
-    encode zstd gzip
-
-    redir /.well-known/carddav /remote.php/dav 301
-    redir /.well-known/caldav /remote.php/dav 301
-
-    root * ${config.services.nextcloud.package}
-
-    @forbidden {
-      path /build/* /tests/* /config/* /lib/* /3rdparty/* /templates/* /data/*
-      path /autotest* /occ* /issue* /indie* /db_* /console*
-    }
-    respond @forbidden 404
-
-    php_fastcgi unix/${config.services.phpfpm.pools.nextcloud.socket} {
-      env front_controller_active true
-    }
-
-    file_server
-  '';
 in {
   imports = [
     ./hardware-configuration.nix
@@ -82,6 +61,7 @@ in {
     ./arangodb.nix
     ./boot.nix
     ./users.nix
+    ./nextcloud.nix
   ];
 
   # Packages
@@ -122,7 +102,7 @@ in {
       package = pkgs.mariadb;
       dataDir = "/var/lib/mysql";
     };
-    nextcloud = {
+    nextcloudCaddy = {
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud28;
