@@ -12,7 +12,7 @@
     after         = [ "network.target" "minecraft-server.socket" ];
 
     serviceConfig = {
-      ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s minecraft '/home/minecraft/server/java -Xmx2G -jar fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui'";
+      ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s minecraft 'java -Xmx2G -jar fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui'";
       ExecStop = "${pkgs.tmux}/bin/tmux send-keys -t minecraft 'stop' C-m";
       Restart = "always";
       User = "minecraft";
