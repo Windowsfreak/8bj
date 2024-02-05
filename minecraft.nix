@@ -1,33 +1,9 @@
 { pkgs, ... }:
 
-let
-  stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
-    echo stop > /run/minecraft-server.stdin
-
-    # Wait for the PID of the minecraft server to disappear before
-    # returning, so systemd doesn't attempt to SIGKILL it.
-    while kill -0 "$1" 2> /dev/null; do
-      sleep 1s
-    done
-  '';
-in
-
 {
   environment.systemPackages = with pkgs; [
     pkgs.jdk21_headless
   ];
-
-  systemd.sockets.minecraft-server = {
-    bindsTo = [ "minecraft-server.service" ];
-    socketConfig = {
-      ListenFIFO = "/run/minecraft-server.stdin";
-      SocketMode = "0660";
-      SocketUser = "minecraft";
-      SocketGroup = "minecraft";
-      RemoveOnStop = true;
-      FlushPending = true;
-    };
-  };
 
   systemd.services.minecraft-server = {
     description   = "Minecraft Server Service";
@@ -36,16 +12,13 @@ in
     after         = [ "network.target" "minecraft-server.socket" ];
 
     serviceConfig = {
-      ExecStart = "/home/minecraft/server/java -Xmx2G -jar fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui";
-      ExecStop = "${stopScript} $MAINPID";
+      ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s minecraft '/home/minecraft/server/java -Xmx2G -jar fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui'";
+      ExecStop = "${pkgs.tmux}/bin/tmux send-keys -t minecraft 'stop' C-m";
       Restart = "always";
       User = "minecraft";
       Group = "minecraft";
       WorkingDirectory = "/home/minecraft/server";
-
-      StandardInput = "socket";
-      StandardOutput = "journal";
-      StandardError = "journal";
+      TimeoutStopSec = 90;
 
       # Hardening
       CapabilityBoundingSet = [ "" ];
