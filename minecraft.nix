@@ -11,7 +11,7 @@
     after         = [ "network.target" ];
 
     serviceConfig = {
-      ExecStart = "${pkgs.jdk}/bin/java -Xmx2G -jar /home/minecraft/server/fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui";
+      ExecStart = "${pkgs.jdk21_headless}/bin/java -Xmx2G -jar /home/minecraft/server/fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui";
       Restart = "always";
       User = "minecraft";
       Group = "minecraft";
