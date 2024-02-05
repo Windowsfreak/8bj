@@ -8,8 +8,7 @@
   systemd.services.minecraft-server = {
     description   = "Minecraft Server Service";
     #wantedBy      = [ "multi-user.target" ];
-    requires      = [ "minecraft-server.socket" ];
-    after         = [ "network.target" "minecraft-server.socket" ];
+    after         = [ "network.target" ];
 
     serviceConfig = {
       ExecStart = "${pkgs.tmux}/bin/tmux new-session -d -s minecraft 'java -Xmx2G -jar fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui'";
