@@ -51,6 +51,7 @@ in {
     ./minecraft.nix
     ./nextcloudCaddy.nix
     ./dpv-api.nix
+    ./paranoia.nix
   ];
 
   # Packages
