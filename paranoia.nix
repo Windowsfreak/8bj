@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  nix.allowedUsers = [ "@wheel" "root" ];
+  nix.settings.allowed-users = [ "@wheel" "root" ];
   security.sudo.execWheelOnly = true;
   services.openssh = {
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
-    settings.PermitRootLogin = false;
+    settings.PermitRootLogin = "no";
     extraConfig = ''
       IgnoreRhosts yes
       HostbasedAuthentication no
