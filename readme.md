@@ -31,7 +31,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 - db passwords are managed by system table in `/var/lib/mysql`
 
 ### ArangoDB
-- reachable via `ssh -N -L 8529:127.0.0.1:8529 srv.8bj.de`
+- reachable via `ssh -N -L 8529:127.0.0.1:8529 8bj.de`
 - has no root password, but can be set in `_system` db
 - connection problems:
   - check IP address again

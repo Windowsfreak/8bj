@@ -54,6 +54,14 @@ in {
     ./paranoia.nix
   ];
 
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [
     git
@@ -61,10 +69,33 @@ in {
     wget
     arangodb
     php
+    pkgs.postfix
+    pkgs.postfixadmin
+    pkgs.snappymail
   ];
 
   # Services
   services = {
+    postfix = {
+      enable = true;
+      enableSubmission = true;
+      domain = "8bj.de";
+      sslCert = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.crt";
+      sslKey = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.key";
+      postmasterAlias = "mail+postmaster";
+      rootAlias = "";
+      recipientDelimiter = "+";
+      config = {
+        mail_spool_directory = "/var/spool/mail";
+        mailbox_size_limit = "0";
+        virtual_alias_domains = [ "${config.services.postfix.virtualMapType}:/etc/postfix/virtual-domains" ];
+      };
+      mapFiles.virtual-domains = pkgs.writeText "postfix-virtual-domains" ''
+        8bj.de # domain
+        windowsfreak.de # domain
+        parkour-deutschland.com # domain
+      '';
+    };
     arangodb = {
       enable = true;
     };
@@ -74,10 +105,10 @@ in {
       virtualHosts."localhost:80" = {
         extraConfig = caddyfile;
       };
-      virtualHosts."srv.8bj.de" = {
+      virtualHosts."8bj.de" = {
         extraConfig = caddyfile;
       };
-      virtualHosts."srv.windowsfreak.de" = {
+      virtualHosts."windowsfreak.de" = {
         extraConfig = caddyfile;
       };
     };

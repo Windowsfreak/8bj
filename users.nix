@@ -40,7 +40,7 @@ in
     "bjoern" = {
       isNormalUser = true;
       group = "bjoern";
-      extraGroups = ["wheel"]; # Allows sudo
+      extraGroups = ["wheel", "docker"]; # Allows sudo
       openssh.authorizedKeys.keys = [
         sshkey
       ];
