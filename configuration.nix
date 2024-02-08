@@ -27,6 +27,9 @@ let
         index index.htm index.html
       }
     }
+    handle /mail* {
+      root * ${pkgs.snappymail}
+    }
     handle /obj/* { # /**/
       file_server {
         index index.htm index.html
@@ -70,8 +73,6 @@ in {
     wget
     arangodb
     php
-    pkgs.postfix
-    pkgs.postfixadmin
     pkgs.snappymail
   ];
 
