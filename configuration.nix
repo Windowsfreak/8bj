@@ -12,6 +12,9 @@ let
     handle /api/* { # /**/
       reverse_proxy * unix//var/run/dpv/apiserver1.sock
     }
+    handle_path /mail/* {
+      root * ${pkgs.snappymail}
+    }
     handle @php {
       # @keyword {
       #   path_regexp ^/[^\.\/]+$
@@ -26,9 +29,6 @@ let
       file_server {
         index index.htm index.html
       }
-    }
-    handle /mail* {
-      root * ${pkgs.snappymail}
     }
     handle /obj/* { # /**/
       file_server {
