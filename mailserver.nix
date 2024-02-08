@@ -37,6 +37,8 @@
     certificateScheme = "manual";
     certificateFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.crt";
     keyFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.key";
-    rebootAfterKernelUpgrade = true;
+    rebootAfterKernelUpgrade = {
+      enable = true;
+    };
   };
 }
