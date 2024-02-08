@@ -48,6 +48,7 @@ in {
     ./arangodb.nix
     ./boot.nix
     ./users.nix
+    ./mailserver.nix
     ./minecraft.nix
     ./nextcloudCaddy.nix
     ./dpv-api.nix
@@ -76,26 +77,6 @@ in {
 
   # Services
   services = {
-    postfix = {
-      enable = true;
-      enableSubmission = true;
-      domain = "8bj.de";
-      sslCert = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.crt";
-      sslKey = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.key";
-      postmasterAlias = "mail+postmaster";
-      rootAlias = "";
-      recipientDelimiter = "+";
-      config = {
-        mail_spool_directory = "/var/spool/mail";
-        mailbox_size_limit = "0";
-        virtual_alias_domains = [ "${config.services.postfix.virtualMapType}:/etc/postfix/virtual-domains" ];
-      };
-      mapFiles.virtual-domains = pkgs.writeText "postfix-virtual-domains" ''
-        8bj.de # domain
-        windowsfreak.de # domain
-        parkour-deutschland.com # domain
-      '';
-    };
     arangodb = {
       enable = true;
     };
