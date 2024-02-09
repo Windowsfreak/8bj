@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
@@ -28,6 +28,9 @@
         catchAll = ["8bj.de" "windowsfreak.de"];
         sendOnly = true;
       };
+      "bjoern@parkour-deutschland.de" = {
+        hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
+      };
     };
     indexDir = "/var/lib/dovecot/indices";
     fullTextSearch = {
@@ -41,4 +44,24 @@
       enable = true;
     };
   };
+  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
+  services.dovecot2.extraConfig = lib.mkAfter ''
+    namespace {
+      type = public
+      separator = .
+      prefix = Public.
+      location = maildir:/var/vmail/public:INDEXPVT=/var/lib/dovecot/indices/%d/%n/public
+      subscriptions = no
+    }
+
+    protocol imap {
+     mail_max_userip_connections = 100
+     mail_plugins = $mail_plugins imap_acl imap_sieve
+    }
+
+    plugin {
+      acl = vfile:/etc/dovecot/dovecot-acl:cache_secs=60
+      acl_globals_only = yes
+    }
+  '';
 }
