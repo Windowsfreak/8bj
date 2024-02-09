@@ -34,16 +34,9 @@
       "info@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
         sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-
-          if anyof (
-            envelope :all :is "to" "info@parkour-deutschland.de",
-            address :is "to" "info@parkour-deutschland.de",
-            envelope :is :user "to" "info"
-          ) {
-            fileinto "Public.DPV-Team";
-            stop;
-          }
+          require ["fileinto"];
+          fileinto "Public.DPV-Team";
+          stop;
         '';
       };
     };
