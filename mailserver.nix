@@ -31,6 +31,18 @@
       "bjoern@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
       };
+      "info@parkour-deutschland.de" = {
+        hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
+        sieveScript = ''
+          sieverequire ["fileinto", "envelope", "variables"];
+
+          if envelope :all :is "to" "info@parkour-deutschland.de" {
+            # Redirect email to public.namespace.Announcements
+            fileinto "Public.DPV-Team";
+            stop;
+          }
+        '';
+      };
     };
     indexDir = "/var/lib/dovecot/indices";
     fullTextSearch = {
@@ -59,6 +71,10 @@
       Sent = {
         auto = "subscribe";
         specialUse = "Sent";
+      };
+      Archive = {
+        auto = "subscribe";
+        specialUse = "Archive";
       };
     };
   };
