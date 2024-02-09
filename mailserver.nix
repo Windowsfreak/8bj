@@ -43,6 +43,24 @@
     rebootAfterKernelUpgrade = {
       enable = true;
     };
+    mailboxes = {
+      Trash = {
+        auto = "subscribe";
+        specialUse = "Trash";
+      };
+      Junk = {
+        auto = "subscribe";
+        specialUse = "Junk";
+      };
+      Drafts = {
+        auto = "subscribe";
+        specialUse = "Drafts";
+      };
+      Sent = {
+        auto = "subscribe";
+        specialUse = "Sent";
+      };
+    };
   };
   services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
   services.dovecot2.extraConfig = lib.mkAfter ''
