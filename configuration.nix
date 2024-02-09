@@ -87,10 +87,7 @@ in {
       virtualHosts."localhost:80" = {
         extraConfig = caddyfile;
       };
-      virtualHosts."8bj.de" = {
-        extraConfig = caddyfile;
-      };
-      virtualHosts."windowsfreak.de" = {
+      virtualHosts."8bj.de, windowsfreak.de" = {
         extraConfig = caddyfile;
       };
     };
