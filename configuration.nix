@@ -83,11 +83,16 @@ in {
     };
     caddy = {
       enable = true;
+      globalConfig = "";
+      logFormat = ''
+        level ERROR
+      '';
       email = "lazer.erazer@gmail.com";
       virtualHosts."localhost:80" = {
         extraConfig = caddyfile;
       };
-      virtualHosts."8bj.de, windowsfreak.de" = {
+      virtualHosts."8bj.de" = {
+        serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
         extraConfig = caddyfile;
       };
     };
