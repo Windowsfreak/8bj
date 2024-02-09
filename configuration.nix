@@ -1,6 +1,17 @@
 { config, pkgs, ... }:
 
 let
+  caddyfileMail = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * ${pkgs.snappymail}
+    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+    }
+    file_server
+  '';
   caddyfile = ''
     header /* {
       -Server
@@ -11,13 +22,6 @@ let
     root * /var/www
     handle /api/* { # /**/
       reverse_proxy * unix//var/run/dpv/apiserver1.sock
-    }
-    handle_path /mail/* {
-      root * ${pkgs.snappymail}
-      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        try_files {path} {path}/ index.php
-      }
-      file_server
     }
     handle @php {
       # @keyword {
@@ -95,6 +99,9 @@ in {
       email = "lazer.erazer@gmail.com";
       virtualHosts."localhost:80" = {
         extraConfig = caddyfile;
+      };
+      virtualHosts."mail.8bj.de" = {
+        extraConfig = caddyfileMail;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
