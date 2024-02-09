@@ -14,6 +14,10 @@ let
     }
     handle_path /mail/* {
       root * ${pkgs.snappymail}
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        try_files {path} {path}/ index.php
+      }
+      file_server
     }
     handle @php {
       # @keyword {
@@ -85,6 +89,7 @@ in {
       enable = true;
       globalConfig = "";
       logFormat = ''
+        output file /var/log/caddy/caddy.log
         level ERROR
       '';
       email = "lazer.erazer@gmail.com";
