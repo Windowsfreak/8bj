@@ -11,11 +11,11 @@
     after         = [ "network.target" ];
 
     serviceConfig = {
-      ExecStart = "${pkgs.jdk21_headless}/bin/java -Xmx2G -jar /home/minecraft/server/fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui";
+      ExecStart = "${pkgs.jdk21_headless}/bin/java -Xmx2G -jar /var/lib/minecraft/server/fabric-server-mc.1.20.4-loader.0.15.6-launcher.1.0.0.jar nogui";
       Restart = "always";
       User = "minecraft";
       Group = "minecraft";
-      WorkingDirectory = "/home/minecraft/server";
+      WorkingDirectory = "/var/lib/minecraft/server";
       TimeoutStopSec = 90;
 
       # Hardening
@@ -27,11 +27,14 @@
       PrivateUsers = true;
       ProtectClock = true;
       ProtectControlGroups = true;
+      ProtectHome = true;
       ProtectHostname = true;
       ProtectKernelLogs = true;
       ProtectKernelModules = true;
       ProtectKernelTunables = true;
+      ProtectSystem = "strict";
       ProtectProc = "invisible";
+      ReadWritePaths = [ "/var/lib/minecraft" ];
       RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
       RestrictNamespaces = true;
       RestrictRealtime = true;

@@ -13,7 +13,6 @@ in
   users.groups = {
     arango = {};
     dpv = {};
-    web = {};
     bjoern = {};
     php = {};
     minecraft = {};
@@ -28,16 +27,11 @@ in
       home = "/var/dpv";
       group = "dpv";
     };
-    web = {
-      isSystemUser = true;
-      home = "/var/www";
-      group = "web";
-    };
     mysql = {
       isSystemUser = true;
       home = "/var/lib/mysql";
     };
-    "bjoern" = {
+    bjoern = {
       isNormalUser = true;
       group = "bjoern";
       extraGroups = ["wheel" "docker"]; # Allows sudo
@@ -52,8 +46,7 @@ in
     };
     minecraft = {
       isSystemUser = true;
-      createHome = true;
-      home = "/home/minecraft";
+      home = "/var/lib/minecraft";
       group = "minecraft";
     };
   };

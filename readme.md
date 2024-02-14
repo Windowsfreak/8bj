@@ -4,11 +4,12 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 - if host has no DHCP, use `network.nix` to set IP addresses
 
 ### static content
-- put static content and php pages in `/var/www/`
-- put real static content in `/var/www/obj/`
-- there is no `/var/www/api` (see below)
+- put static content and php pages in `/var/www/8bj/`
+- put real static content in `/var/www/8bj/obj/`
+- there is no `/var/www/8bj/api` (see below)
 - caddy logs in `/var/logs/caddy/access*.log`
 - the 404 handlers are a bit tricky, especially since caddy uses no `.htaccess`
+- TODO: redirect `/folder` to `/folder/` if it contains an `index.php`
 
 ### php-fpm
 - available via socket
@@ -61,3 +62,17 @@ The purpose of this file is to collect troubleshooting knowledge over time.
   "overwriteprotocol": "https"
 }
 ```
+
+### Mailserver
+- uses [nixos-mailserver](https://gitlab.com/simple-nixos-mailserver/nixos-mailserver)
+- uses Postfix+Dovecot+Snappymail
+- Snappymail is served with an extra VirtualHost
+- Users' password hashes are stored in `/var/config/mail`
+- Users' shared mail boxes (team mailboxes) are configured in `/etc/dovecot/dovecot-acl`. Example:
+```ini
+Public user=administrator@example.com lrwstipekxa
+Public.* user=administrator@example.com lrwstipekxa
+Public.Teamfolder user=member1@example.com lrwstipek
+Public.Teamfolder.* user==member1@example.com lrwstipekxa
+```
+- [dpv api](https://github.com/parkour-de/api) has an endpoint to change password hashes

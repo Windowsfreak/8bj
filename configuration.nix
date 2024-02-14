@@ -19,7 +19,7 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     @php not path /obj/* # /**/
-    root * /var/www
+    root * /var/www/8bj
     handle /api/* { # /**/
       reverse_proxy * unix//var/run/dpv/apiserver1.sock
     }

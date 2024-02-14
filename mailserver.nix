@@ -12,7 +12,7 @@
   mailserver = {
     enable = true;
     fqdn = "8bj.de";
-    domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" ];
+    domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
