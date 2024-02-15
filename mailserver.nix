@@ -100,11 +100,11 @@
       };
       "virtual.All" = {
         auto = "create";
-        special_use = "All";
+        specialUse = "All";
       };
       "virtual.Starred" = {
         auto = "create";
-        special_use = "Flagged";
+        specialUse = "Flagged";
       };
     };
   };
