@@ -13,6 +13,7 @@
     ./nextcloudCaddy.nix
     ./dpv-api.nix
     ./paranoia.nix
+    ./snappymail.nix
   ];
 
   virtualisation.docker = {
@@ -30,7 +31,6 @@
     wget
     arangodb
     php
-    pkgs.snappymail
   ];
 
   # Services
