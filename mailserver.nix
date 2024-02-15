@@ -98,12 +98,12 @@
         auto = "subscribe";
         specialUse = "Archive";
       };
-      "virtual.Alle Nachrichten" = {
+      "virtual.All" = {
         auto = "create";
         comment = "Alle Nachrichten";
         special_use = "All";
-      }
-      "virtual.Wichtig" {
+      };
+      "virtual.Starred" = {
         auto = "create";
         comment = "Alle markierten Nachrichten";
         special_use = "Flagged";
