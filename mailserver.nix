@@ -100,7 +100,7 @@
       };
     };
   };
-  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" "virtual" ];
+  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
   services.dovecot2.extraConfig = lib.mkAfter ''
     namespace {
       type = public
@@ -110,23 +110,9 @@
       subscriptions = no
     }
 
-    namespace virtual {
-      separator = .
-      prefix = Virtual.
-      location = virtual:/var/vmail/virtual:INDEX=/var/lib/dovecot/indices/%d/%n/.virtual:CONTROL=/var/lib/dovecot/indices/.virtual:VOLATILEDIR=/var/lib/dovecot/indices/.virtual
-      mailbox All {
-        auto = create
-      special_use = \All
-      }
-      mailbox Starred {
-        auto = create
-      special_use = \Flagged
-      }
-    }
-
     protocol imap {
      mail_max_userip_connections = 100
-     mail_plugins = $mail_plugins imap_acl imap_sieve virtual
+     mail_plugins = $mail_plugins imap_acl imap_sieve
     }
 
     plugin {
