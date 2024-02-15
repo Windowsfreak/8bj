@@ -8,6 +8,7 @@ let
     owner = "fossar";
     repo = "nix-phps";
     rev = "509bc62c91ecf1767b0e0142373d069308cf86c5";
+    hash = "sha256-msZIntNplD+UUHXtyT72jE7Znwj/010U4g1Tv8NGpGg";
   };
   phps = import nix-phps;
   caddyfileRbh = ''
