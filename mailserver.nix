@@ -24,8 +24,20 @@
       };
       "noreply@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
-        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@parkour-deutschland.de"];
+        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@parkour-deutschland.de" "noreply@rasselbande-horn.de"];
         catchAll = ["8bj.de" "windowsfreak.de"];
+        sendOnly = true;
+      };
+      "noreply@windowsfreak.de" = {
+        hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
+        sendOnly = true;
+      };
+      "noreply@parkour-deutschland.de" = {
+        hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
+        sendOnly = true;
+      };
+      "noreply@rasselbande-horn.de" = {
+        hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
       };
       "bjoern@parkour-deutschland.de" = {
@@ -36,6 +48,20 @@
         sieveScript = ''
           require ["fileinto"];
           fileinto "Public.DPV-Team";
+          stop;
+        '';
+      };
+      "corinna@rasselbande-horn.de" = {
+        hashedPasswordFile = "/var/config/mail/corinna.rasselbande-horn.de.key";
+      };
+      "kristin@rasselbande-horn.de" = {
+        hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
+      };
+      "info@rasselbande-horn.de" = {
+        hashedPasswordFile = "/var/config/mail/info.rasselbande-horn.de.key";
+        sieveScript = ''
+          require ["fileinto"];
+          fileinto "Public.Rasselbande";
           stop;
         '';
       };
@@ -72,6 +98,16 @@
         auto = "subscribe";
         specialUse = "Archive";
       };
+      "virtual.Alle Nachrichten" = {
+        auto = "create";
+        comment = "Alle Nachrichten";
+        special_use = "All";
+      }
+      "virtual.Wichtig" {
+        auto = "create";
+        comment = "Alle markierten Nachrichten";
+        special_use = "Flagged";
+      };
     };
   };
   services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
@@ -82,6 +118,12 @@
       prefix = Public.
       location = maildir:/var/vmail/public:INDEXPVT=/var/lib/dovecot/indices/%d/%n/public
       subscriptions = no
+    }
+
+    namespace virtual {
+      separator = .
+      prefix = Virtual.
+      location = virtual:/var/vmail/virtual:INDEX=/var/lib/dovecot/indices/.virtual:CONTROL=/var/lib/dovecot/indices/.virtual:VOLATILEDIR=/var/lib/dovecot/indices/.virtual
     }
 
     protocol imap {
