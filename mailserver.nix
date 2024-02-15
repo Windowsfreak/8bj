@@ -100,12 +100,10 @@
       };
       "virtual.All" = {
         auto = "create";
-        comment = "Alle Nachrichten";
         special_use = "All";
       };
       "virtual.Starred" = {
         auto = "create";
-        comment = "Alle markierten Nachrichten";
         special_use = "Flagged";
       };
     };
