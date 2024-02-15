@@ -93,7 +93,8 @@ in {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
         extraConfig = caddyfile;
       };
-      virtualHosts."rbh.8bj.de" = {
+      virtualHosts."rasselbande-horn.de" = {
+        serverAliases = [ "www.rasselbande-horn.de" "rbh.8bj.de" ];
         extraConfig = caddyfileRbh;
       };
     };
