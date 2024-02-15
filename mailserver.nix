@@ -126,7 +126,7 @@
 
     protocol imap {
      mail_max_userip_connections = 100
-     mail_plugins = $mail_plugins imap_acl imap_sieve
+     mail_plugins = $mail_plugins imap_acl imap_sieve virtual
     }
 
     plugin {
