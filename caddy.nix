@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
 
 let
+  # using pkgs2 to avoid recursive loop with fetchFromGitHub
+  # see https://stackoverflow.com/questions/73097604/nixos-how-to-import-some-configuration-from-gitlab-infinite-recursion-encounte
+  pkgs2 = (import <nixpkgs> { });
+  nix-phps = pkgs2.fetchFromGitHub {
+    owner = "fossar";
+    repo = "nix-phps";
+    rev = "509bc62c91ecf1767b0e0142373d069308cf86c5";
+  };
+  phps = import nix-phps;
   caddyfileRbh = ''
     header /* {
       -Server
@@ -8,7 +17,7 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     root * /var/www/rbh
-    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+    php_fastcgi unix/${config.services.phpfpm.pools.php7.socket} {
     }
     file_server
   '';
@@ -107,6 +116,21 @@ in {
       '';
       pools = {
         php = {
+          user = "php";
+          group = "php";
+          settings = {
+            "listen.owner" = config.services.caddy.user;
+            "listen.group" = config.services.caddy.group;
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.max_requests" = 500;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 5;
+          };
+        };
+        php7 = {
+          phpPackage = phps.packages.${builtins.currentSystem}.php74;
           user = "php";
           group = "php";
           settings = {
