@@ -98,14 +98,6 @@
         auto = "subscribe";
         specialUse = "Archive";
       };
-      "virtual.All" = {
-        auto = "create";
-        specialUse = "All";
-      };
-      "virtual.Starred" = {
-        auto = "create";
-        specialUse = "Flagged";
-      };
     };
   };
   services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
@@ -122,6 +114,14 @@
       separator = .
       prefix = Virtual.
       location = virtual:/var/vmail/virtual:INDEX=/var/lib/dovecot/indices/.virtual:CONTROL=/var/lib/dovecot/indices/.virtual:VOLATILEDIR=/var/lib/dovecot/indices/.virtual
+      mailbox All {
+        auto = create
+      special_use = \All
+      }
+      mailbox Starred {
+        auto = create
+      special_use = \Flagged
+      }
     }
 
     protocol imap {
