@@ -26,6 +26,7 @@ in
       isSystemUser = true;
       home = "/var/dpv";
       group = "dpv";
+      extraGroups = ["systemd-journal"];
     };
     mysql = {
       isSystemUser = true;
