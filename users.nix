@@ -15,6 +15,7 @@ in
     dpv = {};
     bjoern = {};
     php = {};
+    rbh = {};
     minecraft = {};
   };
   users.users = {
