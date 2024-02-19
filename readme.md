@@ -17,7 +17,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 ### dpv
 - put server code in `/var/dpv/api/` and build
 - prepare `config.yml`
-- run server with socket `/var/run/dpv/apiserver1.sock`
+- run server with socket `/var/run/dpv1/apiserver.sock`
 - remember to `make test` before restarting `dpv1` or `dpv2` via `systemctl`
 
 ### 502 Gateway Error
@@ -45,7 +45,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 - `/var/config/nextcloud-admin-pass.txt` contains a string
 - `/var/config/nextcloud-pgsql-pass.txt` contains a string (but it's probably not needed as we're using unix socket auth!)
 - `/var/config/redis-password.txt` contains a string
-- `/var/content/nextcloud-secrets.json` contains:
+- `/var/config/nextcloud-secrets.json` contains:
 ```json
 {
   "passwordsalt": "***",
@@ -54,8 +54,19 @@ The purpose of this file is to collect troubleshooting knowledge over time.
   "redis": {
     "password": "same as redis-password.txt"
   },
-  "trusted_domains": ["localhost", "share.parkour-deutschland.de"],
-  "trusted_proxies": ["127.0.0.1"],
+  "maintenance_window_start": 2,
+  "mail_smtpmode": "sendmail",
+  "mail_sendmailmode": "smtp",
+  "mail_smtpsecure": "",
+  "mail_from_address": "noreply",
+  "mail_domain": "8bj.de",
+  "mail_smtphost": "127.0.0.1",
+  "mail_smtpport": 25,
+  "mail_smtpauth": true,
+  "mail_smtpname": "noreply@8bj.de",
+  "mail_smtppassword": "***",
+  "trusted_domains": ["share.parkour-deutschland.de"],
+  "trusted_proxies": ["127.0.0.1", "::1"],
   "default_language": "de",
   "default_locale": "de_DE",
   "default_phone_region": "de",
@@ -76,3 +87,4 @@ Public.Teamfolder user=member1@example.com lrwstipek
 Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ```
 - [dpv api](https://github.com/parkour-de/api) has an endpoint to change password hashes
+- It may be necessary to reboot the entire server if new FQDNs were added. Failing to do so will result in login errors.

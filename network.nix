@@ -12,7 +12,7 @@ in
   networking = {
     hostName = "8bj";
     firewall = {
-      allowedTCPPorts = [ 22 80 443 8529 8123 995 465 ];
+      allowedTCPPorts = [ 22 80 443 8529 8123 993 995 465 ];
       allowedUDPPorts = [ 443 ];
       logRefusedConnections = false;
     };
