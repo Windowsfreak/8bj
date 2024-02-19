@@ -11,6 +11,8 @@
 
   mailserver = {
     enable = true;
+    enablePop3Ssl = true;
+    enableSubmissionSsl = true;
     fqdn = "8bj.de";
     domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" ];
 
