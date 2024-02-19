@@ -38,6 +38,12 @@
     arangodb = {
       enable = true;
     };
+    fail2ban = {
+      enable = true;
+      bantime = "70m";
+      maxretry = 3;
+      ignoreIP = [ "ddns.8bj.de" ];
+    };
     mysql = {
       enable = true;
       package = pkgs.mariadb;

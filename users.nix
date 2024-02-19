@@ -45,6 +45,11 @@ in
       home = "/var/www";
       group = "php";
     };
+    rbh = {
+      isSystemUser = true;
+      home = "/var/www/rbh";
+      group = "rbh";
+    };
     minecraft = {
       isSystemUser = true;
       home = "/var/lib/minecraft";

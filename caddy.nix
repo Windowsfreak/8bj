@@ -133,8 +133,8 @@ in {
         };
         php7 = {
           phpPackage = phps.packages.${builtins.currentSystem}.php74;
-          user = "php";
-          group = "php";
+          user = "rbh";
+          group = "rbh";
           settings = {
             "listen.owner" = config.services.caddy.user;
             "listen.group" = config.services.caddy.group;
