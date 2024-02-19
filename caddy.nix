@@ -18,7 +18,7 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     root * /var/www/rbh
-    php_fastcgi unix/${config.services.phpfpm.pools.php7.socket} {
+    php_fastcgi unix/${config.services.phpfpm.pools.php5.socket} {
     }
     file_server
   '';
@@ -131,8 +131,8 @@ in {
             "pm.max_spare_servers" = 5;
           };
         };
-        php7 = {
-          phpPackage = phps.packages.${builtins.currentSystem}.php74;
+        php5 = {
+          phpPackage = phps.packages.${builtins.currentSystem}.php56;
           user = "rbh";
           group = "rbh";
           settings = {
