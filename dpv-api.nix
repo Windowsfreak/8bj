@@ -27,11 +27,12 @@
     #wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     script = ''
-      export UNIX=/var/run/apiserver2.sock
+      export UNIX=/var/run/dpv2/apiserver.sock
       exec /var/dpv/api/bin/endpoint1
     '';
     serviceConfig = {
       WorkingDirectory = "/var/dpv/api";
+      RuntimeDirectory = "dpv2";
       User = "dpv";
       Group = "dpv";
       Restart = "always";
