@@ -11,6 +11,7 @@ let
     hash = "sha256-msZIntNplD+UUHXtyT72jE7Znwj/010U4g1Tv8NGpGg";
   };
   phps = import nix-phps;
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
   caddyfileRbh = ''
     header /* {
       -Server
@@ -28,7 +29,7 @@ let
     }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
-    root * ${pkgs.snappymail}
+    root * ${unstable.snappymail}
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
     }
     file_server
@@ -107,6 +108,9 @@ in {
         display_errors = "stderr";
         log_errors = true;
         error_log = "/var/log/php/php.log";
+        upload_max_filesize = "512M";
+        post_max_size = "512M";
+        memory_limit = "512M";
         opcache.enable_cli = "1";
         opcache.interned_strings_buffer = "32";
         opcache.max_accelerated_files = "10000";

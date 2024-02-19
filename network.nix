@@ -14,6 +14,7 @@ in
     firewall = {
       allowedTCPPorts = [ 22 80 443 8529 8123 ];
       allowedUDPPorts = [ 443 ];
+      logRefusedConnections = false;
     };
     useDHCP = false;
     interfaces.ens18 = {
