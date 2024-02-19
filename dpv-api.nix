@@ -10,7 +10,7 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     script = ''
-      export UNIX=/var/run/dpv1/apiserver.sock
+      export UNIX=/run/dpv1/apiserver.sock
       exec /var/dpv/api/bin/endpoint1
     '';
     serviceConfig = {
@@ -27,7 +27,7 @@
     #wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     script = ''
-      export UNIX=/var/run/dpv2/apiserver.sock
+      export UNIX=/run/dpv2/apiserver.sock
       exec /var/dpv/api/bin/endpoint1
     '';
     serviceConfig = {

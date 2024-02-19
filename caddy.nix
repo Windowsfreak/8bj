@@ -42,7 +42,7 @@ let
     @php not path /obj/* # /**/
     root * /var/www/8bj
     handle /api/* { # /**/
-      reverse_proxy * unix//var/run/dpv1/apiserver.sock
+      reverse_proxy * unix//run/dpv1/apiserver.sock
     }
     handle @php {
       # @keyword {
