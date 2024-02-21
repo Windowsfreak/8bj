@@ -44,6 +44,12 @@
       maxretry = 3;
       ignoreIP = [ "ddns.8bj.de" ];
     };
+    listmonk = {
+      enable = true;
+      database = {
+        createLocally = true;
+      };
+    };
     mysql = {
       enable = true;
       package = pkgs.mariadb;
