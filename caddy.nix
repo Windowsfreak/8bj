@@ -23,6 +23,14 @@ let
     }
     file_server
   '';
+  caddyfileListmonk = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    reverse_proxy * :9000
+  '';
   caddyfileMail = ''
     header /* {
       -Server
@@ -89,6 +97,9 @@ in {
       };
       virtualHosts."mail.8bj.de" = {
         extraConfig = caddyfileMail;
+      };
+      virtualHosts."newsletter.8bj.de" = {
+        extraConfig = caddyfileListmonk;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
