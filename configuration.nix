@@ -49,6 +49,7 @@
       database = {
         createLocally = true;
       };
+      secretfile = "/var/config/listmonk.ini";
     };
     mysql = {
       enable = true;
