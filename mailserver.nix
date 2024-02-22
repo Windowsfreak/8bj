@@ -45,10 +45,33 @@
       "bjoern@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
       };
+      "lukas@parkour-deutschland.de" = {
+        hashedPasswordFile = "/var/config/mail/lukas.parkour-deutschland.de.key";
+      };
+      "merlin@parkour-deutschland.de" = {
+        hashedPasswordFile = "/var/config/mail/merlin.parkour-deutschland.de.key";
+      };
       "info@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
+        catchAll = ["parkour-deutschland.de"];
         sieveScript = ''
-          require ["fileinto"];
+          require ["fileinto", "envelope"];
+          redirect "sabinehaider@gmx.net";
+          redirect "maren@parkour-stuttgart.de";
+          redirect "maxheckl@mailbox.org";
+          redirect "info@maxheckl.de";
+          redirect "info@parkourberlin.de";
+          redirect "ben@parkourone.com";
+          redirect "lazer.erazer+dpv@gmail.com";
+          redirect "eike@plenter.de";
+          redirect "lukas@pkgt.de";
+          redirect "parkour@twio-x.de";
+          redirect "parkourplauen@googlemail.com";
+          redirect "schmolldominik@gmail.com";
+          redirect "info@parkour-erfurt.de";
+          redirect "MTBvet@GMX.de";
+          redirect "parkour@sve67.de";
+          redirect "Jennifer--Mueller@web.de";
           fileinto "Public.DPV-Team";
           stop;
         '';
