@@ -43,12 +43,15 @@
         sendOnly = true;
       };
       "bjoern@parkour-deutschland.de" = {
+        aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
       };
       "lukas@parkour-deutschland.de" = {
+        aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/lukas.parkour-deutschland.de.key";
       };
       "merlin@parkour-deutschland.de" = {
+        aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/merlin.parkour-deutschland.de.key";
       };
       "info@parkour-deutschland.de" = {
