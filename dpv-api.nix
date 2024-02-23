@@ -45,15 +45,15 @@
       users = [ "dpv" ];
       commands = [
         {
-          command = "/usr/bin/systemctl restart dovecot2.service";
+          command = "/run/current-system/sw/bin/systemctl restart dovecot2.service";
           options = [ "NOPASSWD" ];
         }
         {
-          command = "/usr/bin/systemctl restart postfix-setup.service";
+          command = "/run/current-system/sw/bin/systemctl restart postfix-setup.service";
           options = [ "NOPASSWD" ];
         }
         {
-          command = "/usr/bin/systemctl restart postfix.service";
+          command = "/run/current-system/sw/bin/systemctl restart postfix.service";
           options = [ "NOPASSWD" ];
         }
       ];
