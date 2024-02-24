@@ -9,12 +9,9 @@ in
 
   security.sudo.wheelNeedsPassword = false;
   security.doas.enable = true;
-  security.doas.extraRules = [{
-    users = ["dpv"];
-    noPass = true;
-    cmd = "/run/current-system/sw/bin/systemctl";
-    args = [ "restart" "dovecot2.service" ];
-  }];
+  security.doas.extraConfig = ''
+    permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl restart postfix.service
+  '';
 
   # Users
   users.groups = {
