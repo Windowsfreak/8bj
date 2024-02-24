@@ -12,7 +12,8 @@ in
   security.doas.extraRules = [{
     users = ["dpv"];
     noPass = true;
-    cmd = "/run/current-system/sw/bin/systemctl restart dovecot2.service";
+    cmd = "/run/current-system/sw/bin/systemctl";
+    args = [ "restart" "dovecot2.service" ];
   }];
 
   # Users
