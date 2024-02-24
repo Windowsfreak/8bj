@@ -40,23 +40,4 @@
       ProtectSystem = "full";
     };
   };
-  security.sudo.extraRules = [
-    {
-      users = [ "dpv" ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/systemctl restart dovecot2.service";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/run/current-system/sw/bin/systemctl restart postfix-setup.service";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/run/current-system/sw/bin/systemctl restart postfix.service";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
 }

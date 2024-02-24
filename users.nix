@@ -8,10 +8,14 @@ in
   ];
 
   security.sudo.wheelNeedsPassword = false;
-  security.doas.enable = true;
-  security.doas.extraConfig = ''
-permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix.service
-  '';
+  security.doas = {
+    enable = true;
+    extraConfig = ''
+      permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart dovecot2.service
+      permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix-setup.service
+      permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix.service
+    '';
+  };
 
   # Users
   users.groups = {
