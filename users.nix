@@ -11,7 +11,7 @@ in
   security.doas.enable = true;
   security.doas.extraRules = [{
     users = ["dpv"];
-    nopass = true;
+    noPass = true;
     cmd = "/run/current-system/sw/bin/systemctl restart dovecot2.service";
   }];
 
