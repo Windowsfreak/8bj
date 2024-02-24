@@ -10,7 +10,7 @@ in
   security.sudo.wheelNeedsPassword = false;
   security.doas.enable = true;
   security.doas.extraConfig = ''
-    permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl restart postfix.service
+permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix.service
   '';
 
   # Users
