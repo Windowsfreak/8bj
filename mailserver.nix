@@ -132,9 +132,11 @@
         '';
       };
       "corinna@rasselbande-horn.de" = {
+        aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/corinna.rasselbande-horn.de.key";
       };
       "kristin@rasselbande-horn.de" = {
+        aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
       };
       "info@rasselbande-horn.de" = {
