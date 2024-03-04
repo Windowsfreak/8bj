@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
   environment.systemPackages = with pkgs; [
     gnumake
-    go
+    unstable.go_1_22
     nodejs
   ];
 
