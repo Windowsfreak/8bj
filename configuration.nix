@@ -37,6 +37,8 @@
     python3Packages.pyvips
     python3Packages.pillow
     exiftool
+    pyvips
+    vips
   ];
 
   # Services
