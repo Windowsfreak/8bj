@@ -31,12 +31,11 @@
     arangodb
     php
     pkgs.snappymail
-    python3.withPackages ( python-pkgs: [
-      python-pkgs.pip
-      python-pkgs.numpy
-      python-pkgs.pyvips
-      python-pkgs.pillow
-    ])
+    python3
+    python3Packages.pip
+    python3Packages.numpy
+    python3Packages.pyvips
+    python3Packages.pillow
     exiftool
     vips
   ];
