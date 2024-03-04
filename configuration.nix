@@ -31,13 +31,6 @@
     arangodb
     php
     pkgs.snappymail
-    python3
-    python3Packages.pip
-    python3Packages.numpy
-    python3Packages.pyvips
-    python3Packages.pillow
-    exiftool
-    vips
   ];
 
   # Services

@@ -5,6 +5,9 @@ in {
   environment.systemPackages = with pkgs; [
     gnumake
     unstable.go_1_22
+    (import ./python.nix)
+    exiftool
+    vips
     nodejs
   ];
 
