@@ -185,6 +185,7 @@
   };
   services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
   services.dovecot2.extraConfig = lib.mkAfter ''
+    sieve_max_redirects = 75
     namespace {
       type = public
       separator = .
