@@ -143,8 +143,6 @@
         hashedPasswordFile = "/var/config/mail/info.rasselbande-horn.de.key";
         sieveScript = ''
           require ["fileinto", "envelope"];
-          redirect "corinna@rasselbande-horn.de";
-          redirect "kristin@rasselbande-horn.de";
           discard;
         '';
       };
