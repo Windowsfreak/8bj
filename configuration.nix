@@ -38,12 +38,6 @@
     arangodb = {
       enable = true;
     };
-    dnsmasq = {
-      enable = true;
-      extraConfig = ''
-        interface=wg0
-      '';
-    };
     fail2ban = {
       enable = true;
       bantime = "70m";
