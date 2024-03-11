@@ -183,7 +183,6 @@
   };
   services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
   services.dovecot2.extraConfig = lib.mkAfter ''
-    sieve_max_redirects = 75
     namespace {
       type = public
       separator = .
@@ -200,6 +199,7 @@
     plugin {
       acl = vfile:/etc/dovecot/dovecot-acl:cache_secs=60
       acl_globals_only = yes
+      sieve_max_redirects = 75
     }
   '';
 }
