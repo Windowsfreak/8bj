@@ -53,6 +53,10 @@ in
           publicKey = "8GDBnOggqwchSPeLEvOCP16zdDRwP2his5PoyIQ5I3o=";
           allowedIPs = [ "10.100.0.2/32" "10.100.0.3/32" "10.100.0.4/32" "10.100.0.5/32" "10.100.0.6/32" ];
         }
+        { # P3
+          publicKey = "LG+wIgcsZZ1cHSfqLP3tNQH7v9NBR0tE/8ae0bw+zmo=";
+          allowedIPs = [ "10.100.0.7/32" "10.100.0.8/32" "10.100.0.9/32" "10.100.0.10/32" "10.100.0.11/32" ];
+        }
       ];
     };
   };
