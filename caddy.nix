@@ -23,6 +23,15 @@ let
     }
     file_server
   '';
+  caddyfileKhf = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/www/kohlhof
+    file_server
+  '';
   caddyfileListmonk = ''
     header /* {
       -Server
@@ -108,6 +117,10 @@ in {
       virtualHosts."rasselbande-horn.de" = {
         serverAliases = [ "www.rasselbande-horn.de" "rbh.8bj.de" ];
         extraConfig = caddyfileRbh;
+      };
+      virtualHosts."kohlhof.org" = {
+        serverAliases = [ "www.kohlhof.org" "kohlhof.8bj.de" ];
+        extraConfig = caddyfileKhf;
       };
     };
     phpfpm = {

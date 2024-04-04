@@ -14,7 +14,7 @@
     enablePop3Ssl = true;
     enableSubmissionSsl = true;
     fqdn = "8bj.de";
-    domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" ];
+    domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" "kohlhof.org" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
@@ -41,6 +41,50 @@
       "noreply@rasselbande-horn.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
+      };
+      "alica@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "alicakohlhof@gmail.com";
+        '';
+      };
+      "bennet@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/bennet.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "bennetkohlhof@gmail.com";
+        '';
+      };
+      "collin@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/collin.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "collinkohlhof@gmail.com";
+        '';
+      };
+      "corinna@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
+        aliases = ["bkhvomkohlhof@kohlhof.org"];
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "corinna.kohlhof@googlemail.com";
+        '';
+      };
+      "dominik@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/dominik.kohlhof.org.key";
+        aliases = ["bennet@kohlhof.org" "bkhvomkohlhof@kohlhof.org" "collin@kohlhof.org"];
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "dominik.kohlhof@googlemail.com";
+        '';
+      };
+      "nicolas@kohlhof.org" = {
+        hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          redirect "nicolaskohlhof@gmail.com";
+        '';
       };
       "ben@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
