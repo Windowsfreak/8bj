@@ -45,29 +45,49 @@
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
         sieveScript = ''
-          require ["fileinto", "envelope"];
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "alica@kohlhof.org";
           redirect "alicakohlhof@gmail.com";
         '';
       };
       "bennet@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/bennet.kohlhof.org.key";
         sieveScript = ''
-          require ["fileinto", "envelope"];
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "bennet@kohlhof.org";
           redirect "bennetkohlhof@gmail.com";
         '';
       };
       "collin@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/collin.kohlhof.org.key";
         sieveScript = ''
-          require ["fileinto", "envelope"];
-          redirect "collinkohlhof@gmail.com";
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "collin@kohlhof.org";
+          redirect "collinkohlhof@googlemail.com";
         '';
       };
       "corinna@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
         aliases = ["bkhvomkohlhof@kohlhof.org"];
         sieveScript = ''
-          require ["fileinto", "envelope"];
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "corinna@kohlhof.org";
           redirect "corinna.kohlhof@googlemail.com";
         '';
       };
@@ -75,15 +95,25 @@
         hashedPasswordFile = "/var/config/mail/dominik.kohlhof.org.key";
         aliases = ["bennet@kohlhof.org" "bkhvomkohlhof@kohlhof.org" "collin@kohlhof.org"];
         sieveScript = ''
-          require ["fileinto", "envelope"];
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "dominik@kohlhof.org";
           redirect "dominik.kohlhof@googlemail.com";
         '';
       };
       "nicolas@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
         sieveScript = ''
-          require ["fileinto", "envelope"];
-          redirect "nicolaskohlhof@gmail.com";
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "nicolas@kohlhof.org";
+          redirect "nicolaskohlhof@googlemail.com";
         '';
       };
       "ben@parkour-deutschland.de" = {
@@ -154,7 +184,11 @@
         hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
         catchAll = ["parkour-deutschland.de"];
         sieveScript = ''
-          require ["fileinto", "envelope"];
+          require ["fileinto", "envelope", "variables"];
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "info@parkour-deutschland.de";
           redirect "sabinehaider@gmx.net";
           redirect "maren@parkour-stuttgart.de";
           redirect "maxheckl@mailbox.org";
@@ -244,6 +278,8 @@
       acl = vfile:/etc/dovecot/dovecot-acl:cache_secs=60
       acl_globals_only = yes
       sieve_max_redirects = 75
+      sieve_user_email = MAILER-DAEMON@8bj.de
+      sieve_redirect_envelope_from = orig_recipient
     }
   '';
 }
