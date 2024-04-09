@@ -78,7 +78,7 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
       - Wählen Sie als Server-Typ **POP3** und die Servereinstellungen:
         - **Server**: **8bj.de**
         - **Port**: **995** (SSL verschlüsselt)
-          **Benutzername**: Ihre vollständige E-Mail-Adresse
+        - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Konto hinzufügen**.
     - **GMX, Web.de, mailbox.org**:
       - Melden Sie sich in Ihrem Webmail-Konto an.
