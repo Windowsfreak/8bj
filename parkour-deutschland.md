@@ -61,6 +61,7 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
         - **Port**: **993** (SSL verschlüsselt)
         - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Weiter**, geben Sie Ihr **Passwort** ein und klicken Sie auf **Fertig stellen**.
+      - Sollten SMTP-Einstellungen angepasst werden, folgen Sie den Schritten in Punkt 2 (ich freue mich auf Feedback!)
     - **Thunderbird:**
       - Klicken Sie auf **Datei > Neu > Bestehendes E-Mail-Konto**.
       - Geben Sie Ihren **Namen**, Ihre **E-Mail-Adresse** und Ihr **Passwort** ein.
@@ -70,6 +71,7 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
         - **Port**: **993** (SSL verschlüsselt)
         - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Fertig stellen**.
+      - Sollten SMTP-Einstellungen angepasst werden, folgen Sie den Schritten in Punkt 2 (ich freue mich auf Feedback!)
     - **Google Mail**:
       - Melden Sie sich in Ihrem Google-Mail-Konto an.
       - Gehen Sie zu den Einstellungen und wählen Sie **Konten und Import**.
@@ -80,6 +82,8 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
         - **Port**: **995** (SSL verschlüsselt)
         - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Konto hinzufügen**.
+      - Um E-Mails zu versenden, müssen auch die SMTP-Einstellungen hinterlegt werden, dazu folgen Sie den Schritten in Punkt 2 (ich freue mich auf Feedback!)
+      - Wenn Sie im ersten Schritt als Email-Adresse **info@parkour-deutschlad.de**, und im zweiten Schritt Ihre persönlich zugeteilte Email-Adresse hinterlegen, und für den Versand entsprechend berechtigt sind, können Sie mit Ihrem eigenen Passwort auch E-Mails über die info-Adresse versenden.
     - **GMX, Web.de, mailbox.org**:
       - Melden Sie sich in Ihrem Webmail-Konto an.
       - Gehen Sie zu den Einstellungen und suchen Sie den Bereich **E-Mail-Konten**.
