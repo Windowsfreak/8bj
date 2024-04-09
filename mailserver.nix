@@ -29,92 +29,54 @@
         aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@parkour-deutschland.de" "noreply@rasselbande-horn.de" "info@parkour-deutschland.de" "newsletter@parkour-deutschland.de"];
         catchAll = ["8bj.de" "windowsfreak.de"];
         sendOnly = true;
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          discard;
+        '';
       };
       "noreply@windowsfreak.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          discard;
+        '';
       };
       "noreply@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          discard;
+        '';
       };
       "noreply@rasselbande-horn.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
+        sieveScript = ''
+          require ["fileinto", "envelope"];
+          discard;
+        '';
       };
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "alica@kohlhof.org";
-          redirect "alicakohlhof@gmail.com";
-        '';
       };
       "bennet@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/bennet.kohlhof.org.key";
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "bennet@kohlhof.org";
-          redirect "bennetkohlhof@gmail.com";
-        '';
       };
       "collin@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/collin.kohlhof.org.key";
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "collin@kohlhof.org";
-          redirect "collinkohlhof@googlemail.com";
-        '';
       };
       "corinna@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
         aliases = ["bkhvomkohlhof@kohlhof.org"];
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "corinna@kohlhof.org";
-          redirect "corinna.kohlhof@googlemail.com";
-        '';
       };
       "dominik@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/dominik.kohlhof.org.key";
         aliases = ["bennet@kohlhof.org" "bkhvomkohlhof@kohlhof.org" "collin@kohlhof.org"];
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "dominik@kohlhof.org";
-          redirect "dominik.kohlhof@googlemail.com";
-        '';
       };
       "nicolas@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "nicolas@kohlhof.org";
-          redirect "nicolaskohlhof@googlemail.com";
-        '';
       };
       "ben@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
@@ -185,6 +147,7 @@
         catchAll = ["parkour-deutschland.de"];
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
+          fileinto "Public.DPV-Team";
           if not exists "reply-to" {
               set "reply-to" "${from}";
           }
@@ -205,7 +168,6 @@
           redirect "MTBvet@GMX.de";
           redirect "parkour@sve67.de";
           redirect "Jennifer--Mueller@web.de";
-          fileinto "Public.DPV-Team";
           stop;
         '';
       };
@@ -216,13 +178,6 @@
       "kristin@rasselbande-horn.de" = {
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
-      };
-      "info@rasselbande-horn.de" = {
-        hashedPasswordFile = "/var/config/mail/info.rasselbande-horn.de.key";
-        sieveScript = ''
-          require ["fileinto", "envelope"];
-          discard;
-        '';
       };
     };
     indexDir = "/var/lib/dovecot/indices";
