@@ -77,6 +77,15 @@
       };
       "nicolas@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          if not exists "reply-to" {
+              set "reply-to" "${from}";
+          }
+          set "from" "nicolas@kohlhof.org";
+          redirect "nicolaskohlhof@googlemail.com";
+        '';
       };
       "ben@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
