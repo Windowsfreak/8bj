@@ -70,5 +70,19 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
         - **Port**: **993** (SSL verschlüsselt)
         - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Fertig stellen**.
+    - **Google Mail**:
+      - Melden Sie sich in Ihrem Google-Mail-Konto an.
+      - Gehen Sie zu den Einstellungen und wählen Sie **Konten und Import**.
+      - Klicken Sie auf **E-Mail von anderen Konten importieren**.
+      - Geben Sie Ihre **E-Mail-Adresse** und Ihr **Passwort** ein.
+      - Wählen Sie als Server-Typ **POP3** und die Servereinstellungen:
+        - **Server**: **8bj.de**
+        - **Port**: **995** (SSL verschlüsselt)
+      - Klicken Sie auf **Konto hinzufügen**.
+    - **GMX, Web.de, mailbox.org**:
+      - Melden Sie sich in Ihrem Webmail-Konto an.
+      - Gehen Sie zu den Einstellungen und suchen Sie den Bereich **E-Mail-Konten**.
+      - Klicken Sie auf **weiteres E-Mail-Konto hinzufügen**.
+      - Folgen Sie den restlichen Schritten wie bei **Google Mail**
 
 Falls weiterhin Fragen bestehen, ist die IT-Abteilung immer für Sie da!
