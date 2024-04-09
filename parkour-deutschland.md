@@ -47,7 +47,7 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
 
 4. **Team-Posteingang im IMAP-Ordner:**
 
-    - Der Team-Posteingang ist ein spezieller Ordner, der alle eingehenden E-Mails sammelt, die an **info@parkour-deutschland.de** gesendet werden. Jeder Benutzer kann auch E-Mails im Namen von **info@parkour-deutschland.de** senden. Wenn Sie auf eine E-Mail antworten möchten, wird empfohlen, die **Reply-To:**-Adresse standardmäßig auf **info@parkour-deutschland.de** zu setzen und diese E-Mail zusätzlich in **bcc:** zu setzen, damit andere Teammitglieder die Antworten sehen können.
+    - Der Team-Posteingang ist ein spezieller Ordner, der alle eingehenden E-Mails sammelt, die an **info** gesendet werden. Jeder Benutzer kann auch E-Mails im Namen von **info** senden. Wenn Sie auf eine E-Mail antworten möchten, wird empfohlen, die **Reply-To:**-Adresse standardmäßig auf **info** zu setzen und diese E-Mail zusätzlich in **bcc:** zu setzen, damit andere Teammitglieder die Antworten sehen können. Natürlich gefolgt vom At-Zeichen und parkour-deutschland.de hinterher.
     - Falls dies nicht geschieht, können Benutzer ihre Antworten aus dem **Gesendet**:-Ordner zurück in den Teamordner verschieben.
 
 5. **Einrichtung verschiedener Mailclients:**
@@ -83,7 +83,7 @@ ich freue mich, euch eine kurze Einführung in die Nutzung unseres neuen Nextclo
         - **Benutzername**: Ihre vollständige E-Mail-Adresse
       - Klicken Sie auf **Konto hinzufügen**.
       - Um E-Mails zu versenden, müssen auch die SMTP-Einstellungen hinterlegt werden, dazu folgen Sie den Schritten in Punkt 2 (ich freue mich auf Feedback!)
-      - Wenn Sie im ersten Schritt als Email-Adresse **info@parkour-deutschlad.de**, und im zweiten Schritt Ihre persönlich zugeteilte Email-Adresse hinterlegen, und für den Versand entsprechend berechtigt sind, können Sie mit Ihrem eigenen Passwort auch E-Mails über die info-Adresse versenden.
+      - Um wie in Punkt 4 im Namen einer anderen E-Mail-Adresse Mails zu verschicken, geben Sie diese im ersten Schritt als E-Mail-Adresse ein, im späteren Verlauf aber Ihre persönlich zugeteilte E-Mail-Adresse.
     - **GMX, Web.de, mailbox.org**:
       - Melden Sie sich in Ihrem Webmail-Konto an.
       - Gehen Sie zu den Einstellungen und suchen Sie den Bereich **E-Mail-Konten**.
