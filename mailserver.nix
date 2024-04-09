@@ -80,10 +80,6 @@
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           keep;
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "nicolas@kohlhof.org";
           redirect "nicolaskohlhof@googlemail.com";
         '';
       };
@@ -157,10 +153,6 @@
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           fileinto "Public.DPV-Team";
-          if not exists "reply-to" {
-              set "reply-to" "${from}";
-          }
-          set "from" "info@parkour-deutschland.de";
           redirect "sabinehaider@gmx.net";
           redirect "maren@parkour-stuttgart.de";
           redirect "maxheckl@mailbox.org";
