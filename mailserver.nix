@@ -153,22 +153,6 @@
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           fileinto "Public.DPV-Team";
-          redirect "sabinehaider@gmx.net";
-          redirect "maren@parkour-stuttgart.de";
-          redirect "maxheckl@mailbox.org";
-          redirect "info@maxheckl.de";
-          redirect "info@parkourberlin.de";
-          redirect "ben@parkourone.com";
-          redirect "lazer.erazer+dpv@gmail.com";
-          redirect "eike@plenter.de";
-          redirect "lukas@pkgt.de";
-          redirect "parkour@twio-x.de";
-          redirect "parkourplauen@googlemail.com";
-          redirect "schmolldominik@gmail.com";
-          redirect "info@parkour-erfurt.de";
-          redirect "MTBvet@GMX.de";
-          redirect "parkour@sve67.de";
-          redirect "Jennifer--Mueller@web.de";
           stop;
         '';
       };
