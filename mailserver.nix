@@ -107,6 +107,10 @@
         aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/eike.parkour-deutschland.de.key";
       };
+      "jennifer@parkour-deutschland.de" = {
+        aliases = ["info@parkour-deutschland.de"];
+        hashedPasswordFile = "/var/config/mail/jennifer.parkour-deutschland.de.key";
+      };
       "jewgeni@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/jewgeni.parkour-deutschland.de.key";
