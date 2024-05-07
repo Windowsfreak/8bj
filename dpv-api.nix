@@ -13,7 +13,7 @@ in {
 
   systemd.services.dpv1 = {
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    after = [ "network.target" "arangodb.service" ];
     script = ''
       export UNIX=/run/dpv1/apiserver.sock
       exec /var/dpv/api/bin/endpoint1
@@ -30,7 +30,7 @@ in {
   };
   systemd.services.dpv2 = {
     #wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    after = [ "network.target" "arangodb.service" ];
     script = ''
       export UNIX=/run/dpv2/apiserver.sock
       exec /var/dpv/api/bin/endpoint1
