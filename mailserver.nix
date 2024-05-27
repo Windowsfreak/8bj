@@ -225,10 +225,4 @@
       sieve_redirect_envelope_from = orig_recipient
     }
   '';
-  services.rspamd.locals = {
-    "groups.conf".text = ''
-      symbols {
-        "FORGED_RECIPIENTS" { weight = 20; }
-      }'';
-  };
 }
