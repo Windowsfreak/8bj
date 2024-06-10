@@ -201,6 +201,11 @@
       "kristin@rasselbande-horn.de" = {
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "asselbandehorn@googlemail.com";
+        '';
       };
     };
     indexDir = "/var/lib/dovecot/indices";
