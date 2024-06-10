@@ -60,23 +60,53 @@
       };
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "alicakohlhof@googlemail.com";
+        '';
       };
       "bennet@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/bennet.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "bennetkohlhof@googlemail.com";
+        '';
       };
       "collin@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/collin.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "collinkohlhof@googlemail.com";
+        '';
       };
       "corinna@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
         aliases = ["bkhvomkohlhof@kohlhof.org"];
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "corinnakohlhof@googlemail.com";
+        '';
       };
       "dominik@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/dominik.kohlhof.org.key";
         aliases = ["bennet@kohlhof.org" "bkhvomkohlhof@kohlhof.org" "collin@kohlhof.org"];
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "dominikkohlhof@googlemail.com";
+        '';
       };
       "nicolas@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "nicolaskohlhof@googlemail.com";
+        '';
       };
       "ben@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
@@ -162,6 +192,11 @@
       "corinna@rasselbande-horn.de" = {
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/corinna.rasselbande-horn.de.key";
+        sieveScript = ''
+          require ["fileinto", "envelope", "variables"];
+          keep;
+          redirect "corinnakohlhof@googlemail.com";
+        '';
       };
       "kristin@rasselbande-horn.de" = {
         aliases = ["info@rasselbande-horn.de"];
