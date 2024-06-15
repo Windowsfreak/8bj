@@ -1100,8 +1100,8 @@ in {
           header Strict-Transport-Security max-age=63072000
           encode zstd gzip
 
-          redir /.well-known/carddav /remote.php/dav 301
-          redir /.well-known/caldav /remote.php/dav 301
+          redir /.well-known/carddav /remote.php/dav/ 301
+          redir /.well-known/caldav /remote.php/dav/ 301
 
           root * ${webroot}
 
