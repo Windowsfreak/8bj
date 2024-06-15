@@ -775,6 +775,15 @@ in {
         `{"redis":{"password":"secret"}}`.
       '';
     };
+    cron.memoryLimit = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "1G";
+      description = ''
+        The `memory_limit` of PHP is equal to [](#opt-services.nextcloud.maxUploadSize).
+        The value can be customized for `nextcloud-cron.service` using this option.
+      '';
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
