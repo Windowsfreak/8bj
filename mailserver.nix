@@ -30,7 +30,7 @@
         catchAll = ["8bj.de" "windowsfreak.de"];
         sendOnly = true;
         sieveScript = ''
-          require [ "envelope"];
+          require ["fileinto", "envelope"];
           discard;
         '';
       };
@@ -38,7 +38,7 @@
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
         sieveScript = ''
-          require ["envelope"];
+          require ["fileinto", "envelope"];
           discard;
         '';
       };
@@ -46,7 +46,7 @@
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
         sieveScript = ''
-          require ["envelope"];
+          require ["fileinto", "envelope"];
           discard;
         '';
       };
@@ -54,14 +54,14 @@
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
         sieveScript = ''
-          require ["envelope"];
+          require ["fileinto", "envelope"];
           discard;
         '';
       };
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "alicakohlhof@googlemail.com";
         '';
@@ -69,7 +69,7 @@
       "bennet@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/bennet.kohlhof.org.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "bennetkohlhof@googlemail.com";
         '';
@@ -77,7 +77,7 @@
       "collin@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/collin.kohlhof.org.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "collinkohlhof@googlemail.com";
         '';
@@ -86,7 +86,7 @@
         hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
         aliases = ["bkhvomkohlhof@kohlhof.org"];
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "corinnakohlhof@googlemail.com";
         '';
@@ -95,7 +95,7 @@
         hashedPasswordFile = "/var/config/mail/dominik.kohlhof.org.key";
         aliases = ["bennet@kohlhof.org" "bkhvomkohlhof@kohlhof.org" "collin@kohlhof.org"];
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "dominikkohlhof@googlemail.com";
         '';
@@ -103,7 +103,7 @@
       "nicolas@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/nicolas.kohlhof.org.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "nicolaskohlhof@googlemail.com";
         '';
@@ -184,7 +184,7 @@
         hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
         catchAll = ["parkour-deutschland.de"];
         sieveScript = ''
-          require [ "envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           fileinto "Public.DPV-Team";
           stop;
         '';
@@ -193,7 +193,7 @@
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/corinna.rasselbande-horn.de.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "corinnakohlhof@googlemail.com";
         '';
@@ -202,7 +202,7 @@
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
         sieveScript = ''
-          require ["envelope", "variables"];
+          require ["fileinto", "envelope", "variables"];
           keep;
           redirect "asselbandehorn@googlemail.com";
         '';
