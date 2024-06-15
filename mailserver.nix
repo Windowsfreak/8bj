@@ -185,7 +185,6 @@
         catchAll = ["parkour-deutschland.de"];
         sieveScript = ''
           require [ "envelope", "variables"];
-          fileinto "Public.DPV-Team";
           stop;
         '';
       };
