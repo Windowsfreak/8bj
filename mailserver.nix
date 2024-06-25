@@ -108,6 +108,10 @@
           redirect "nicolaskohlhof@googlemail.com";
         '';
       };
+      "axel@parkour-deutschland.de" = {
+        aliases = ["info@parkour-deutschland.de"];
+        hashedPasswordFile = "/var/config/mail/axel.parkour-deutschland.de.key";
+      };
       "ben@parkour-deutschland.de" = {
         aliases = ["info@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/ben.parkour-deutschland.de.key";
