@@ -29,8 +29,6 @@
         jupyterLab = {
           autoStart = true;
           image = "quay.io/jupyter/datascience-notebook";
-          entrypoint = "start-notebook.py";
-          cmd = [ "--PasswordIdentityProvider.hashed_password=$6$rounds=800000$uVZUmCstdsRKZpGr$AO6ZZ.AlRheMf8CRzN/AJ/tz.CUOz1.r77d2jyxh7.SmPVgbpoTpoZGf701PRheQuAeAXNfcE7divN42bDnBn."];
           volumes = [ "/srv/jupyter/home:/home/jovyan" ];
           ports = [ "127.0.0.1:38877:8888" ];
         };
