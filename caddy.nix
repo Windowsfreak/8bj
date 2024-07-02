@@ -40,6 +40,14 @@ let
     encode zstd gzip
     reverse_proxy * :9000
   '';
+  caddyfileJupyter = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    reverse_proxy * :38877
+  '';
   caddyfileMail = ''
     header /* {
       -Server
@@ -109,6 +117,9 @@ in {
       };
       virtualHosts."newsletter.8bj.de" = {
         extraConfig = caddyfileListmonk;
+      };
+      virtualHosts."lab.8bj.de" = {
+        extraConfig = caddyfileJupyter;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
