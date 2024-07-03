@@ -208,7 +208,7 @@
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           keep;
-          redirect "asselbandehorn@googlemail.com";
+          redirect "rasselbandehorn@googlemail.com";
         '';
       };
     };
