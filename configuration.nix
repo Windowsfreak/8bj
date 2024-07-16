@@ -42,7 +42,7 @@
             WORDPRESS_DB_USER = "wordpress";
             WORDPRESS_DB_NAME = "wordpress";
             WORDPRESS_DB_PASSWORD_FILE = "/var/config/wordpress/db-password";
-            WORDPRESS_CONFIG_EXTRA = "define('FS_METHOD', true);";
+            WORDPRESS_CONFIG_EXTRA = "define('FS_METHOD', 'direct');";
           };
         };
       };
