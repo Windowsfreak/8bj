@@ -40,6 +40,31 @@ let
     encode zstd gzip
     reverse_proxy * :9000
   '';
+  caddyfileWordpress = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/www/html
+    @forbidden {
+      not path /wp-includes/ms-files.php
+      path /wp-admin/includes/*.php
+      path /wp-includes/*.php
+      path /wp-config.php
+      path /wp-content/uploads/*.php
+      path /.user.ini
+      path /wp-content/debug.log
+    }
+    respond @forbidden "Access denied" 403
+
+    php_fastcgi wordpress:9000
+    file_server
+    header / {
+      X-Frame-Options "SAMEORIGIN"
+      X-Content-Type-Options "nosniff"
+    }
+  '';
   caddyfileJupyter = ''
     header /* {
       -Server
@@ -117,6 +142,9 @@ in {
       };
       virtualHosts."newsletter.8bj.de" = {
         extraConfig = caddyfileListmonk;
+      };
+      virtualHosts."beta.parkour-deutschland.de" = {
+        extraConfig = caddyfileWordpress;
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;

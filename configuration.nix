@@ -32,6 +32,17 @@
           volumes = [ "/srv/jupyter/home:/home/jovyan" ];
           ports = [ "127.0.0.1:38877:8888" ];
         };
+        wordpress = {
+          autoStart = true;
+          image = "wordpress:fpm";
+          volumes = [ "/srv/wordpress:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/var/config/wordpress:/var/config/wordpress" ];
+          environment = {
+            WORDPRESS_DB_HOST = "localhost:/run/mysqld/mysqld.sock";
+            WORDPRESS_DB_USER = "wordpress";
+            WORDPRESS_DB_NAME = "wordpress";
+            WORDPRESS_DB_PASSWORD_FILE = "/var/config/wordpress/db-password";
+          };
+        };
       };
     };
   };
