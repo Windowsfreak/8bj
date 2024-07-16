@@ -46,7 +46,7 @@ let
     }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
-    root * /var/www/html
+    root * /var/www/wordpress
     @forbidden {
       not path /wp-includes/ms-files.php
       path /wp-admin/includes/*.php
