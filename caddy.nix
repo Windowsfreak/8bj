@@ -58,7 +58,7 @@ let
     }
     respond @forbidden "Access denied" 403
 
-    php_fastcgi wordpress:9000
+    php_fastcgi localhost:9001
     file_server
     header / {
       X-Frame-Options "SAMEORIGIN"

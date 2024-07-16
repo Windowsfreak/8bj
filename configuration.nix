@@ -36,6 +36,7 @@
           autoStart = true;
           image = "wordpress:fpm";
           volumes = [ "/srv/wordpress:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/var/config/wordpress:/var/config/wordpress" ];
+          ports = [ "127.0.0.1:9001:9000" ];
           environment = {
             WORDPRESS_DB_HOST = "localhost:/run/mysqld/mysqld.sock";
             WORDPRESS_DB_USER = "wordpress";
