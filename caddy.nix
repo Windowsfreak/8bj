@@ -58,7 +58,9 @@ let
     }
     respond @forbidden "Access denied" 403
 
-    php_fastcgi localhost:9001
+    php_fastcgi localhost:9001 {
+      root /var/www/html
+    }
     file_server
     header / {
       X-Frame-Options "SAMEORIGIN"
