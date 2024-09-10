@@ -46,6 +46,7 @@ let
     }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
+    respond "This is the wrong server!" 410
     root * /var/www/wordpress
     @forbidden {
       not path /wp-includes/ms-files.php
