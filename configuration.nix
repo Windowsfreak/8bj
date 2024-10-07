@@ -122,7 +122,7 @@
     };
     postgresql = {
       settings = {
-        listen_addresses = [ "localhost" "172.17.0.1" ];
+        listen_addresses = "localhost,172.17.0.1";
       };
     };
     redis.servers.nextcloud = {
