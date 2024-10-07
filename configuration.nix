@@ -122,7 +122,7 @@
     };
     postgresql = {
       settings = {
-        lib.mkForce listen_addresses = "localhost,172.17.0.1";
+        listen_addresses = lib.mkForce "localhost,172.17.0.1";
       };
     };
     redis.servers.nextcloud = {
