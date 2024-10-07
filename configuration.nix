@@ -121,6 +121,22 @@
       settings.PasswordAuthentication = false;
     };
     postgresql = {
+      authentication = ''
+        # "local" is for Unix domain socket connections only
+        local   all             all                                     trust
+        # IPv4 local connections:
+        host    all             all             127.0.0.1/32            trust
+        # IPv6 local connections:
+        host    all             all             ::1/128                 trust
+        # Docker connections:
+        host    all             all             172.16.0.0/12           md5
+        # Allow replication connections from localhost, by a user with the
+        # replication privilege.
+        local   replication     all                                     trust
+        host    replication     all             127.0.0.1/32            trust
+        host    replication     all             ::1/128                 trust
+        host    replication     all             172.17.0.0/24           md5
+      '';
       settings = {
         listen_addresses = lib.mkForce "localhost,172.17.0.1";
       };
