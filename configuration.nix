@@ -165,7 +165,6 @@
       };
       psono = {
         enable = true;
-        user = "psono";
         requirePassFile = "/var/config/psono-password.txt";
       };
     };
