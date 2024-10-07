@@ -15,6 +15,7 @@ in
       allowedTCPPorts = [ 22 80 443 8529 8123 993 995 465 ];
       allowedUDPPorts = [ 443 51820 ];
       logRefusedConnections = false;
+      extraCommands = "iptables -A INPUT -p tcp --destination-port 5432 -s 172.16.0.0/12 -j ACCEPT";
     };
     useDHCP = false;
     interfaces.ens18 = {
