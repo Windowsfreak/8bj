@@ -121,7 +121,9 @@
       settings.PasswordAuthentication = false;
     };
     postgresql = {
-      listen_addresses = [ "localhost" "172.17.0.1" ];
+      settings = {
+        listen_addresses = [ "localhost" "172.17.0.1" ];
+      };
     };
     redis.servers.nextcloud = {
       requirePassFile = "/var/config/redis-password.txt";
