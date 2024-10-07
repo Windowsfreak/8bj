@@ -42,7 +42,6 @@
             "/run/redis-psono/redis.sock:/run/redis/redis.sock"
           ];
           ports = [ "127.0.0.1:31992:80" ];
-          extraOptions = [ "--sysctl net.core.somaxconn=65535" ];
         };
         wordpress = {
           autoStart = true;
