@@ -32,6 +32,18 @@
           volumes = [ "/srv/jupyter/home:/home/jovyan" ];
           ports = [ "127.0.0.1:38877:8888" ];
         };
+        psono = {
+          autoStart = true;
+          image = "psono/psono-combo:latest";
+          volumes = [
+            "/var/config/psono/settings.yaml:/root/.psono_server/settings.yaml"
+            "/var/config/psono-client/config.json:/usr/share/nginx/html/config.json"
+            "/var/config/psono-client/config.json:/usr/share/nginx/html/portal/config.json"
+            ""
+          ];
+          ports = [ "127.0.0.1:31992:80" ];
+          extraOptions = [ "--sysctl net.core.somaxconn=65535" ];
+        };
         wordpress = {
           autoStart = true;
           image = "wordpress:fpm";
@@ -63,6 +75,12 @@
   services = {
     arangodb = {
       enable = true;
+    };
+    cron = {
+      enable = true;
+      systemCronJobs = [
+        "30 2 * * * docker run --rm -v /var/config/psono/settings.yaml:/root/.psono_server/settings.yaml -ti psono/psono-combo:latest python3 ./psono/manage.py cleartoken >> /var/log/cron.log 2>&1"
+      ];
     };
     fail2ban = {
       enable = true;
@@ -141,8 +159,15 @@
         listen_addresses = lib.mkForce "localhost,172.17.0.1";
       };
     };
-    redis.servers.nextcloud = {
-      requirePassFile = "/var/config/redis-password.txt";
+    redis.servers = {
+      nextcloud = {
+        requirePassFile = "/var/config/redis-password.txt";
+      };
+      psono = {
+        enable = true;
+        user = "psono";
+        requirePassFile = "/var/config/psono-password.txt";
+      };
     };
     timesyncd = {
       enable = true;
