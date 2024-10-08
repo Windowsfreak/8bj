@@ -176,6 +176,11 @@
         "3.de.pool.ntp.org"
       ];
     };
+    vaultwarden = {
+      enable = true;
+      dbBackend = "postgresql";
+      environmentFile = "/var/config/vaultwarden.env";
+    };
   };
   system = {
     autoUpgrade = {

@@ -57,7 +57,8 @@ let
       header_up X-Forwarded-For {remote}
       header_up X-Forwarded-Proto {scheme}
     }
-  '';  caddyfileWordpress = ''
+  '';
+  caddyfileWordpress = ''
     header /* {
       -Server
     }
@@ -112,6 +113,9 @@ let
     encode zstd gzip
     @php not path /obj/* # /**/
     root * /var/www/8bj
+    reverse_proxy /vault/* [::1]:16770 {
+      header_up X-Real-IP {remote_host}
+    }
     handle /api/* { # /**/
       reverse_proxy * unix//run/dpv1/apiserver.sock
     }
