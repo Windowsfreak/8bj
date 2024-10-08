@@ -113,7 +113,7 @@ let
     encode zstd gzip
     @php not path /obj/* # /**/
     root * /var/www/8bj
-    handle_path /vault/* {
+    handle /vault/* {
       reverse_proxy * [::1]:16770 {
         header_up X-Real-IP {remote_host}
       }
