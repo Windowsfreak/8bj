@@ -40,24 +40,6 @@ let
     encode zstd gzip
     reverse_proxy * :9000
   '';
-  caddyfilePsono = ''
-    header /* {
-      -Server
-      Referrer-Policy "same-origin"
-      X-Frame-Options "DENY"
-      X-Content-Type-Options "nosniff"
-      X-XSS-Protection "1; mode=block"
-      Content-Security-Policy "default-src 'none'; manifest-src 'self'; connect-src 'self' https://static.psono.com https://api.pwnedpasswords.com https://storage.googleapis.com https://*.digitaloceanspaces.com https://*.blob.core.windows.net https://*.s3.amazonaws.com; font-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'self'; child-src 'self';"
-    }
-    header Strict-Transport-Security max-age=63072000
-    encode zstd gzip
-    reverse_proxy * :31992 {
-      header_up Host {host}
-      header_up X-Real-IP {remote}
-      header_up X-Forwarded-For {remote}
-      header_up X-Forwarded-Proto {scheme}
-    }
-  '';
   caddyfileWordpress = ''
     header /* {
       -Server
@@ -174,9 +156,6 @@ in {
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;
-      };
-      virtualHosts."psono.8bj.de" = {
-        extraConfig = caddyfilePsono;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
