@@ -180,6 +180,10 @@
       enable = true;
       dbBackend = "postgresql";
       environmentFile = "/var/config/vaultwarden.env";
+      config = {
+        ROCKET_ADDRESS = "::1";
+        ROCKET_PORT = 16770;
+      };
     };
   };
   system = {
