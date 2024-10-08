@@ -114,7 +114,7 @@ let
     @php not path /obj/* # /**/
     root * /var/www/8bj
     handle_path /vault/* {
-      reverse_proxy /vault/* [::1]:16770 {
+      reverse_proxy * [::1]:16770 {
         header_up X-Real-IP {remote_host}
       }
     }
