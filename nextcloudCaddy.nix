@@ -292,7 +292,7 @@ in {
     package = mkOption {
       type = types.package;
       description = lib.mdDoc "Which package to use for the Nextcloud instance.";
-      relatedPackages = [ "nextcloud26" "nextcloud27" "nextcloud28" ];
+      relatedPackages = [ "nextcloud26" "nextcloud27" "nextcloud28" "nextcloud29" "nextcloud30" ];
     };
     phpPackage = mkPackageOption pkgs "php" {
       example = "php82";
@@ -811,7 +811,8 @@ in {
         ++ (optional (versionOlder cfg.package.version "26") (upgradeWarning 25 "23.05"))
         ++ (optional (versionOlder cfg.package.version "27") (upgradeWarning 26 "23.11"))
         ++ (optional (versionOlder cfg.package.version "28") (upgradeWarning 27 "24.05"))
-        ++ (optional (versionOlder cfg.package.version "29") (upgradeWarning 28 "24.11"));
+        ++ (optional (versionOlder cfg.package.version "29") (upgradeWarning 28 "24.11"))
+        ++ (optional (versionOlder cfg.package.version "30") (upgradeWarning 29 "24.11"));
 
       services.nextcloudCaddy.package = with pkgs;
         mkDefault (
@@ -824,7 +825,7 @@ in {
           else if versionOlder stateVersion "23.05" then nextcloud25
           else if versionOlder stateVersion "23.11" then nextcloud26
           else if versionOlder stateVersion "24.05" then nextcloud27
-          else nextcloud29
+          else nextcloud30
         );
 
       services.nextcloud.phpPackage =
