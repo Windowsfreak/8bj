@@ -8,7 +8,9 @@
 
   services.factorio = {
     enable = true;
-    package = pkgs.factorio-headless-experimental;
+    package = pkgs.factorio-headless-experimental.override {
+      versionsJson = ./factorio-versions.json;
+    };
     public = false;
     requireUserVerification = false;
     openFirewall = true;
