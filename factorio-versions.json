@@ -1,7 +1,7 @@
 {
   "x86_64-linux": {
     "headless": {
-      "stable": {
+      "experimental": {
         "name": "factorio_headless_x64-2.0.18.tar.xz",
         "needsAuth": false,
         "sha256": "83ih3IpUXBPYymFsvnLSRao86T4/IZ2NYNPAbH34LcA=",
