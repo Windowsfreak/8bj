@@ -2,49 +2,39 @@
 
 {
   environment.systemPackages = with pkgs; [
-    factorio
+    factorio-headless-experimental
   ];
+  nixpkgs.config.allowUnfree = true;
 
-  systemd.services.factorio = {
-    description   = "Factorio Server";
-    #wantedBy      = [ "multi-user.target" ];
-    after         = [ "network.target" ];
-
-    serviceConfig = {
-      ExecStart = "/var/lib/factorio --start-server-load-latest --server-settings /var/lib/factorio/server-settings.json --mod-directory /var/lib/factorio/mods";
-      Restart = "always";
-      User = "factorio";
-      Group = "factorio";
-      WorkingDirectory = "/var/lib/factorio/server";
-      TimeoutStopSec = 90;
-
-      # Hardening
-      CapabilityBoundingSet = [ "" ];
-      DeviceAllow = [ "" ];
-      LockPersonality = true;
-      PrivateDevices = true;
-      PrivateTmp = true;
-      PrivateUsers = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHome = true;
-      ProtectHostname = true;
-      ProtectKernelLogs = true;
-      ProtectKernelModules = true;
-      ProtectKernelTunables = true;
-      ProtectSystem = "strict";
-      ProtectProc = "invisible";
-      ReadWritePaths = [ "/var/lib/factorio" ];
-      RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-      RestrictNamespaces = true;
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
-      SystemCallArchitectures = "native";
-      UMask = "0077";
-    };
-  };
-
-  networking.firewall = {
-    allowedTCPPorts = [ 34197 ];
+  services.factorio = {
+    enable = true;
+    package = factorio-headless-experimental;
+    public = false;
+    requireUserVerification = false;
+    openFirewall = true;
+    loadLatestSave = true;
+    lan = true;
+    game-name = "8bj";
+    extraSettingsFile = "/var/lib/factorio/extra-settings.json";
+    description = "do we really need this?";
+    autosave-interval = 10;
+    mods =
+        let
+          inherit (pkgs) lib;
+          modDir = /var/lib/factorio/mods;
+          modList = lib.pipe modDir [
+            builtins.readDir
+            (lib.filterAttrs (k: v: v == "regular"))
+            (lib.mapAttrsToList (k: v: k))
+            (builtins.filter (lib.hasSuffix ".zip"))
+          ];
+          modToDrv = modFileName:
+            pkgs.runCommand "copy-factorio-mods" {} ''
+              mkdir $out
+              cp ${modDir + "/${modFileName}"} $out/${modFileName}
+            ''
+            // { deps = []; };
+        in
+          builtins.map modToDrv modList;
   };
 }
