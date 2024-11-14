@@ -7,6 +7,7 @@
     ./arangodb.nix
     ./boot.nix
     ./caddy.nix
+    ./factorio.nix
     ./users.nix
     ./mailserver.nix
     ./minecraft.nix
