@@ -8,7 +8,7 @@
 
   services.factorio = {
     enable = true;
-    package = factorio-headless-experimental;
+    package = pkgs.factorio-headless-experimental;
     public = false;
     requireUserVerification = false;
     openFirewall = true;
