@@ -79,7 +79,6 @@ let
       Access-Control-Allow-Methods "POST, GET, PUT, PATCH, DELETE"
     }
     encode zstd gzip
-    respond "This is the wrong server!" 410
     root * /var/www/espocrm/public
     @forbidden {
       path /data/*
