@@ -49,8 +49,8 @@
         espocrm = {
           autoStart = true;
           image = "espocrm/espocrm:fpm-alpine";
-          volumes = [ "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" ];
-          ports = [ "127.0.0.1:8080:80" ];
+          volumes = [ "/var/www/espocrm:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" ];
+          ports = [ "127.0.0.1:9002:80" ];
           environment = {
             ESPOCRM_SITE_URL = "https://espo.8bj.de/";
           };

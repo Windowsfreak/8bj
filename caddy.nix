@@ -68,6 +68,39 @@ let
       X-Content-Type-Options "nosniff"
     }
   '';
+  caddyfileEspocrm = ''
+    header /* {
+      -Server
+    }
+    header {
+      Strict-Transport-Security "max-age=63072000"
+      X-Frame-Options "SAMEORIGIN"
+      X-Content-Type-Options "nosniff"
+      Access-Control-Allow-Methods "POST, GET, PUT, PATCH, DELETE"
+    }
+    encode zstd gzip
+    respond "This is the wrong server!" 410
+    root * /var/www/espocrm/public
+    @forbidden {
+      path /data/*
+      path /application/*
+      path /custom/*
+      path /vendor/*
+      path /web.config
+      path /public/*
+    }
+    respond @forbidden "Access denied" 403
+
+    @rewrite {
+      not path /client/*
+    }
+    rewrite @rewrite /index.php?{query}
+
+    php_fastcgi localhost:9002 {
+      root /var/www/html
+    }
+    file_server
+  '';
   caddyfileJupyter = ''
     header /* {
       -Server
@@ -153,6 +186,9 @@ in {
       };
       virtualHosts."beta.parkour-deutschland.de" = {
         extraConfig = caddyfileWordpress;
+      };
+      virtualHosts."espo.8bj.de" = {
+        extraConfig = caddyfileEspocrm;
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;
