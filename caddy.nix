@@ -96,7 +96,7 @@ let
     rewrite @rewrite /index.php?{query}
 
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-      root /var/www/espocrm
+      root /var/www/espocrm/public
     }
     file_server
   '';
