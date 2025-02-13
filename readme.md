@@ -88,3 +88,23 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ```
 - [dpv api](https://github.com/parkour-de/api) has an endpoint to change password hashes
 - It may be necessary to reboot the entire server if new FQDNs were added. Failing to do so will result in login errors.
+
+### Other services
+
+- Factorio server: `factorio.nix`
+- Vaultwarden: `caddy.nix` and `configuration.nix`
+- Jupyter Server: details on docker file in `configuration.nix`
+- Sieve filters and mail forwarding: `mailserver.nix`
+- Minecraft server: `minecraft.nix`
+- Wireguard: `network.nix`
+- Listmonk: `configuration.nix`
+
+### Unique file locations:
+
+- `/etc/nixos` (this repo)
+- `/var/config` (secrets and configuration files for e.g. vaultwarden, nextcloud, mail, redis, wireguard, listmonk)
+- `/var/dpv/api` (dpv server, see [DPV api](github.com/parkour-de/api))
+- `/var/www`
+- `/var/lib` (factorio, minecraft, mysql, nextcloud and more)
+- `/etc/dovecot/acl` (group folders for mailserver)
+- `/var/vmail`
