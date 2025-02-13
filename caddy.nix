@@ -95,7 +95,7 @@ let
     }
     rewrite @rewrite /index.php?{query}
 
-    php_fastcgi localhost:9002 {
+    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
       root /var/www/html
     }
     file_server
