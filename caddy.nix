@@ -278,7 +278,6 @@ in {
     after = [ "network.target" ];
     serviceConfig = {
       Type = "exec";
-      User = espocrmUser;
       ExecStart = lib.concatStringsSep " " [
         (lib.getExe config.services.phpfpm.phpPackage)
         "-f"
