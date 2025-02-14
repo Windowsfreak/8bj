@@ -90,11 +90,27 @@ let
     }
     respond @forbidden "Access denied" 403
 
-    php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-      root /var/www/espocrm/public
-      try_files {path} {path}/ /index.php?{query}
+    @notFound {
+      not file
+      not path /client/*
     }
-    file_server
+    rewrite @notFound /index.php?{query}
+
+    @client {
+      path /client/*
+    }
+    handle @client {
+      root * /var/www/espocrm
+      file_server
+    }
+
+    handle {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espocrm/public
+        try_files {path} {path}/index.php index.php?{path} /index.php?{path}
+      }
+      file_server
+    }
   '';
   caddyfileJupyter = ''
     header /* {
@@ -213,6 +229,8 @@ in {
         upload_max_filesize = "512M";
         post_max_size = "512M";
         memory_limit = "512M";
+        max_execution_time = "180";
+        max_input_time = "180";
         opcache.enable_cli = "1";
         opcache.interned_strings_buffer = "32";
         opcache.max_accelerated_files = "10000";
@@ -253,6 +271,34 @@ in {
           };
         };
       };
+    };
+  };
+  systemd.services.espocrm-cron = {
+    description = "Run EspoCRM cron tasks";
+    after = [ "network.target" ];
+    serviceConfig = {
+      Type = "exec";
+      User = espocrmUser;
+      ExecStart = lib.concatStringsSep " " [
+        (lib.getExe config.services.phpfpm.phpPackage)
+        "-f"
+        "/var/www/espocrm/cron.php"
+      ];
+      WorkingDirectory = "/var/www/espocrm/";
+      User = config.services.caddy.user;
+      Group = config.services.caddy.group;
+      StandardOutput = "null";  # Equivalent to > /dev/null
+      StandardError = "null";   # Equivalent to 2>&1
+    };
+  };
+
+  systemd.timers.espocrm-cron = {
+    description = "Run EspoCRM cron tasks every minute";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1min";
+      OnUnitActiveSec = "1min";
+      Unit = "espocrm-cron.service";
     };
   };
 }
