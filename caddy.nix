@@ -100,6 +100,17 @@ let
       file_server
     }
 
+    @apiV1 {
+      path /api/v1/*
+    }
+    handle @apiV1 {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espocrm/public
+        try_files {path} {path}/index.php /api/v1/index.php?{query}
+      }
+      file_server
+    }
+
     handle {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
         root /var/www/espocrm/public
