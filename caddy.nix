@@ -100,13 +100,35 @@ let
       file_server
     }
 
+    @portal_access {
+      path /api/v1/portal-access/*
+    }
+    handle @portal_access {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espocrm/public
+        try_files {path} /api/v1/portal-access/index.php
+      }
+      file_server
+    }
+
     @apiV1 {
       path /api/v1/*
     }
     handle @apiV1 {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
         root /var/www/espocrm/public
-        try_files {path} {path}/index.php /api/v1/index.php?{query}
+        try_files {path} /api/v1/index.php
+      }
+      file_server
+    }
+
+    @portal {
+      path /portal/*
+    }
+    handle @portal {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espocrm/public
+        try_files {path} /portal/index.php?{query}
       }
       file_server
     }
