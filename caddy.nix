@@ -92,12 +92,6 @@ let
     }
     respond @forbidden "Access denied" 403
 
-    @notFound {
-      not file
-      not path /client/*
-    }
-    rewrite @notFound /index.php?{query}
-
     @client {
       path /client/*
     }
