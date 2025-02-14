@@ -90,14 +90,9 @@ let
     }
     respond @forbidden "Access denied" 403
 
-    @notFound {
-      not file
-      not path /client/*
-    }
-    rewrite @notFound /index.php?{query}
-
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
       root /var/www/espocrm/public
+      try_files {path} {path}/ /index.php?{query}
     }
     file_server
   '';
