@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+with lib;
+
 let
   # using pkgs2 to avoid recursive loop with fetchFromGitHub
   # see https://stackoverflow.com/questions/73097604/nixos-how-to-import-some-configuration-from-gitlab-infinite-recursion-encounte
