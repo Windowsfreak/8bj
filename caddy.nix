@@ -42,34 +42,6 @@ let
     encode zstd gzip
     reverse_proxy * :9000
   '';
-  caddyfileWordpress = ''
-    header /* {
-      -Server
-    }
-    header Strict-Transport-Security max-age=63072000
-    encode zstd gzip
-    respond "This is the wrong server!" 410
-    root * /var/www/wordpress
-    @forbidden {
-      not path /wp-includes/ms-files.php
-      path /wp-admin/includes/*.php
-      path /wp-includes/*.php
-      path /wp-config.php
-      path /wp-content/uploads/*.php
-      path /.user.ini
-      path /wp-content/debug.log
-    }
-    respond @forbidden "Access denied" 403
-
-    php_fastcgi localhost:9001 {
-      root /var/www/html
-    }
-    file_server
-    header / {
-      X-Frame-Options "SAMEORIGIN"
-      X-Content-Type-Options "nosniff"
-    }
-  '';
   caddyfileEspocrm = ''
     header /* {
       -Server
@@ -136,6 +108,77 @@ let
     handle {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
         root /var/www/espocrm/public
+        try_files {path} {path}/index.php index.php?{path} /index.php?{path}
+      }
+      file_server
+    }
+  '';
+  caddyfileEspoaxel = ''
+    header /* {
+      -Server
+    }
+    header {
+      Strict-Transport-Security "max-age=63072000"
+      X-Frame-Options "SAMEORIGIN"
+      X-Content-Type-Options "nosniff"
+      Access-Control-Allow-Methods "POST, GET, PUT, PATCH, DELETE"
+    }
+    encode zstd gzip
+    root * /var/www/espoaxel/public
+    @forbidden {
+      path /data/*
+      path /application/*
+      path /custom/*
+      path /vendor/*
+      path /web.config
+      path /public/*
+    }
+    respond @forbidden "Access denied" 403
+
+    @client {
+      path /client/*
+    }
+    handle @client {
+      root * /var/www/espoaxel
+      file_server
+    }
+
+    @portal_access {
+      path /api/v1/portal-access/*
+    }
+    handle @portal_access {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espoaxel/public
+        try_files {path} /api/v1/portal-access/index.php
+      }
+      file_server
+    }
+
+    @apiV1 {
+      path /api/v1/*
+    }
+    handle @apiV1 {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espoaxel/public
+        try_files {path} /api/v1/index.php
+      }
+      file_server
+    }
+
+    @portal {
+      path /portal/*
+    }
+    handle @portal {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espoaxel/public
+        try_files {path} /portal/index.php?{query}
+      }
+      file_server
+    }
+
+    handle {
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        root /var/www/espoaxel/public
         try_files {path} {path}/index.php index.php?{path} /index.php?{path}
       }
       file_server
@@ -229,6 +272,9 @@ in {
       };
       virtualHosts."espo.8bj.de" = {
         extraConfig = caddyfileEspocrm;
+      };
+      virtualHosts."spieltkeinerolleerzaehlm.8bj.de" = {
+        extraConfig = caddyfileEspoaxel;
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;

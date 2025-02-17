@@ -54,6 +54,14 @@
             ESPOCRM_SITE_URL = "https://espo.8bj.de/";
           };
         };
+        espoaxel = {
+          autoStart = true;
+          image = "espocrm/espocrm:fpm-alpine";
+          volumes = [ "/var/www/espoaxel:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" ];
+          environment = {
+            ESPOCRM_SITE_URL = "https://espoaxel.8bj.de/";
+          };
+        };
       };
     };
   };
