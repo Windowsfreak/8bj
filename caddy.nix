@@ -267,9 +267,6 @@ in {
       virtualHosts."newsletter.8bj.de" = {
         extraConfig = caddyfileListmonk;
       };
-      virtualHosts."beta.parkour-deutschland.de" = {
-        extraConfig = caddyfileWordpress;
-      };
       virtualHosts."espo.8bj.de" = {
         extraConfig = caddyfileEspocrm;
       };
