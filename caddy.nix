@@ -113,7 +113,7 @@ let
       file_server
     }
   '';
-  caddyfileEspoaxel = ''
+  caddyfileEspocollin = ''
     header /* {
       -Server
     }
@@ -124,7 +124,7 @@ let
       Access-Control-Allow-Methods "POST, GET, PUT, PATCH, DELETE"
     }
     encode zstd gzip
-    root * /var/www/espoaxel/public
+    root * /var/www/espocollin/public
     @forbidden {
       path /data/*
       path /application/*
@@ -139,7 +139,7 @@ let
       path /client/*
     }
     handle @client {
-      root * /var/www/espoaxel
+      root * /var/www/espocollin
       file_server
     }
 
@@ -148,7 +148,7 @@ let
     }
     handle @portal_access {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        root /var/www/espoaxel/public
+        root /var/www/espocollin/public
         try_files {path} /api/v1/portal-access/index.php
       }
       file_server
@@ -159,7 +159,7 @@ let
     }
     handle @apiV1 {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        root /var/www/espoaxel/public
+        root /var/www/espocollin/public
         try_files {path} /api/v1/index.php
       }
       file_server
@@ -170,7 +170,7 @@ let
     }
     handle @portal {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        root /var/www/espoaxel/public
+        root /var/www/espocollin/public
         try_files {path} /portal/index.php?{query}
       }
       file_server
@@ -178,7 +178,7 @@ let
 
     handle {
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        root /var/www/espoaxel/public
+        root /var/www/espocollin/public
         try_files {path} {path}/index.php index.php?{path} /index.php?{path}
       }
       file_server
@@ -270,8 +270,8 @@ in {
       virtualHosts."espo.8bj.de" = {
         extraConfig = caddyfileEspocrm;
       };
-      virtualHosts."spieltkeinerolleerzaehlm.8bj.de" = {
-        extraConfig = caddyfileEspoaxel;
+      virtualHosts."lel.kohlhof.org" = {
+        extraConfig = caddyfileEspocollin;
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;
@@ -372,4 +372,32 @@ in {
       Unit = "espocrm-cron.service";
     };
   };
+
+  systemd.services.espocollin-cron = {
+      description = "Run EspoCRM cron tasks";
+      after = [ "network.target" ];
+      serviceConfig = {
+        Type = "exec";
+        ExecStart = lib.concatStringsSep " " [
+          (lib.getExe config.services.phpfpm.phpPackage)
+          "-f"
+          "/var/www/espocollin/cron.php"
+        ];
+        WorkingDirectory = "/var/www/espocollin/";
+        User = config.services.caddy.user;
+        Group = config.services.caddy.group;
+        StandardOutput = "null";  # Equivalent to > /dev/null
+        StandardError = "null";   # Equivalent to 2>&1
+      };
+    };
+
+    systemd.timers.espocollin-cron = {
+      description = "Run EspoCollin cron tasks every minute";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "1min";
+        OnUnitActiveSec = "1min";
+        Unit = "espocollin-cron.service";
+      };
+    };
 }

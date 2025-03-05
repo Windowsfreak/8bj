@@ -62,6 +62,14 @@
             ESPOCRM_SITE_URL = "https://espoaxel.8bj.de/";
           };
         };
+        espocollin = {
+          autoStart = true;
+          image = "espocrm/espocrm:fpm-alpine";
+          volumes = [ "/var/www/espocollin:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" ];
+          environment = {
+            ESPOCRM_SITE_URL = "https://lel.kohlhof.org/";
+          };
+        };
       };
     };
   };
