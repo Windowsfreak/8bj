@@ -120,10 +120,6 @@
         aliases = ["alle@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
       };
-      "chris@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "info@parkour-deutschland.de" "satzung@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "bildung@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/chris.parkour-deutschland.de.key";
-      };
       "dirk@parkour-deutschland.de" = {
         aliases = ["alle@parkour-deutschland.de" "wettkampf@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
         hashedPasswordFile = "/var/config/mail/dirk.parkour-deutschland.de.key";
