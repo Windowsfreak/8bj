@@ -4,7 +4,7 @@ let
 in {
   environment.systemPackages = with pkgs; [
     gnumake
-    unstable.go_1_22
+    unstable.go_1_24
     (import ./python.nix)
     exiftool
     vips
