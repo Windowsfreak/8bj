@@ -60,6 +60,7 @@
       };
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
+        aliases = ["alica@rasselbande-horn.de"];
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           keep;
@@ -84,7 +85,7 @@
       };
       "corinna@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/corinna.kohlhof.org.key";
-        aliases = ["bkhvomkohlhof@kohlhof.org"];
+        aliases = ["bkhvomkohlhof@kohlhof.org", "alica@rasselbande-horn.de"];
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           keep;
