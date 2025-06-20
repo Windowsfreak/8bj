@@ -34,6 +34,9 @@
           discard;
         '';
       };
+      "reisenderdruide@8bj.de" = {
+        hashedPasswordFile = "/var/config/mail/reisenderdruide.8bj.de.key";
+      }
       "noreply@windowsfreak.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
