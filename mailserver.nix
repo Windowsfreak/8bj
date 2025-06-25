@@ -2,10 +2,10 @@
   imports = [
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-24.05/nixos-mailserver-nixos-24.05.tar.gz";
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-25.05/nixos-mailserver-nixos-25.05.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
-      # release="nixos-24.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
-      sha256 = "0clvw4622mqzk1aqw1qn6shl9pai097q62mq1ibzscnjayhp278b";
+      # release="nixos-25.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
+      sha256 = "0jpp086m839dz6xh6kw5r8iq0cm4nd691zixzy6z11c4z2vf8v85";
     })
   ];
 
@@ -36,7 +36,7 @@
       };
       "reisenderdruide@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/reisenderdruide.8bj.de.key";
-      }
+      };
       "noreply@windowsfreak.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
@@ -246,7 +246,7 @@
       };
     };
   };
-  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" "fts_xapian" ];
+  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" ];
   services.dovecot2.extraConfig = lib.mkAfter ''
     namespace {
       type = public
@@ -268,5 +268,32 @@
       sieve_user_email = MAILER-DAEMON@8bj.de
       sieve_redirect_envelope_from = orig_recipient
     }
+  '';
+  services.rspamd.extraConfig = lib.mkAfter ''
+gpt {
+  enabled = true;
+  allow_ham = true;
+  type = "openai";
+  api_key = "dummy-key";
+  model = "gemini-1.5-flash-8b";
+  max_tokens = 1000;
+  temperature = 0.7;
+  top_p = 0.9;
+  timeout = 10s;
+  autolearn = true;
+  url = "https://8bj.de/api/openai/v1/chat/completions";
+  prompt = "Analyze this email strictly as a spam detector given the email message, subject, FROM and url domains. Your recipient lives in Hamburg, Germany, runs a business, kindergarden, parkour organisation, live music performance and trades cryptocurrencies. Evaluate spam probability (0-1). Output ONLY 3 lines:\n1. Numeric score (0.00-1.00)\n2. One-sentence reason citing strongest red flag\n3. Primary concern category if found from the list: malware, phishing, marketing, scam";
+  reason_header = "X-GPT-Reason";
+}
+settings {
+  local {
+    priority = high;
+    ip = ["127.0.0.1"];
+    apply {
+      symbols_enabled = ["DKIM_SIGNED"];
+      flags = ["skip_process"];
+    }
+  }
+}
   '';
 }

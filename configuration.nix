@@ -74,6 +74,8 @@
     };
   };
 
+  documentation.nixos.enable = false;
+
   # Packages
   environment.systemPackages = with pkgs; [
     git
@@ -100,7 +102,7 @@
       database = {
         createLocally = true;
       };
-      secretFile = "/var/config/listmonk.ini";
+      secretFile = "/var/config/listmonk-secrets.ini";
     };
     mysql = {
       enable = true;
@@ -110,7 +112,7 @@
     nextcloudCaddy = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       hostName = "localhost";
       https = false;
       database.createLocally = true;

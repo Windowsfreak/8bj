@@ -203,6 +203,24 @@ let
     }
     file_server
   '';
+  caddyfileAzh = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    reverse_proxy * :8572
+  '';
+  caddyfileId = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/www/id
+    php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    file_server
+  '';
   caddyfile = ''
     header /* {
       -Server
@@ -275,6 +293,12 @@ in {
       };
       virtualHosts."lab.8bj.de" = {
         extraConfig = caddyfileJupyter;
+      };
+      virtualHosts."azh.8bj.de" = {
+        extraConfig = caddyfileAzh;
+      };
+      virtualHosts."id.8bj.de" = {
+        extraConfig = caddyfileId;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
