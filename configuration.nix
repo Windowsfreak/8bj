@@ -54,14 +54,6 @@
             ESPOCRM_SITE_URL = "https://espo.8bj.de/";
           };
         };
-        espoaxel = {
-          autoStart = true;
-          image = "espocrm/espocrm:fpm-alpine";
-          volumes = [ "/var/www/espoaxel:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" ];
-          environment = {
-            ESPOCRM_SITE_URL = "https://espoaxel.8bj.de/";
-          };
-        };
         espocollin = {
           autoStart = true;
           image = "espocrm/espocrm:fpm-alpine";
@@ -69,6 +61,31 @@
           environment = {
             ESPOCRM_SITE_URL = "https://lel.kohlhof.org/";
           };
+        };
+        selenium-chrome = {
+          autoStart = true;
+          image = "selenium/standalone-chrome:latest";
+          ports = [ "127.0.0.1:4444:4444" ];
+          environment = {
+            SCREEN_WIDTH = "1920";
+            SCREEN_HEIGHT = "1080";
+            SCREEN_DEPTH = "24";
+          };
+          extraOptions = [
+            "--shm-size=2g"
+          ];
+        };
+        changedetection = {
+          autoStart = true;
+          image = "dgtlmoon/changedetection.io:latest";
+          ports = [ "127.0.0.1:5000:5000" ];
+          volumes = [ "/var/lib/changedetection:/datastore" ];
+          environment = {
+            WEBDRIVER_URL = "http://selenium-chrome:4444/wd/hub";
+            USE_X_SETTINGS = "1";  # Wichtig für Reverse Proxy
+            BASE_URL = "https://monitor.8bj.de";  # Deine Domain
+          };
+          dependsOn = [ "selenium-chrome" ];
         };
       };
     };
@@ -192,6 +209,9 @@
       };
     };
   };
+  systemd.tmpfiles.rules = [
+    "d /var/lib/changedetection 0755 root root - -"
+  ];
   system = {
     autoUpgrade = {
       enable = true;

@@ -221,6 +221,18 @@ let
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     file_server
   '';
+  caddyfileChangedetection = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    reverse_proxy * :5000 {
+      header_up X-Real-IP {remote_host}
+      header_up X-Forwarded-Proto {scheme}
+      header_up X-Forwarded-Host {host}
+    }
+  '';
   caddyfile = ''
     header /* {
       -Server
@@ -299,6 +311,9 @@ in {
       };
       virtualHosts."id.8bj.de" = {
         extraConfig = caddyfileId;
+      };
+      virtualHosts."monitor.8bj.de" = {
+        extraConfig = caddyfileChangedetection;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
