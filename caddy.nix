@@ -233,6 +233,14 @@ let
       header_up X-Forwarded-Host {host}
     }
   '';
+  caddyfileZoom = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    reverse_proxy * unix//run/zoom/apiserver.sock
+  '';
   caddyfile = ''
     header /* {
       -Server
@@ -314,6 +322,9 @@ in {
       };
       virtualHosts."monitor.8bj.de" = {
         extraConfig = caddyfileChangedetection;
+      };
+      virtualHosts."zoom.8bj.de" = {
+        extraConfig = caddyfileZoom;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];

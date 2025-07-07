@@ -45,4 +45,21 @@ in {
       ProtectSystem = "full";
     };
   };
+  systemd.services.zoom = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" "arangodb.service" ];
+    script = ''
+      export UNIX=/run/zoom/apiserver.sock
+      exec /var/dpv/zoom/bin/main
+    '';
+    serviceConfig = {
+      WorkingDirectory = "/var/dpv/zoom";
+      RuntimeDirectory = "zoom";
+      User = "dpv";
+      Group = "dpv";
+      Restart = "always";
+      PrivateTmp = true;
+      ProtectSystem = "full";
+    };
+  };
 }
