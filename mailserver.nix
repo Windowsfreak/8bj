@@ -209,9 +209,25 @@
         aliases = ["info@rasselbande-horn.de"];
         hashedPasswordFile = "/var/config/mail/kristin.rasselbande-horn.de.key";
         sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
+          require ["date", "relational", "vacation", "fileinto", "envelope", "variables"];
           keep;
           redirect "rasselbandehorn@googlemail.com";
+
+          if header :contains "X-Spam-Flag" "YES" {
+            fileinto "Junk";
+            stop;
+          }
+
+          if allof (
+            currentdate :zone "+0200" :value "ge" "iso8601" "2025-07-28T00:00:00+02:00",
+            currentdate :zone "+0200" :value "le" "iso8601" "2025-08-17T23:59:59+02:00"
+          ) {
+            vacation
+              :days 7
+              :subject "Unser Büro ist zurzeit nicht besetzt!"
+              :addresses ["info@rasselbande-horn.de"]
+              "Unser Büro ist in der Zeit vom 28.07.2025 bis 17.08.2025 nicht besetzt. Ihre E-Mail wird nicht bearbeitet. Bitte senden Sie uns Ihr Anliegen erneut ab dem 18.08.2025 zu. Vielen Dank für Ihr Verständnis";
+          }
         '';
       };
     };
