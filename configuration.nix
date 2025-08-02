@@ -35,8 +35,8 @@
         };
         alica = {
           autoStart = true;
-          image = "wordpress:fpm";
-          volumes = [ "/var/www/alica:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/var/config/alica:/var/config/wordpress" ];
+          image = "wordpress:php8.3-fpm-alpine";
+          volumes = [ "/var/www/alica:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/run/redis-alica/redis.sock:/run/redis/redis.sock" "/var/config/alica:/var/config/wordpress" ];
           ports = [ "127.0.0.1:9001:9000" ];
           environment = {
             WORDPRESS_DB_HOST = "localhost:/run/mysqld/mysqld.sock";
@@ -188,6 +188,9 @@
     redis.servers = {
       nextcloud = {
         requirePassFile = "/var/config/redis-password.txt";
+      };
+      alica = {
+        requirePassFile = "/var/config/redis-alica-password.txt";
       };
     };
     timesyncd = {
