@@ -223,7 +223,7 @@
             currentdate :zone "+0200" :value "le" "iso8601" "2025-08-17T23:59:59+02:00"
           ) {
             vacation
-              :days 7
+              :days 1
               :subject "Unser Büro ist zurzeit nicht besetzt!"
               :addresses ["info@rasselbande-horn.de"]
               "Unser Büro ist in der Zeit vom 28.07.2025 bis 17.08.2025 nicht besetzt. Ihre E-Mail wird nicht bearbeitet. Bitte senden Sie uns Ihr Anliegen erneut ab dem 18.08.2025 zu. Vielen Dank für Ihr Verständnis";

@@ -33,16 +33,16 @@
           volumes = [ "/srv/jupyter/home:/home/jovyan" ];
           ports = [ "127.0.0.1:38877:8888" ];
         };
-        wordpress = {
+        alica = {
           autoStart = true;
           image = "wordpress:fpm";
-          volumes = [ "/var/www/wordpress:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/var/config/wordpress:/var/config/wordpress" ];
+          volumes = [ "/var/www/alica:/var/www/html" "/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock" "/var/config/alica:/var/config/wordpress" ];
           ports = [ "127.0.0.1:9001:9000" ];
           environment = {
             WORDPRESS_DB_HOST = "localhost:/run/mysqld/mysqld.sock";
-            WORDPRESS_DB_USER = "wordpress";
-            WORDPRESS_DB_NAME = "wordpress";
-            WORDPRESS_DB_PASSWORD_FILE = "/var/config/wordpress/db-password";
+            WORDPRESS_DB_USER = "alica";
+            WORDPRESS_DB_NAME = "alica";
+            WORDPRESS_DB_PASSWORD_FILE = "/var/config/alica/db-password";
             WORDPRESS_CONFIG_EXTRA = "define('FS_METHOD', 'direct');";
           };
         };

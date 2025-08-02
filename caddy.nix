@@ -34,6 +34,33 @@ let
     root * /var/www/kohlhof
     file_server
   '';
+  caddyfileAlica = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/www/alica
+    @forbidden {
+      not path /wp-includes/ms-files.php
+      path /wp-admin/includes/*.php
+      path /wp-includes/*.php
+      path /wp-config.php
+      path /wp-content/uploads/*.php
+      path /.user.ini
+      path /wp-content/debug.log
+    }
+    respond @forbidden "Access denied" 403
+
+    php_fastcgi localhost:9001 {
+      root /var/www/html
+    }
+    file_server
+    header / {
+      X-Frame-Options "SAMEORIGIN"
+      X-Content-Type-Options "nosniff"
+    }
+  '';
   caddyfileListmonk = ''
     header /* {
       -Server
@@ -307,6 +334,9 @@ in {
       };
       virtualHosts."espo.8bj.de" = {
         extraConfig = caddyfileEspocrm;
+      };
+      virtualHosts."alica-reena.de" = {
+        extraConfig = caddyfileAlica;
       };
       virtualHosts."lel.kohlhof.org" = {
         extraConfig = caddyfileEspocollin;

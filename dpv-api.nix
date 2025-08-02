@@ -3,12 +3,14 @@ let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
   environment.systemPackages = with pkgs; [
+    gcc
     gnumake
     unstable.go_1_24
     (import ./python.nix)
     exiftool
     vips
     nodejs
+    sqlite
   ];
 
   systemd.services.dpv1 = {
