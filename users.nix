@@ -25,6 +25,9 @@ in
     php = {};
     rbh = {};
     minecraft = {};
+    www-data = {
+      gid = 82;
+    };
   };
   users.users = {
     caddy = {
@@ -63,6 +66,11 @@ in
       isSystemUser = true;
       home = "/var/lib/minecraft";
       group = "minecraft";
+    };
+    www-data = {
+      isSystemUser = true;
+      group = "www-data";
+      uid = 82;
     };
   };
 }

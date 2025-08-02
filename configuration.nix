@@ -190,6 +190,9 @@
         requirePassFile = "/var/config/redis-password.txt";
       };
       alica = {
+        enable = true;
+        user = "www-data";
+        unixSocket = "/run/redis-alica/redis.sock";
         requirePassFile = "/var/config/redis-alica-password.txt";
       };
     };
