@@ -58,6 +58,10 @@ in
           publicKey = "LG+wIgcsZZ1cHSfqLP3tNQH7v9NBR0tE/8ae0bw+zmo=";
           allowedIPs = [ "10.100.0.7/32" "10.100.0.8/32" "10.100.0.9/32" "10.100.0.10/32" "10.100.0.11/32" ];
         }
+        { # Kiki
+          publicKey = "z6zsSgUwwQdSs1foRVoeoiKADwe5qc7LmHF2Nxhu5Wk=";
+          allowedIPs = [ "10.100.0.12/32" "10.100.0.13/32" "10.100.0.14/32" ];
+        }
       ];
     };
   };

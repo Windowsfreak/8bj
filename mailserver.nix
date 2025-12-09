@@ -2,10 +2,10 @@
   imports = [
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-25.05/nixos-mailserver-nixos-25.05.tar.gz";
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-25.11/nixos-mailserver-nixos-25.11.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-25.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
-      sha256 = "0jpp086m839dz6xh6kw5r8iq0cm4nd691zixzy6z11c4z2vf8v85";
+      sha256 = "16kanlk74xnj7xgmjsj7pahy31hlxqcbv76xnsg8qbh54b0hwxgq";
     })
   ];
 
@@ -13,6 +13,8 @@
     enable = true;
     enablePop3Ssl = true;
     enableSubmissionSsl = true;
+    enableImap = true; # for port 143 STARTTLS
+    stateVersion = 3;
     fqdn = "8bj.de";
     domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" "kohlhof.org" ];
 
@@ -114,10 +116,6 @@
           keep;
           redirect "nicolaskohlhof@googlemail.com";
         '';
-      };
-      "axel@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/axel.parkour-deutschland.de.key";
       };
       "ben@parkour-deutschland.de" = {
         aliases = ["alle@parkour-deutschland.de" "bildung@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "lizenzen@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];

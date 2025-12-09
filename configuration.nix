@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ./network.nix
-    ./arangodb.nix
     ./boot.nix
     ./caddy.nix
     ./factorio.nix
@@ -16,6 +15,7 @@
     ./paranoia.nix
   ];
 
+  boot.kernelParams = [ "kvm.ignore_msrs=1" ];
   virtualisation = {
     docker = {
       enable = true;
@@ -27,6 +27,18 @@
     oci-containers = {
       backend = "docker";
       containers = {
+
+  arangodb = {
+    image = "arangodb:3.12"; 
+    ports = [ "127.0.0.1:8529:8529" ];
+    volumes = [
+      "/var/db/arangodb:/var/lib/arangodb3"
+    ];
+    environment = {
+      # ARANGO_NO_AUTH = "1";
+    };
+  };
+
         jupyterLab = {
           autoStart = true;
           image = "quay.io/jupyter/datascience-notebook";
@@ -98,16 +110,15 @@
     git
     curl
     wget
-    arangodb
     php
     pkgs.snappymail
+    quickemu
+    qemu
+    swtpm
   ];
 
   # Services
   services = {
-    arangodb = {
-      enable = true;
-    };
     fail2ban = {
       enable = true;
       bantime = "70m";

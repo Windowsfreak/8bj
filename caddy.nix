@@ -55,12 +55,11 @@ let
     php_fastcgi localhost:9001 {
       root /var/www/html
     }
-    file_server {
-      header @static Cache-Control "public, max-age=31536000, immutable"
-    }
+    file_server
     @static {
       path *.ico *.css *.js *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.ttf *.eot
     }
+    header @static Cache-Control "public, max-age=31536000, immutable"
     header / {
       X-Frame-Options "SAMEORIGIN"
       X-Content-Type-Options "nosniff"
