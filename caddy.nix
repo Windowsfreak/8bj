@@ -288,6 +288,9 @@ let
     handle /api/* { # /**/
       reverse_proxy * unix//run/dpv1/apiserver.sock
     }
+    handle /dpv/* { # /**/
+      reverse_proxy * unix//run/dpv/apiserver.sock
+    }
     handle @php {
       # @keyword {
       #   path_regexp ^/[^\.\/]+$

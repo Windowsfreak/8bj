@@ -64,4 +64,21 @@ in {
       ProtectSystem = "full";
     };
   };
+  systemd.services.dpv = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    script = ''
+      export UNIX=/run/dpv/apiserver.sock
+      exec /var/dpv/dpv/bin/membership
+    '';
+    serviceConfig = {
+      WorkingDirectory = "/var/dpv/dpv";
+      RuntimeDirectory = "dpv";
+      User = "dpv";
+      Group = "dpv";
+      Restart = "always";
+      PrivateTmp = true;
+      ProtectSystem = "full";
+    };
+  };
 }
