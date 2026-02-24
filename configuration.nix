@@ -110,9 +110,6 @@
     wget
     php
     pkgs.snappymail
-    quickemu
-    qemu
-    swtpm
   ];
 
   # Services
