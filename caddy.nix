@@ -72,6 +72,17 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     reverse_proxy * :9000
+
+    handle_errors {
+      @wants_json header Accept *application/json*
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        root * /var/www/8bj/obj/error
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
   '';
   caddyfileEspocrm = ''
     header /* {
@@ -222,6 +233,17 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     reverse_proxy * :38877
+
+    handle_errors {
+      @wants_json header Accept *application/json*
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        root * /var/www/8bj/obj/error
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
   '';
   caddyfileMail = ''
     header /* {
@@ -241,6 +263,17 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     reverse_proxy * :8572
+
+    handle_errors {
+      @wants_json header Accept *application/json*
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        root * /var/www/8bj/obj/error
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
   '';
   caddyfileId = ''
     header /* {
@@ -263,6 +296,17 @@ let
       header_up X-Forwarded-Proto {scheme}
       header_up X-Forwarded-Host {host}
     }
+
+    handle_errors {
+      @wants_json header Accept *application/json*
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        root * /var/www/8bj/obj/error
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
   '';
   caddyfileZoom = ''
     header /* {
@@ -271,6 +315,17 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     reverse_proxy * unix//run/zoom/apiserver.sock
+
+    handle_errors {
+      @wants_json header Accept *application/json*
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        root * /var/www/8bj/obj/error
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
   '';
   caddyfile = ''
     header /* {
@@ -312,9 +367,18 @@ let
       }
     }
     handle_errors {
+      root * /var/www/8bj/obj/error
+      @wants_json header Accept *application/json*
       @404 expression `{http.error.status_code} == 404`
       handle @404 {
-        rewrite * "/404.htm"
+        rewrite @wants_json /404.json
+        rewrite * /404.html
+        file_server
+      }
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        rewrite @wants_json /502.json
+        rewrite * /502.html
         file_server
       }
     }
