@@ -1159,7 +1159,7 @@ in {
           else nextcloud33
         );
 
-        services.nextcloud.phpOptions = mkMerge [
+        services.nextcloudCaddy.phpOptions = mkMerge [
           (mapAttrs (const mkOptionDefault) defaultPHPSettings)
           {
             upload_max_filesize = cfg.maxUploadSize;
@@ -1249,7 +1249,7 @@ in {
             "L+ ${datadir}/config/override.config.php - - - - ${overrideConfig}"
           ];
 
-        services.nextcloud.finalPackage = webroot;
+        services.nextcloudCaddy.finalPackage = webroot;
 
         systemd.services = {
           nextcloud-setup = let
