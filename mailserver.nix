@@ -17,19 +17,19 @@
     enableImap = true; # for port 143 STARTTLS
     stateVersion = 3;
     fqdn = "8bj.de";
-    domains = [ "8bj.de" "windowsfreak.de" "parkour-deutschland.de" "rasselbande-horn.de" "kohlhof.org" ];
+    domains = [ "8bj.de" "windowsfreak.de" "rasselbande-horn.de" "kohlhof.org" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
     loginAccounts = {
       "mail@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/mail.8bj.de.key";
-        aliases = ["@8bj.de" "@windowsfreak.de" "@parkour-deutschland.de"];
+        aliases = ["@8bj.de" "@windowsfreak.de"];
         catchAll = ["8bj.de" "windowsfreak.de"];
       };
       "noreply@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
-        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@parkour-deutschland.de" "noreply@rasselbande-horn.de" "info@parkour-deutschland.de" "newsletter@parkour-deutschland.de"];
+        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@rasselbande-horn.de"];
         catchAll = ["8bj.de" "windowsfreak.de"];
         sendOnly = true;
         sieveScript = ''
@@ -44,14 +44,6 @@
         hashedPasswordFile = "/var/config/mail/darkzilla893.8bj.de.key";
       };
       "noreply@windowsfreak.de" = {
-        hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
-        sendOnly = true;
-        sieveScript = ''
-          require ["fileinto", "envelope"];
-          discard;
-        '';
-      };
-      "noreply@parkour-deutschland.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
         sendOnly = true;
         sieveScript = ''
@@ -116,83 +108,6 @@
           require ["fileinto", "envelope", "variables"];
           keep;
           redirect "nicolaskohlhof@googlemail.com";
-        '';
-      };
-      "ben@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "bildung@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "lizenzen@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/ben.parkour-deutschland.de.key";
-      };
-      "bjoern@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/bjoern.parkour-deutschland.de.key";
-      };
-      "dirk@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "wettkampf@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/dirk.parkour-deutschland.de.key";
-      };
-      "dominik@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "finanzen@parkour-deutschland.de" "wettkampf@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "lizenzen@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/dominik.parkour-deutschland.de.key";
-      };
-      "eike@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "formular@parkour-deutschland.de" "info@parkour-deutschland.de" "bildung@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "lizenzen@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/eike.parkour-deutschland.de.key";
-      };
-      "jennifer@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/jennifer.parkour-deutschland.de.key";
-      };
-      "jewgeni@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "formular@parkour-deutschland.de" "info@parkour-deutschland.de" "satzung@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/jewgeni.parkour-deutschland.de.key";
-      };
-      "lea@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "lizenzen@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/lea.parkour-deutschland.de.key";
-      };
-      "lukas@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "satzung@parkour-deutschland.de" "design@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/lukas.parkour-deutschland.de.key";
-      };
-      "maren@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "formular@parkour-deutschland.de" "info@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "oeffentlichkeit@parkour-deutschland.de" "parkourparks@parkour-deutschland.de" "lizenzen@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/maren.parkour-deutschland.de.key";
-      };
-      "martin@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "design@parkour-deutschland.de" "parkourparks@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/martin.parkour-deutschland.de.key";
-      };
-      "max@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "formular@parkour-deutschland.de" "info@parkour-deutschland.de" "lizenzen@parkour-deutschland.de" "satzung@parkour-deutschland.de" "wettkampf@parkour-deutschland.de" "aktivmitglieder@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/max.parkour-deutschland.de.key";
-      };
-      "merlin@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "formular@parkour-deutschland.de" "info@parkour-deutschland.de" "it@parkour-deutschland.de" "webmaster@parkour-deutschland.de" "finanzen@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/merlin.parkour-deutschland.de.key";
-      };
-      "olli@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/olli.parkour-deutschland.de.key";
-      };
-      "sabine@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "satzung@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/sabine.parkour-deutschland.de.key";
-      };
-      "soeren@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "lizenzen@parkour-deutschland.de"];
-        hashedPasswordFile = "/var/config/mail/soeren.parkour-deutschland.de.key";
-      };
-      "newsletter@parkour-deutschland.de" = {
-        aliases = ["alle@parkour-deutschland.de" "info@parkour-deutschland.de" "noreply@parkour-deutschland.de" "noreply@8bj.de"];
-        hashedPasswordFile = "/var/config/mail/newsletter.parkour-deutschland.de.key";
-      };
-      "info@parkour-deutschland.de" = {
-        hashedPasswordFile = "/var/config/mail/info.parkour-deutschland.de.key";
-        catchAll = ["parkour-deutschland.de"];
-        sieveScript = ''
-          require ["fileinto", "envelope", "variables"];
-          fileinto "Public.DPV-Team";
-          stop;
         '';
       };
       "corinna@rasselbande-horn.de" = {

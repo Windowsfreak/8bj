@@ -285,6 +285,25 @@ let
     php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     file_server
   '';
+  caddyfileDi = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/www/di
+    file_server
+    handle_errors {
+      root * /var/www/8bj/obj/error
+      @wants_json header Accept *application/json*
+      @404 expression `{http.error.status_code} == 404`
+      handle @404 {
+        rewrite @wants_json /404.json
+        rewrite * /404.html
+        file_server
+      }
+    }
+  '';
   caddyfileChangedetection = ''
     header /* {
       -Server
@@ -420,6 +439,9 @@ in {
       };
       virtualHosts."id.8bj.de" = {
         extraConfig = caddyfileId;
+      };
+      virtualHosts."di.8bj.de" = {
+        extraConfig = caddyfileDi;
       };
       virtualHosts."monitor.8bj.de" = {
         extraConfig = caddyfileChangedetection;

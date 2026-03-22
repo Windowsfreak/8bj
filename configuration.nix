@@ -135,7 +135,7 @@
     nextcloudCaddy = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud33;
       hostName = "localhost";
       https = false;
       database.createLocally = true;
