@@ -4,9 +4,10 @@ with lib;
 
 let
   cfg = config.services.nextcloudCaddy;
+
   fpm = config.services.phpfpm.pools.nextcloud;
 
-  jsonFormat = pkgs.formats.json {};
+  jsonFormat = pkgs.formats.json { };
 
   defaultPHPSettings = {
     output_buffering = "0";
@@ -1553,7 +1554,7 @@ in {
           '';
       };
 
-        services.imaginary = cfg.imaginary.enable {
+        services.imaginary = mkIf cfg.imaginary.enable {
           enable = true;
           # add -return-size flag recommend by Nextcloud
           # https://github.com/h2non/imaginary/pull/382
