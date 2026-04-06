@@ -10,7 +10,8 @@ in
   imports = [
   ];
   networking = {
-    hostName = "8bj.de";
+    hostName = "8bj";
+    domain = "de";
     firewall = {
       allowedTCPPorts = [ 22 80 443 8529 8123 993 995 465 ];
       allowedUDPPorts = [ 443 51820 ];
