@@ -29,7 +29,7 @@
       };
       "noreply@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/noreply.8bj.de.key";
-        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@rasselbande-horn.de" "dpv-mitgliederportal@8bj.de"];
+        aliases = ["noreply@8bj.de" "noreply@windowsfreak.de" "noreply@rasselbande-horn.de" "dpv-mitgliederportal@8bj.de" "dpv-mitgliederportal-test@8bj.de"];
         catchAll = ["8bj.de" "windowsfreak.de"];
         sendOnly = true;
         sieveScript = ''
