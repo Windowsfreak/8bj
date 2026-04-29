@@ -61,7 +61,7 @@
       };
       "alica@kohlhof.org" = {
         hashedPasswordFile = "/var/config/mail/alica.kohlhof.org.key";
-        aliases = ["alica@rasselbande-horn.de" "bewerbung@rasselbande-horn.de"];
+        aliases = ["alica@rasselbande-horn.de"];
         sieveScript = ''
           require ["fileinto", "envelope", "variables"];
           keep;
@@ -142,6 +142,40 @@
               :addresses ["info@rasselbande-horn.de"]
               "Unser Büro ist in der Zeit vom 28.07.2025 bis 17.08.2025 nicht besetzt. Ihre E-Mail wird nicht bearbeitet. Bitte senden Sie uns Ihr Anliegen erneut ab dem 18.08.2025 zu. Vielen Dank für Ihr Verständnis";
           }
+        '';
+      };
+      "bewerbung@rasselbande-horn.de" = {
+        hashedPasswordFile = "/var/config/mail/bewerbung.rasselbande-horn.de.key";
+        sieveScript = ''
+          require ["vacation", "fileinto", "envelope", "variables"];
+          keep;
+          redirect "alica@kohlhof.org";
+
+          vacation
+            :days 1
+            :subject "Vielen Dank für Deine Bewerbung"
+            :addresses ["bewerbung@rasselbande-horn.de"]
+            "Liebe BewerberInnen,
+
+vielen Dank für Deine Bewerbung und Dein Interesse daran, Teil unseres Teams zu werden. Wir freuen uns sehr über jede eingehende Bewerbung und sind schon jetzt gespannt darauf, all die motivierten Persönlichkeiten kennenzulernen, die sich bei uns vorstellen möchten.
+
+Bitte beachte, dass wir im Bewerbungsverfahren nur vollständige Unterlagen berücksichtigen können. Schau daher gerne noch einmal nach, ob alles enthalten ist. Sollten Unterlagen fehlen, kannst Du diese selbstverständlich noch nachreichen.
+
+Aufgrund der großen Nachfrage können wir leider nicht alle BewerberInnen in die nächste Runde mitnehmen. Wenn Du innerhalb von drei Wochen keine Rückmeldung von uns erhalten hast, konnte Deine Bewerbung dieses Mal leider nicht berücksichtigt werden.
+
+Bis dahin danken wir Dir für Dein Vertrauen und wünschen Dir von Herzen alles Gute.
+
+Vielleicht startet für Dich ja schon bald Dein Rasselbanden-Abenteuer.
+
+Liebe Grüße
+Dein Rasselbanden-Team
+
+Corinna Kohlhof (Trägerin/Leitung)
+Alica Kohlhof (Stellvertretung pädagogische Leitung)
+Kristin Bendfeldt (Stellvertretung geschäftsführende Leitung)
+Kita Rasselbande-Horn
+Sandkamp 8, 22111 Hamburg
+Tel.: 040-6552347 | Fax: 040-65590732";
         '';
       };
     };
