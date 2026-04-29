@@ -149,7 +149,7 @@
         sieveScript = ''
           require ["vacation", "fileinto", "envelope", "variables"];
           keep;
-          redirect "alica@kohlhof.org";
+          redirect "alicakohlhof@googlemail.com";
 
           vacation
             :days 1
