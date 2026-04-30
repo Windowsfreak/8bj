@@ -346,6 +346,21 @@ let
       }
     }
   '';
+  caddyfileAurum = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/aurumtax/aurumtax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/aurumtax/apiserver.sock
+    }
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfile = ''
     header /* {
       -Server
@@ -448,6 +463,9 @@ in {
       };
       virtualHosts."zoom.8bj.de" = {
         extraConfig = caddyfileZoom;
+      };
+      virtualHosts."aurumtax.8bj.de" = {
+        extraConfig = caddyfileAurum;
       };
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];

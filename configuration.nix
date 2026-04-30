@@ -12,6 +12,7 @@
     ./minecraft.nix
     ./nextcloudCaddy.nix
     ./dpv-api.nix
+    ./aurum-api.nix
     ./paranoia.nix
   ];
 

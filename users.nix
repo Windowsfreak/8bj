@@ -21,6 +21,7 @@ in
   users.groups = {
     arango = {};
     dpv = {};
+    aurumtax = {};
     bjoern = {};
     php = {};
     rbh = {};
@@ -39,6 +40,11 @@ in
       home = "/var/dpv";
       group = "dpv";
       extraGroups = ["systemd-journal"];
+    };
+    aurumtax = {
+      isSystemUser = true;
+      home = "/var/aurumtax";
+      group = "aurumtax";
     };
     mysql = {
       isSystemUser = true;
