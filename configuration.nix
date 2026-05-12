@@ -224,6 +224,11 @@
   };
   systemd.tmpfiles.rules = [
     "d /var/lib/changedetection 0755 root root - -"
+    "d /run/aurumtax 0755 aurumtax aurumtax - -"
+    "d /run/dpv 0755 dpv dpv - -"
+    "d /run/dpv1 0755 dpv dpv - -"
+    "d /run/dpv2 0755 dpv dpv - -"
+    "d /run/zoom 0755 dpv dpv - -"
   ];
   system = {
     autoUpgrade = {
