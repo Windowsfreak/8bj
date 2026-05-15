@@ -22,6 +22,8 @@ in
     arango = {};
     dpv = {};
     aurumtax = {};
+    tagtax = {};
+
     bjoern = {};
     php = {};
     rbh = {};
@@ -46,6 +48,12 @@ in
       home = "/var/aurumtax";
       group = "aurumtax";
     };
+    tagtax = {
+      isSystemUser = true;
+      home = "/var/tagtax";
+      group = "tagtax";
+    };
+
     mysql = {
       isSystemUser = true;
       home = "/var/lib/mysql";

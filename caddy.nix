@@ -361,6 +361,22 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileTag = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/tagtax/tagtax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/tagtax/apiserver.sock
+    }
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
+
   caddyfile = ''
     header /* {
       -Server
@@ -467,6 +483,10 @@ in {
       virtualHosts."aurumtax.8bj.de" = {
         extraConfig = caddyfileAurum;
       };
+      virtualHosts."tagtax.8bj.de" = {
+        extraConfig = caddyfileTag;
+      };
+
       virtualHosts."8bj.de" = {
         serverAliases = [ "windowsfreak.de" "www.8bj.de" "www.windowsfreak.de" ];
         extraConfig = caddyfile;
