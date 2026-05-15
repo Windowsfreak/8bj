@@ -7,7 +7,7 @@ in {
     after = [ "network.target" "arangodb.service" ];
     script = ''
       export UNIX=/run/tagtax/apiserver.sock
-      exec /var/tagtax/tagtax/bin/saas config.yml
+      exec /var/tagtax/tagtax/build/tagtax-saas config.yml
     '';
     serviceConfig = {
       WorkingDirectory = "/var/tagtax/tagtax";
