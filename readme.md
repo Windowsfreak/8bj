@@ -90,15 +90,50 @@ Configured under `virtualisation.oci-containers` with `docker` backend:
 - Uses its own php-fpm pool using nextcloud user and group, caddy is in nextcloud group.
 - Caddyfile redirects `/store-apps` to `/var/lib/nextcloud/store-apps` because the symlink didn't work.
 - Config and secret files:
-  - `/var/config/nextcloud-admin-pass.txt` (admin credentials)
+  - `/var/config/nextcloud-admin-pass.txt` (admin credentials, pgsql-pass is probably not needed as we're using unix socket auth)
   - `/var/config/redis-password.txt` (Redis credentials)
-  - `/var/config/nextcloud-secrets.json` (contains passwordsalt, instanceid, mail SMTP settings, etc.)
+  - `/var/config/nextcloud-secrets.json` (contains passwordsalt, instanceid, mail SMTP settings, etc.):
+```json
+{
+  "passwordsalt": "***",
+  "secret": "***",
+  "instanceid": "***",
+  "redis": {
+    "password": "same as redis-password.txt"
+  },
+  "maintenance_window_start": 2,
+  "mail_smtpmode": "sendmail",
+  "mail_sendmailmode": "smtp",
+  "mail_smtpsecure": "",
+  "mail_from_address": "noreply",
+  "mail_domain": "8bj.de",
+  "mail_smtphost": "127.0.0.1",
+  "mail_smtpport": 25,
+  "mail_smtpauth": true,
+  "mail_smtpname": "noreply@8bj.de",
+  "mail_smtppassword": "***",
+  "trusted_domains": ["share.parkour-deutschland.de"],
+  "trusted_proxies": ["127.0.0.1", "::1"],
+  "default_language": "de",
+  "default_locale": "de_DE",
+  "default_phone_region": "de",
+  "overwriteprotocol": "https"
+}
+```
 
 ### Mailserver
 - Uses [nixos-mailserver](https://gitlab.com/simple-nixos-mailserver/nixos-mailserver).
 - Uses Postfix + Dovecot + Snappymail (served with an extra VirtualHost at `mail.8bj.de`).
 - Users' password hashes are stored in `/var/config/mail`.
-- Users' shared mail boxes (team mailboxes) are configured in `/etc/dovecot/dovecot-acl`.
+- DKIM private keys and text records are stored in `/var/dkim`.
+- User sieve filters are stored in `/var/sieve`.
+- Users' shared mail boxes (team mailboxes) are configured in `/etc/dovecot/dovecot-acl`. Example:
+```ini
+Public user=administrator@example.com lrwstipekxa
+Public.* user=administrator@example.com lrwstipekxa
+Public.Teamfolder user=member1@example.com lrwstipek
+Public.Teamfolder.* user==member1@example.com lrwstipekxa
+```
 - Rspamd GPT spam analyzer is integrated with the local FreeLLMAPI instance. Its API key is stored in `/var/config/rspamd-gpt-secret.conf` (owned by `rspamd:rspamd`, `0400`) and loaded via UCL `.include` in Rspamd.
 - Changing password hashes is handled via [dpv api](github.com/parkour-de/api) endpoint.
 - It may be necessary to reboot the entire server if new FQDNs were added. Failing to do so will result in login errors.
@@ -153,4 +188,6 @@ Configured under `virtualisation.oci-containers` with `docker` backend:
 - `/srv/jupyter` (JupyterLab notebooks home directory)
 - `/var/lib` (persistent data for factorio, minecraft, mysql/mariadb, postgresql, nextcloud, changedetection)
 - `/etc/dovecot/acl` (group/shared folders for mailserver)
+- `/var/dkim` (DKIM keys for mail domains)
+- `/var/sieve` (Dovecot sieve script directories per user)
 - `/var/vmail` (mailboxes data)
