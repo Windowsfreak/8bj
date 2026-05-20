@@ -382,6 +382,9 @@ let
     }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
+    basic_auth {
+      admin $2a$14$GefyxNxDqwaegw1BIIPf5eOjJ9dO77SDz2FNyiJVU1moaqB9f1NxG
+    }
     root * /var/freellmapi/freellmapi/client/dist
     handle /api/* {
       reverse_proxy * 127.0.0.1:3001
