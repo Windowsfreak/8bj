@@ -376,6 +376,24 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileFreellmapi = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/freellmapi/freellmapi/client/dist
+    handle /api/* {
+      reverse_proxy * 127.0.0.1:3001
+    }
+    handle /v1/* {
+      reverse_proxy * 127.0.0.1:3001
+    }
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
 
   caddyfile = ''
     header /* {
@@ -485,6 +503,9 @@ in {
       };
       virtualHosts."tagtax.8bj.de" = {
         extraConfig = caddyfileTag;
+      };
+      virtualHosts."llm.8bj.de" = {
+        extraConfig = caddyfileFreellmapi;
       };
 
       virtualHosts."8bj.de" = {

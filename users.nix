@@ -23,6 +23,7 @@ in
     dpv = {};
     aurumtax = {};
     tagtax = {};
+    freellmapi = {};
 
     bjoern = {};
     php = {};
@@ -42,6 +43,11 @@ in
       home = "/var/dpv";
       group = "dpv";
       extraGroups = ["systemd-journal"];
+    };
+    freellmapi = {
+      isSystemUser = true;
+      home = "/var/freellmapi";
+      group = "freellmapi";
     };
     aurumtax = {
       isSystemUser = true;

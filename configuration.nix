@@ -14,6 +14,7 @@
     ./dpv-api.nix
     ./aurum-api.nix
     ./tagtax-api.nix
+    ./freellmapi.nix
 
     ./paranoia.nix
   ];
