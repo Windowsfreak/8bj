@@ -236,7 +236,7 @@ Tel.: 040-6552347 | Fax: 040-65590732";
       sieve_redirect_envelope_from = orig_recipient
     }
   '';
-  environment.etc."rspamd/local.d/gpt.conf".text = ''
+  services.rspamd.locals."gpt.conf".text = ''
     enabled = true;
     allow_ham = true;
     type = "openai";
