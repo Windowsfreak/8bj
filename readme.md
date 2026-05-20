@@ -88,6 +88,12 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ```
 - [dpv api](https://github.com/parkour-de/api) has an endpoint to change password hashes
 - It may be necessary to reboot the entire server if new FQDNs were added. Failing to do so will result in login errors.
+- Rspamd GPT spam analyzer is integrated with the local FreeLLMAPI instance. Its API key is stored in `/var/config/rspamd-gpt-secret.conf` (owned by `rspamd:rspamd`, `0400`) and loaded via UCL `.include` in Rspamd.
+
+### FreeLLMAPI
+- Gateway for LLM API keys served at `llm.8bj.de` (via Caddy with HTTP Basic Authentication) or locally on port `3001`.
+- Code cloned to `/var/freellmapi/freellmapi` and owned by `freellmapi:freellmapi`.
+- Environment config and encryption keys are stored in `/var/config/freellmapi.env` (owned by `freellmapi:freellmapi`, `0600`).
 
 ### Other services
 
@@ -102,7 +108,10 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ### Unique file locations:
 
 - `/etc/nixos` (this repo)
-- `/var/config` (secrets and configuration files for e.g. vaultwarden, nextcloud, mail, redis, wireguard, listmonk)
+- `/var/config` (secrets and configuration files for e.g. vaultwarden, nextcloud, mail, redis, wireguard, listmonk, freellmapi)
+- `/var/config/freellmapi.env` (secrets for FreeLLMAPI)
+- `/var/config/rspamd-gpt-secret.conf` (API key for Rspamd's GPT module)
+- `/var/freellmapi` (FreeLLMAPI server and repository directory)
 - `/var/dpv/api` (dpv server, see [DPV api](github.com/parkour-de/api))
 - `/var/www`
 - `/var/lib` (factorio, minecraft, mysql, nextcloud and more)
