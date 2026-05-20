@@ -241,14 +241,14 @@ gpt {
   enabled = true;
   allow_ham = true;
   type = "openai";
-  api_key = "dummy-key";
-  model = "gemini-1.5-flash-8b";
+  .include(try=true) "/var/config/rspamd-gpt-secret.conf"
+  model = "qwen-3-235b-a22b-instruct-2507";
   max_tokens = 1000;
   temperature = 0.7;
   top_p = 0.9;
   timeout = 10s;
   autolearn = true;
-  url = "https://8bj.de/api/openai/v1/chat/completions";
+  url = "http://localhost:3001/v1/chat/completions";
   prompt = "Analyze this email strictly as a spam detector given the email message, subject, FROM and url domains. Your recipient lives in Hamburg, Germany, runs a business, kindergarden, parkour organisation, live music performance and trades cryptocurrencies. Evaluate spam probability (0-1). Output ONLY 3 lines:\n1. Numeric score (0.00-1.00)\n2. One-sentence reason citing strongest red flag\n3. Primary concern category if found from the list: malware, phishing, marketing, scam";
   reason_header = "X-GPT-Reason";
 }
