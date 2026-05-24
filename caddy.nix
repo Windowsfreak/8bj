@@ -356,6 +356,17 @@ let
     handle /api/* {
       reverse_proxy * unix//run/aurumtax/apiserver.sock
     }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
     handle {
       file_server
       try_files {path} /index.html
@@ -370,6 +381,17 @@ let
     root * /var/tagtax/tagtax/frontend
     handle /api/* {
       reverse_proxy * unix//run/tagtax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     }
     handle {
       file_server
