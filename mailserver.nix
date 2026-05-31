@@ -10,6 +10,9 @@
   ];
 
   mailserver = {
+    srs = {
+      enable = true;
+    };
     enable = true;
     enablePop3Ssl = true;
     enableSubmissionSsl = true;
@@ -250,6 +253,24 @@ Tel.: 040-6552347 | Fax: 040-65590732";
     url = "http://localhost:3001/v1/chat/completions";
     prompt = "Analyze this email strictly as a spam detector given the email message, subject, FROM and url domains. Your recipient lives in Hamburg, Germany, runs a business, kindergarden, parkour organisation, live music performance and trades cryptocurrencies. Evaluate spam probability (0-1). Output ONLY 3 lines:\n1. Numeric score (0.00-1.00)\n2. One-sentence reason citing strongest red flag\n3. Primary concern category if found from the list: malware, phishing, marketing, scam";
     reason_header = "X-GPT-Reason";
+  '';
+  services.rspamd.locals."arc.conf".text = ''
+    # Use the existing simple-nixos-mailserver DKIM keys
+    path = "/var/dkim/$domain.$selector.key";
+    selector = "mail"; # SNM's default selector
+
+    # Essential for Sieve redirects: sign incoming mail before it gets forwarded
+    sign_inbound = true;
+
+    # Also sign normal outbound mail just in case
+    sign_local = true;
+    sign_authenticated = true;
+
+    # Use the domain of the recipient (e.g., kohlhof.org or 8bj.de)
+    # to find the correct signing key, rather than the original sender's domain
+    use_domain = "recipient";
+
+    allow_envfrom_empty = true;
   '';
 
   services.rspamd.extraConfig = lib.mkAfter ''
