@@ -2,10 +2,10 @@
   imports = [
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-25.11/nixos-mailserver-nixos-25.11.tar.gz";
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-26.05/nixos-mailserver-nixos-26.05.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
-      # release="nixos-25.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
-      sha256 = "0f1mq2gdmx9wd0k89f6w61sbfzpd1wwz857l2xvyp1x0msmd2z20";
+      # release="nixos-26.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
+      sha256 = "0z27k7jw3brk2imr4z5idyfzhm8jk2hdqsx0jagrp031xrnz7sp5";
     })
   ];
 
@@ -18,13 +18,13 @@
     enableSubmissionSsl = true;
     enableSubmission = true; # for port 587 STARTTLS
     enableImap = true; # for port 143 STARTTLS
-    stateVersion = 3;
+    stateVersion = 5;
     fqdn = "8bj.de";
     domains = [ "8bj.de" "windowsfreak.de" "rasselbande-horn.de" "kohlhof.org" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-    loginAccounts = {
+    accounts = {
       "mail@8bj.de" = {
         hashedPasswordFile = "/var/config/mail/mail.8bj.de.key";
         aliases = ["@8bj.de" "@windowsfreak.de"];
@@ -187,58 +187,65 @@ Tel.: 040-6552347 | Fax: 040-65590732";
       enable = true;
       memoryLimit = 1000;
     };
-    certificateScheme = "manual";
-    certificateFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.crt";
-    keyFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.key";
-    rebootAfterKernelUpgrade = {
-      enable = true;
+    x509 = {
+      certificateFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.crt";
+      privateKeyFile = "/var/lib/caddy/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/8bj.de/8bj.de.key";
     };
     mailboxes = {
       Trash = {
         auto = "subscribe";
-        specialUse = "Trash";
+        special_use = "\\Trash";
       };
       Junk = {
         auto = "subscribe";
-        specialUse = "Junk";
+        special_use = "\\Junk";
       };
       Drafts = {
         auto = "subscribe";
-        specialUse = "Drafts";
+        special_use = "\\Drafts";
       };
       Sent = {
         auto = "subscribe";
-        specialUse = "Sent";
+        special_use = "\\Sent";
       };
       Archive = {
         auto = "subscribe";
-        specialUse = "Archive";
+        special_use = "\\Archive";
       };
     };
   };
-  services.dovecot2.mailPlugins.globally.enable = [ "acl" "fts" ];
-  services.dovecot2.extraConfig = lib.mkAfter ''
-    namespace {
-      type = public
-      separator = .
-      prefix = Public.
-      location = maildir:/var/vmail/public:INDEXPVT=/var/lib/dovecot/indices/%d/%n/public
-      subscriptions = no
-    }
 
-    protocol imap {
-     mail_max_userip_connections = 100
-     mail_plugins = $mail_plugins imap_acl imap_sieve
-    }
+  services.dovecot2.settings = {
+    mail_plugins = {
+      acl = true;
+      fts = true;
+    };
 
-    plugin {
-      acl = vfile:/etc/dovecot/dovecot-acl:cache_secs=60
-      acl_globals_only = yes
-      sieve_max_redirects = 75
-      sieve_user_email = MAILER-DAEMON@8bj.de
-      sieve_redirect_envelope_from = orig_recipient
-    }
-  '';
+    "namespace" = {
+      type = "public";
+      separator = ".";
+      prefix = "Public.";
+      location = "maildir:/var/vmail/public:INDEXPVT=/var/lib/dovecot/indices/%d/%n/public";
+      subscriptions = false;
+    };
+
+    "protocol imap" = {
+      mail_max_userip_connections = 100;
+      mail_plugins = {
+        imap_acl = true;
+        imap_sieve = true;
+      };
+    };
+
+    plugin = {
+      acl = "vfile:/etc/dovecot/dovecot-acl:cache_secs=60";
+      acl_globals_only = true;
+      sieve_max_redirects = 75;
+      sieve_user_email = "MAILER-DAEMON@8bj.de";
+      sieve_redirect_envelope_from = "orig_recipient";
+    };
+  };
+
   services.rspamd.locals."gpt.conf".text = ''
     enabled = true;
     allow_ham = true;
