@@ -7,7 +7,8 @@ in {
     after = [ "network.target" "arangodb.service" ];
     script = ''
       export UNIX=/run/aurumtax/apiserver.sock
-      exec /var/aurumtax/aurumtax/bin/saas config.yml
+      cd /var/aurumtax/aurumtax/
+      exec ./build/aurum-saas config.yml
     '';
     serviceConfig = {
       WorkingDirectory = "/var/aurumtax/aurumtax";

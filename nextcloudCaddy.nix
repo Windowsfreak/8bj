@@ -65,7 +65,7 @@ let
 
   inherit (cfg) datadir;
 
-  phpPackage = pkgs.php85.buildEnv {
+  phpPackage = pkgs.php84.buildEnv {
     extensions = { enabled, all }:
       (with all; enabled
         ++ [ bz2 intl sodium ] # recommended
@@ -426,8 +426,8 @@ in {
       relatedPackages = [ "nextcloud32" "nextcloud33" ];
     };
     phpPackage = mkPackageOption pkgs "php" {
-      default = [ "php85" ];
-      example = "php85";
+      default = [ "php84" ];
+      example = "php84";
     };
 
     finalPackage = mkOption {
