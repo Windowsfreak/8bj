@@ -221,12 +221,29 @@ Tel.: 040-6552347 | Fax: 040-65590732";
       fts = true;
     };
 
+    "namespace inbox" = {
+      "mailbox *" = {
+        "acl user=mail@8bj.de" = {
+          rights = "lrwstipekxa";
+        };
+      };
+    };
+
     "namespace public" = {
       type = "public";
       separator = ".";
       prefix = "Public.";
-      location = "maildir:/var/vmail/public:INDEXPVT=/var/lib/dovecot/indices/%d/%n/public";
+      mail_driver = "maildir";
+      mail_path = "/var/vmail/public";
+      mail_index_private_path = "/var/lib/dovecot/indices/%{user | domain}/%{user | username}/public";
       subscriptions = false;
+      mailbox_list_index_prefix = "public-list";
+
+      "mailbox *" = {
+        "acl user=mail@8bj.de" = {
+          rights = "lrwstipekxa";
+        };
+      };
     };
 
     "protocol imap" = {
@@ -237,13 +254,14 @@ Tel.: 040-6552347 | Fax: 040-65590732";
       };
     };
 
-    plugin = {
-      acl = "vfile:/etc/dovecot/dovecot-acl:cache_secs=60";
-      acl_globals_only = true;
-      sieve_max_redirects = 75;
-      sieve_user_email = "MAILER-DAEMON@8bj.de";
-      sieve_redirect_envelope_from = "orig_recipient";
-    };
+    # ACL plugin settings
+    acl_driver = "vfile";
+    acl_globals_only = true;
+
+    # Sieve plugin settings
+    sieve_max_redirects = 75;
+    sieve_user_email = "MAILER-DAEMON@8bj.de";
+    sieve_redirect_envelope_from = "orig_recipient";
   };
 
   services.rspamd.locals."gpt.conf".text = ''
