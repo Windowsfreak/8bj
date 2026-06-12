@@ -221,7 +221,7 @@ Tel.: 040-6552347 | Fax: 040-65590732";
       fts = true;
     };
 
-    "namespace" = {
+    "namespace public" = {
       type = "public";
       separator = ".";
       prefix = "Public.";
