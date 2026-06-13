@@ -5,6 +5,8 @@
     enable = true;
     configureNginx = false;
     package = pkgs.callPackage ./dawarich-pkg/package.nix { };
+    secretKeyBaseFile = "/var/config/dawarich-secret-key-base";
+    extraEnvFiles = [ "/var/config/dawarich-secrets.env" ];
     localDomain = "dawarich.8bj.de";
     webPort = 19790;
     smtp = {
