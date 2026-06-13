@@ -10,7 +10,6 @@
   ruby_3_4,
   stdenv,
   tailwindcss_3,
-  python3,
   gemset ? import ./gemset.nix,
   sources ? lib.importJSON ./sources.json,
   unpatchedSource ? fetchFromGitHub {
@@ -30,22 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
   src = applyPatches {
     src = unpatchedSource;
     postPatch = ''
-      # Remove platform-specific ffi gem entries from Gemfile.lock dynamically
-      python3 -c "
-import re
-with open('Gemfile.lock', 'r') as f:
-    content = f.read()
-m = re.search(r'ffi \(([0-9.]+)-[a-z0-9_.-]+\)', content)
-if m:
-    version = m.group(1)
-    content = re.sub(r'ffi \([0-9.]+-([a-z0-9_.-]+)\)', 'ffi (' + version + ')', content, count=1)
-    content = re.sub(r'^[ \t]*ffi \([0-9.]+-([a-z0-9_.-]+)\)\n', "", content, flags=re.MULTILINE)
-with open('Gemfile.lock', 'w') as f:
-    f.write(content)
-"
+      # Remove platform-specific ffi gem entries from Gemfile.lock dynamically using awk
+      awk '/[ ]*ffi \([0-9.]+-/ { if (!printed) { match($0, /[0-9.]+/); ver=substr($0, RSTART, RLENGTH); print "    ffi (" ver ")"; printed=1 } next } { print }' Gemfile.lock > Gemfile.lock.tmp && mv Gemfile.lock.tmp Gemfile.lock
 
       substituteInPlace ./Gemfile \
-        --replace-fail \"ruby File.read('.ruby-version').strip\" \"ruby '>= 3.4.0'\"
+        --replace-fail "ruby File.read('.ruby-version').strip" "ruby '>= 3.4.0'"
     '';
   };
 
