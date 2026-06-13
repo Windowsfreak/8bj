@@ -14,8 +14,8 @@ echo "Updating Dawarich to version v$VERSION"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-echo "Prefetching source code for tag v$VERSION..."
-JSON=$(nix-prefetch-github "$OWNER" "$REPO" --rev "refs/tags/v$VERSION" 2>/dev/null)
+echo "Prefetching source code for tag $VERSION..."
+JSON=$(nix-prefetch-github "$OWNER" "$REPO" --rev "refs/tags/$VERSION" 2>/dev/null)
 HASH=$(echo "$JSON" | jq -r .hash)
 
 cat > "$SCRIPT_DIR/sources.json" << EOF

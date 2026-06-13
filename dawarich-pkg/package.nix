@@ -16,7 +16,7 @@
   unpatchedSource ? fetchFromGitHub {
     owner = "Freika";
     repo = "dawarich";
-    tag = "v${sources.version}";
+    tag = sources.version;
     inherit (sources) hash;
   },
 }:
