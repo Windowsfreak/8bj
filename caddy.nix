@@ -426,10 +426,11 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     root * ${config.services.dawarich.package}/public
-    try_files {path} @proxy
-    handle @proxy {
-      reverse_proxy * 127.0.0.1:${toString config.services.dawarich.webPort}
+    file_server
+    @not_static {
+      not file {path}
     }
+    reverse_proxy @not_static 127.0.0.1:${toString config.services.dawarich.webPort}
   '';
 
   caddyfile = ''
