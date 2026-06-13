@@ -4,6 +4,7 @@
   services.dawarich = {
     enable = true;
     configureNginx = false;
+    package = pkgs.callPackage ./dawarich-pkg/package.nix { };
     localDomain = "dawarich.8bj.de";
     webPort = 19790;
     smtp = {
