@@ -419,6 +419,18 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileDawarich = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * ${config.services.dawarich.package}/public
+    try_files {path} @proxy
+    handle @proxy {
+      reverse_proxy * 127.0.0.1:${toString config.services.dawarich.webPort}
+    }
+  '';
 
   caddyfile = ''
     header /* {
@@ -531,6 +543,9 @@ in {
       };
       virtualHosts."llm.8bj.de" = {
         extraConfig = caddyfileFreellmapi;
+      };
+      virtualHosts."dawarich.8bj.de" = {
+        extraConfig = caddyfileDawarich;
       };
 
       virtualHosts."8bj.de" = {

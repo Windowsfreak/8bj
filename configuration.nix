@@ -15,6 +15,7 @@
     ./aurum-api.nix
     ./tagtax-api.nix
     ./freellmapi.nix
+    ./dawarich.nix
 
     ./paranoia.nix
   ];
