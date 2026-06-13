@@ -39,7 +39,7 @@ m = re.search(r'ffi \(([0-9.]+)-[a-z0-9_.-]+\)', content)
 if m:
     version = m.group(1)
     content = re.sub(r'ffi \([0-9.]+-([a-z0-9_.-]+)\)', 'ffi (' + version + ')', content, count=1)
-    content = re.sub(r'^[ \t]*ffi \([0-9.]+-([a-z0-9_.-]+)\)\n', '', content, flags=re.MULTILINE)
+    content = re.sub(r'^[ \t]*ffi \([0-9.]+-([a-z0-9_.-]+)\)\n', "", content, flags=re.MULTILINE)
 with open('Gemfile.lock', 'w') as f:
     f.write(content)
 "
