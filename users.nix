@@ -23,6 +23,7 @@ in
     dpv = {};
     aurumtax = {};
     tagtax = {};
+    hypetax = {};
     freellmapi = {};
 
     bjoern = {};
@@ -58,6 +59,11 @@ in
       isSystemUser = true;
       home = "/var/tagtax";
       group = "tagtax";
+    };
+    hypetax = {
+      isSystemUser = true;
+      home = "/var/hypetax";
+      group = "hypetax";
     };
 
     mysql = {

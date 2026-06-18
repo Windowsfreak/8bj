@@ -14,7 +14,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 ### php-fpm
 - available via socket
 
-### Go / Custom APIs (DPV, AurumTax, TagTax)
+### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax)
 These services run natively as systemd daemons, communicating with Caddy via Unix sockets and using ArangoDB as their backend.
 - **DPV**:
   - Code directories: `/var/dpv/api` (DPV1/DPV2), `/var/dpv/zoom` (Zoom), `/var/dpv/dpv` (Membership).
@@ -25,6 +25,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/aurumtax/aurumtax` (Frontend is in `/var/aurumtax/aurumtax/frontend`).
   - Service: `aurumtax.service` (socket `/run/aurumtax/apiserver.sock`).
   - Run under user `aurumtax`.
+- **HypeTax**:
+  - Code directory: `/var/hypetax/hypetax` (Frontend is in `/var/hypetax/hypetax/frontend`).
+  - Service: `hypetax.service` (socket `/run/hypetax/apiserver.sock`).
+  - Run under user `hypetax`.
 - **TagTax**:
   - Code directory: `/var/tagtax/tagtax` (Frontend is in `/var/tagtax/tagtax/frontend`).
   - Service: `tagtax.service` (socket `/run/tagtax/apiserver.sock`).
@@ -183,6 +187,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 - `/var/freellmapi` (FreeLLMAPI files and repo)
 - `/var/dpv` (DPV APIs and binaries)
 - `/var/aurumtax` (AurumTax frontend and binary)
+- `/var/hypetax` (HypeTax frontend and binary)
 - `/var/tagtax` (TagTax frontend and binary)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, espocrm, espocollin)
 - `/srv/jupyter` (JupyterLab notebooks home directory)

@@ -14,6 +14,7 @@
     ./dpv-api.nix
     ./aurum-api.nix
     ./tagtax-api.nix
+    ./hypetax-api.nix
     ./freellmapi.nix
     ./dawarich.nix
 
@@ -230,6 +231,7 @@
     "d /var/lib/changedetection 0755 root root - -"
     "d /run/aurumtax 0755 aurumtax aurumtax - -"
     "d /run/tagtax 0755 tagtax tagtax - -"
+    "d /run/hypetax 0755 hypetax hypetax - -"
 
     "d /run/dpv 0755 dpv dpv - -"
     "d /run/dpv1 0755 dpv dpv - -"
