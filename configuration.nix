@@ -117,6 +117,7 @@
     wget
     php
     pkgs.snappymail
+    chromium
   ];
 
   # Services

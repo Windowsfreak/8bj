@@ -3,6 +3,7 @@ let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
   systemd.services.uebtax = {
+    path = [ pkgs.chromium ];
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" "arangodb.service" ];
     script = ''
