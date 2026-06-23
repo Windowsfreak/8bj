@@ -24,6 +24,7 @@ in
     aurumtax = {};
     tagtax = {};
     hypetax = {};
+    uebtax = {};
     freellmapi = {};
 
     bjoern = {};
@@ -64,6 +65,11 @@ in
       isSystemUser = true;
       home = "/var/hypetax";
       group = "hypetax";
+    };
+    uebtax = {
+      isSystemUser = true;
+      home = "/var/uebtax";
+      group = "uebtax";
     };
 
     mysql = {

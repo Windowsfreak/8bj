@@ -424,6 +424,32 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileUeb = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/uebtax/uebtax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/uebtax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfileFreellmapi = ''
     header /* {
       -Server
@@ -570,6 +596,9 @@ in {
       };
       virtualHosts."hypetax.8bj.de" = {
         extraConfig = caddyfileHype;
+      };
+      virtualHosts."uebtax.8bj.de" = {
+        extraConfig = caddyfileUeb;
       };
       virtualHosts."llm.8bj.de" = {
         extraConfig = caddyfileFreellmapi;
