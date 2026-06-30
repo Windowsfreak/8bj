@@ -7,10 +7,10 @@ in {
     after = [ "network.target" ];
     script = ''
       export UNIX=/run/uponly/apiserver.sock
-      exec /var/uponly/uponly
+      exec /var/uponly/uponly/uponly
     '';
     serviceConfig = {
-      WorkingDirectory = "/var/uponly";
+      WorkingDirectory = "/var/uponly/uponly";
       RuntimeDirectory = "uponly";
       User = "uponly";
       Group = "uponly";

@@ -38,7 +38,7 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Service: `uebtax.service` (socket `/run/uebtax/apiserver.sock`).
   - Run under user `uebtax`.
 - **UPOnly**:
-  - Code directory: `/var/uponly`.
+  - Code directory: `/var/uponly/uponly`.
   - Service: `uponly.service` (socket `/run/uponly/apiserver.sock`).
   - Run under user `uponly`.
 
@@ -198,7 +198,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 - `/var/hypetax` (HypeTax frontend and binary)
 - `/var/tagtax` (TagTax frontend and binary)
 - `/var/uebtax` (UebTax frontend and binary)
-- `/var/uponly` (UPOnly frontend/dashboard and binary)
+- `/var/uponly` (UPOnly frontend/dashboard and binary in `/var/uponly/uponly`)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, espocrm, espocollin)
 - `/srv/jupyter` (JupyterLab notebooks home directory)
 - `/var/lib` (persistent data for factorio, minecraft, mysql/mariadb, postgresql, nextcloud, changedetection)
