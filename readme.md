@@ -14,7 +14,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 ### php-fpm
 - available via socket
 
-### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax)
+### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, UPOnly)
 These services run natively as systemd daemons, communicating with Caddy via Unix sockets and using ArangoDB as their backend.
 - **DPV**:
   - Code directories: `/var/dpv/api` (DPV1/DPV2), `/var/dpv/zoom` (Zoom), `/var/dpv/dpv` (Membership).
@@ -37,6 +37,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/uebtax/uebtax` (Frontend is in `/var/uebtax/uebtax/frontend`).
   - Service: `uebtax.service` (socket `/run/uebtax/apiserver.sock`).
   - Run under user `uebtax`.
+- **UPOnly**:
+  - Code directory: `/var/uponly`.
+  - Service: `uponly.service` (socket `/run/uponly/apiserver.sock`).
+  - Run under user `uponly`.
 
 ### 502 Gateway Error
 - Check that the corresponding API/systemd service is running.
@@ -194,6 +198,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 - `/var/hypetax` (HypeTax frontend and binary)
 - `/var/tagtax` (TagTax frontend and binary)
 - `/var/uebtax` (UebTax frontend and binary)
+- `/var/uponly` (UPOnly frontend/dashboard and binary)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, espocrm, espocollin)
 - `/srv/jupyter` (JupyterLab notebooks home directory)
 - `/var/lib` (persistent data for factorio, minecraft, mysql/mariadb, postgresql, nextcloud, changedetection)

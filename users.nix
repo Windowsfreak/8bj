@@ -26,6 +26,7 @@ in
     hypetax = {};
     uebtax = {};
     freellmapi = {};
+    uponly = {};
 
     bjoern = {};
     php = {};
@@ -70,6 +71,11 @@ in
       isSystemUser = true;
       home = "/var/uebtax";
       group = "uebtax";
+    };
+    uponly = {
+      isSystemUser = true;
+      home = "/var/uponly";
+      group = "uponly";
     };
 
     mysql = {

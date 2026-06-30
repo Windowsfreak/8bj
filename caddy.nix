@@ -484,6 +484,16 @@ let
     }
     reverse_proxy @not_static 127.0.0.1:${toString config.services.dawarich.webPort}
   '';
+  caddyfileUponly = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    handle {
+      reverse_proxy * unix//run/uponly/apiserver.sock
+    }
+  '';
 
   caddyfile = ''
     header /* {
@@ -596,6 +606,9 @@ in {
       };
       virtualHosts."hypetax.8bj.de" = {
         extraConfig = caddyfileHype;
+      };
+      virtualHosts."uponly.8bj.de" = {
+        extraConfig = caddyfileUponly;
       };
       virtualHosts."uebtax.8bj.de" = {
         extraConfig = caddyfileUeb;

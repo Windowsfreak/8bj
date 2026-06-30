@@ -18,6 +18,7 @@
     ./uebtax-api.nix
     ./freellmapi.nix
     ./dawarich.nix
+    ./uponly-api.nix
 
     ./paranoia.nix
   ];
@@ -235,6 +236,7 @@
     "d /run/tagtax 0755 tagtax tagtax - -"
     "d /run/hypetax 0755 hypetax hypetax - -"
     "d /run/uebtax 0755 uebtax uebtax - -"
+    "d /run/uponly 0755 uponly uponly - -"
 
     "d /run/dpv 0755 dpv dpv - -"
     "d /run/dpv1 0755 dpv dpv - -"
