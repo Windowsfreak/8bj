@@ -517,8 +517,8 @@ let
     }
 
     # 3. If a file is found, issue a redirect to its exact path.
-    # {file_match.relative} holds the discovered path (e.g., "123456/invoice.pdf")
-    redir @find_pdf /{file_match.relative}
+    # {file_match.relative} holds the discovered path (e.g., "/123456/invoice.pdf")
+    redir @find_pdf {file_match.relative}
 
     # 4. Serve the static files
     file_server
