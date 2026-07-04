@@ -494,6 +494,46 @@ let
       reverse_proxy * unix//run/uponly/apiserver.sock
     }
   '';
+  caddyfilePdf = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+
+    # Define where your folders (e.g., /123456) are stored on disk
+    root * /var/www/pdf
+
+    # 1. Catch requests that are NOT already pointing to a .pdf
+    @find_pdf {
+      not path *.pdf
+
+      # 2. Look for a PDF inside the requested directory. 
+      # The [^.] prefix explicitly ignores any files starting with a dot,
+      # ensuring we don't accidentally redirect to a hidden file.
+      file {
+        try_files {path}/[^.]*.pdf
+      }
+    }
+
+    # 3. If a file is found, issue a redirect to its exact path.
+    # {file_match.relative} holds the discovered path (e.g., "123456/invoice.pdf")
+    redir @find_pdf /{file_match.relative}
+
+    # 4. Serve the static files
+    file_server
+
+    handle_errors {
+      root * /var/www/8bj/obj/error
+      @wants_json header Accept *application/json*
+      @404 expression `{http.error.status_code} == 404`
+      handle @404 {
+        rewrite @wants_json /404.json
+        rewrite * /404.html
+        file_server
+      }
+    }
+  '';
 
   caddyfile = ''
     header /* {
@@ -609,6 +649,9 @@ in {
       };
       virtualHosts."uponly.8bj.de" = {
         extraConfig = caddyfileUponly;
+      };
+      virtualHosts."pdf.8bj.de" = {
+        extraConfig = caddyfilePdf;
       };
       virtualHosts."uebtax.8bj.de" = {
         extraConfig = caddyfileUeb;
