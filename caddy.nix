@@ -367,6 +367,14 @@ let
 
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     }
+    @exportScripts {
+      path /export.js /export_pro.js
+    }
+    header @exportScripts {
+      Access-Control-Allow-Origin "https://backoffice.aurum.foundation"
+      Access-Control-Allow-Methods "GET, OPTIONS"
+      Access-Control-Allow-Headers "Content-Type"
+    }
     handle {
       file_server
       try_files {path} /index.html
