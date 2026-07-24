@@ -380,6 +380,40 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileAurumPro = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/aurumtax/aurumtax/frontend_pro
+    handle /api/* {
+      reverse_proxy * unix//run/aurumtax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
+    @exportScripts {
+      path /export.js /export_pro.js
+    }
+    header @exportScripts {
+      Access-Control-Allow-Origin "https://backoffice.aurum.foundation"
+      Access-Control-Allow-Methods "GET, OPTIONS"
+      Access-Control-Allow-Headers "Content-Type"
+    }
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfileTag = ''
     header /* {
       -Server
@@ -648,6 +682,9 @@ in {
       };
       virtualHosts."aurumtax.8bj.de" = {
         extraConfig = caddyfileAurum;
+      };
+      virtualHosts."aurumtaxpro.8bj.de" = {
+        extraConfig = caddyfileAurumPro;
       };
       virtualHosts."tagtax.8bj.de" = {
         extraConfig = caddyfileTag;
