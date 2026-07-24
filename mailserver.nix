@@ -269,7 +269,7 @@ Tel.: 040-6552347 | Fax: 040-65590732";
     allow_ham = true;
     type = "openai";
     .include(try=true) "/var/config/rspamd-gpt-secret.conf"
-    model = "qwen-3-235b-a22b-instruct-2507";
+    model = "auto";
     max_tokens = 1000;
     temperature = 0.7;
     top_p = 0.9;
