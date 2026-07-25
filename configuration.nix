@@ -123,6 +123,14 @@
 
   # Services
   services = {
+    ollama = {
+      enable = true;
+      acceleration = false;
+      loadModels = [
+        "nomic-embed-text-v2-moe:latest"
+      ];
+      openFirewall = false;
+    };
     fail2ban = {
       enable = true;
       bantime = "70m";
