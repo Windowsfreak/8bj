@@ -188,9 +188,9 @@
       settings.PasswordAuthentication = false;
     };
     postgresql = {
-      package = pkgs.postgresql_16;
+      package = pkgs.postgresql_17;
       extraPlugins = [
-        pkgs.postgresql_16.pkgs.pgvector
+        pkgs.postgresql_17.pkgs.pgvector
       ];
       authentication = ''
         # "local" is for Unix domain socket connections only
