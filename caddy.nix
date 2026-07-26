@@ -296,7 +296,7 @@ let
     handle_errors {
       root * /var/www/8bj/obj/error
       @wants_json header Accept *application/json*
-      @404 expression `{http.error.status_code} == 404`
+      @404 expression {http.error.status_code} == 404
       handle @404 {
         rewrite @wants_json /404.json
         rewrite * /404.html
@@ -568,13 +568,57 @@ let
     handle_errors {
       root * /var/www/8bj/obj/error
       @wants_json header Accept *application/json*
-      @404 expression `{http.error.status_code} == 404`
+      @404 expression {http.error.status_code} == 404
       handle @404 {
         rewrite @wants_json /404.json
         rewrite * /404.html
         file_server
       }
     }
+  '';
+  caddyfileLeben = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    @php not path /tileimg/* # /**/
+    root * /var/www/leben
+    handle @php {
+      # @keyword {
+      #   path_regexp ^/[^\.\/]+$
+      #   not file
+      # }
+      # handle @keyword {
+      #   rewrite * /index.php?{path}
+      # }
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
+        try_files {path} {path}/index.php {path}/index.htm {path}/index.html index.php index.htm index.html
+      }
+      file_server {
+        index index.htm index.html
+      }
+    }
+    handle /tileimg/* { # /**/
+      file_server
+    }
+    handle_errors {
+      root * /var/www/8bj/obj/error
+      @wants_json header Accept *application/json*
+      @404 expression {http.error.status_code} == 404
+      handle @404 {
+        rewrite @wants_json /404.json
+        rewrite * /404.html
+        file_server
+      }
+      @502 expression {http.error.status_code} == 502
+      handle @502 {
+        rewrite @wants_json /502.json
+        rewrite * /502.html
+        file_server
+      }
+    }
+    # /**/
   '';
 
   caddyfile = ''
@@ -619,7 +663,7 @@ let
     handle_errors {
       root * /var/www/8bj/obj/error
       @wants_json header Accept *application/json*
-      @404 expression `{http.error.status_code} == 404`
+      @404 expression {http.error.status_code} == 404
       handle @404 {
         rewrite @wants_json /404.json
         rewrite * /404.html
@@ -673,6 +717,9 @@ in {
       };
       virtualHosts."di.8bj.de" = {
         extraConfig = caddyfileDi;
+      };
+      virtualHosts."leben.8bj.de" = {
+        extraConfig = caddyfileLeben;
       };
       virtualHosts."monitor.8bj.de" = {
         extraConfig = caddyfileChangedetection;
