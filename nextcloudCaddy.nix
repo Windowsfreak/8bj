@@ -1523,6 +1523,11 @@ in {
         extraConfig = ''
           header /* {
             -Server
+            X-Content-Type-Options "nosniff"
+            X-Robots-Tag "noindex, nofollow"
+            X-Frame-Options "SAMEORIGIN"
+            X-Permitted-Cross-Domain-Policies "none"
+            Referrer-Policy "no-referrer"
           }
           header Strict-Transport-Security max-age=63072000
           encode zstd gzip

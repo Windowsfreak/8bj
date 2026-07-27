@@ -163,6 +163,7 @@
         dbuser = "nextcloud";
       };
       settings = {
+        serverid = "nc-8bj-1";
         mail_smtpmode = "sendmail";
         mail_sendmailmode = "pipe";
         enabledPreviewProviders = [
