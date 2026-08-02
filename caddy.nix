@@ -582,43 +582,21 @@ let
     }
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
-    @php not path /tileimg/* # /**/
-    root * /var/www/leben
-    handle @php {
-      # @keyword {
-      #   path_regexp ^/[^\.\/]+$
-      #   not file
-      # }
-      # handle @keyword {
-      #   rewrite * /index.php?{path}
-      # }
-      php_fastcgi unix/${config.services.phpfpm.pools.php.socket} {
-        try_files {path} {path}/index.php {path}/index.htm {path}/index.html index.php index.htm index.html
-      }
-      file_server {
-        index index.htm index.html
-      }
+    root * /var/leben/leben/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/leben/apiserver.sock
     }
-    handle /tileimg/* { # /**/
+    @phpFiles {
+      path_regexp \.php$
+      path /php /php/*
+    }
+    handle @phpFiles {
+      respond "Access denied" 403
+    }
+    handle {
       file_server
+      try_files {path} /index.html
     }
-    handle_errors {
-      root * /var/www/8bj/obj/error
-      @wants_json header Accept *application/json*
-      @404 expression {http.error.status_code} == 404
-      handle @404 {
-        rewrite @wants_json /404.json
-        rewrite * /404.html
-        file_server
-      }
-      @502 expression {http.error.status_code} == 502
-      handle @502 {
-        rewrite @wants_json /502.json
-        rewrite * /502.html
-        file_server
-      }
-    }
-    # /**/
   '';
 
   caddyfile = ''

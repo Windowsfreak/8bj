@@ -37,6 +37,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/uebtax/uebtax` (Frontend is in `/var/uebtax/uebtax/frontend`).
   - Service: `uebtax.service` (socket `/run/uebtax/apiserver.sock`).
   - Run under user `uebtax`.
+- **Leben**:
+  - Code directory: `/var/leben/leben` (Frontend is in `/var/leben/leben/frontend`).
+  - Service: `leben.service` (socket `/run/leben/apiserver.sock`).
+  - Run under user `leben`.
 - **UPOnly**:
   - Code directory: `/var/uponly/uponly`.
   - Service: `uponly.service` (socket `/run/uponly/apiserver.sock`).
@@ -64,6 +68,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
 - Port is exposed locally (`localhost`) and to the Docker bridge (`172.17.0.1`).
 - Firewall: custom `iptables` rule allows TCP 5432 traffic from the Docker container network (`172.16.0.0/12`).
 - Databases:
+  - `azh` (AZH).
+  - `dawarich` (DaWarIch).
+  - `espocrm` and `espocollin` (EspoCRM containers).
+  - `leben` (Leben).
   - `nextcloud` (Nextcloud).
   - `vaultwarden` (Vaultwarden).
   - `listmonk` (Listmonk).
@@ -198,6 +206,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 - `/var/hypetax` (HypeTax frontend and binary)
 - `/var/tagtax` (TagTax frontend and binary)
 - `/var/uebtax` (UebTax frontend and binary)
+- `/var/leben` (Leben frontend and binary)
 - `/var/uponly` (UPOnly frontend/dashboard and binary in `/var/uponly/uponly`)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, espocrm, espocollin)
 - `/srv/jupyter` (JupyterLab notebooks home directory)

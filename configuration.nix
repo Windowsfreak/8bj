@@ -16,6 +16,7 @@
     ./tagtax-api.nix
     ./hypetax-api.nix
     ./uebtax-api.nix
+    ./leben-api.nix
     ./freellmapi.nix
     ./dawarich.nix
     ./uponly-api.nix
@@ -249,6 +250,7 @@
     "d /run/tagtax 0755 tagtax tagtax - -"
     "d /run/hypetax 0755 hypetax hypetax - -"
     "d /run/uebtax 0755 uebtax uebtax - -"
+    "d /run/leben 0755 leben leben - -"
     "d /run/uponly 0755 uponly uponly - -"
 
     "d /run/dpv 0755 dpv dpv - -"

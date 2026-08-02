@@ -25,6 +25,7 @@ in
     tagtax = {};
     hypetax = {};
     uebtax = {};
+    leben = {};
     freellmapi = {};
     uponly = {};
 
@@ -71,6 +72,11 @@ in
       isSystemUser = true;
       home = "/var/uebtax";
       group = "uebtax";
+    };
+    leben = {
+      isSystemUser = true;
+      home = "/var/leben";
+      group = "leben";
     };
     uponly = {
       isSystemUser = true;
