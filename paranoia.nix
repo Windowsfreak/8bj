@@ -9,6 +9,7 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       LogLevel = "ERROR";
+      UseDns = false;
     };
     extraConfig = ''
       IgnoreRhosts yes
@@ -17,5 +18,10 @@
       AuthenticationMethods publickey
     '';
   };
+  programs.ssh.extraConfig = ''
+    Host github.com gitlab.com
+      AddressFamily inet
+      GSSAPIAuthentication no
+  '';
   users.mutableUsers = false;
 }

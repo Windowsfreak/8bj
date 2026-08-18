@@ -298,6 +298,212 @@ Tel.: 040-6552347 | Fax: 040-65590732";
     allow_envfrom_empty = true;
   '';
 
+  services.rspamd.locals."rbl.conf".text = ''
+    rbls {
+      spamhaus {
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zen.dq.spamhaus.net";
+        from = false;
+      }
+      spamhaus_from {
+        from = true;
+        received = false;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zen.dq.spamhaus.net";
+        returncodes {
+          SPAMHAUS_ZEN = [
+            "127.0.0.2", "127.0.0.3", "127.0.0.4", "127.0.0.5",
+            "127.0.0.6", "127.0.0.7", "127.0.0.9", "127.0.0.10", "127.0.0.11"
+          ];
+        }
+      }
+      spamhaus_authbl_received {
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.authbl.dq.spamhaus.net";
+        from = false;
+        received = true;
+        ipv6 = true;
+        returncodes {
+          SH_AUTHBL_RECEIVED = "127.0.0.20";
+        }
+      }
+      spamhaus_dbl {
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.dbl.dq.spamhaus.net";
+        helo = true;
+        rdns = true;
+        dkim = true;
+        disable_monitoring = true;
+        returncodes {
+          RBL_DBL_SPAM = "127.0.1.2";
+          RBL_DBL_PHISH = "127.0.1.4";
+          RBL_DBL_MALWARE = "127.0.1.5";
+          RBL_DBL_BOTNET = "127.0.1.6";
+          RBL_DBL_ABUSED_SPAM = "127.0.1.102";
+          RBL_DBL_ABUSED_PHISH = "127.0.1.104";
+          RBL_DBL_ABUSED_MALWARE = "127.0.1.105";
+          RBL_DBL_ABUSED_BOTNET = "127.0.1.106";
+          RBL_DBL_DONT_QUERY_IPS = "127.0.1.255";
+        }
+      }
+      spamhaus_dbl_fullurls {
+        ignore_defaults = true;
+        no_ip = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.dbl.dq.spamhaus.net";
+        selector = 'urls:get_host';
+        disable_monitoring = true;
+        returncodes {
+          DBLABUSED_SPAM_FULLURLS = "127.0.1.102";
+          DBLABUSED_PHISH_FULLURLS = "127.0.1.104";
+          DBLABUSED_MALWARE_FULLURLS = "127.0.1.105";
+          DBLABUSED_BOTNET_FULLURLS = "127.0.1.106";
+        }
+      }
+      spamhaus_zrd {
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zrd.dq.spamhaus.net";
+        helo = true;
+        rdns = true;
+        dkim = true;
+        disable_monitoring = true;
+        returncodes {
+          RBL_ZRD_VERY_FRESH_DOMAIN = ["127.0.2.2", "127.0.2.3", "127.0.2.4"];
+          RBL_ZRD_FRESH_DOMAIN = [
+            "127.0.2.5", "127.0.2.6", "127.0.2.7", "127.0.2.8", "127.0.2.9",
+            "127.0.2.10", "127.0.2.11", "127.0.2.12", "127.0.2.13", "127.0.2.14",
+            "127.0.2.15", "127.0.2.16", "127.0.2.17", "127.0.2.18", "127.0.2.19",
+            "127.0.2.20", "127.0.2.21", "127.0.2.22", "127.0.2.23", "127.0.2.24"
+          ];
+          RBL_ZRD_DONT_QUERY_IPS = "127.0.2.255";
+        }
+      }
+      "SPAMHAUS_ZEN_URIBL" {
+        enabled = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zen.dq.spamhaus.net";
+        resolve_ip = true;
+        checks = ['urls'];
+        replyto = true;
+        emails = true;
+        ipv4 = true;
+        ipv6 = true;
+        emails_domainonly = true;
+        returncodes {
+          URIBL_SBL = "127.0.0.2";
+          URIBL_SBL_CSS = "127.0.0.3";
+          URIBL_XBL = ["127.0.0.4", "127.0.0.5", "127.0.0.6", "127.0.0.7"];
+          URIBL_PBL = ["127.0.0.10", "127.0.0.11"];
+          URIBL_DROP = "127.0.0.9";
+        }
+      }
+      SH_EMAIL_DBL {
+        ignore_defaults = true;
+        replyto = true;
+        emails_domainonly = true;
+        disable_monitoring = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.dbl.dq.spamhaus.net";
+        returncodes = {
+          SH_EMAIL_DBL = [ "127.0.1.2", "127.0.1.4", "127.0.1.5", "127.0.1.6" ];
+          SH_EMAIL_DBL_ABUSED = [ "127.0.1.102", "127.0.1.104", "127.0.1.105", "127.0.1.106" ];
+          SH_EMAIL_DBL_DONT_QUERY_IPS = [ "127.0.1.255" ];
+        }
+      }
+      SH_EMAIL_ZRD {
+        ignore_defaults = true;
+        replyto = true;
+        emails_domainonly = true;
+        disable_monitoring = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zrd.dq.spamhaus.net";
+        returncodes = {
+          SH_EMAIL_ZRD_VERY_FRESH_DOMAIN = ["127.0.2.2", "127.0.2.3", "127.0.2.4"];
+          SH_EMAIL_ZRD_FRESH_DOMAIN = [
+            "127.0.2.5", "127.0.2.6", "127.0.2.7", "127.0.2.8", "127.0.2.9",
+            "127.0.2.10", "127.0.2.11", "127.0.2.12", "127.0.2.13", "127.0.2.14",
+            "127.0.2.15", "127.0.2.16", "127.0.2.17", "127.0.2.18", "127.0.2.19",
+            "127.0.2.20", "127.0.2.21", "127.0.2.22", "127.0.2.23", "127.0.2.24"
+          ];
+          SH_EMAIL_ZRD_DONT_QUERY_IPS = [ "127.0.2.255" ];
+        }
+      }
+      "DBL" {
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.dbl.dq.spamhaus.net";
+        disable_monitoring = true;
+      }
+      "ZRD" {
+        ignore_defaults = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.zrd.dq.spamhaus.net";
+        no_ip = true;
+        dkim = true;
+        emails = true;
+        emails_domainonly = true;
+        urls = true;
+        returncodes = {
+          ZRD_VERY_FRESH_DOMAIN = ["127.0.2.2", "127.0.2.3", "127.0.2.4"];
+          ZRD_FRESH_DOMAIN = [
+            "127.0.2.5", "127.0.2.6", "127.0.2.7", "127.0.2.8", "127.0.2.9",
+            "127.0.2.10", "127.0.2.11", "127.0.2.12", "127.0.2.13", "127.0.2.14",
+            "127.0.2.15", "127.0.2.16", "127.0.2.17", "127.0.2.18", "127.0.2.19",
+            "127.0.2.20", "127.0.2.21", "127.0.2.22", "127.0.2.23", "127.0.2.24"
+          ];
+        }
+      }
+      spamhaus_sbl_url {
+        ignore_defaults = true;
+        rbl = "btbjyz62vqqleb7wgwtte7y4yy.sbl.dq.spamhaus.net";
+        checks = ['urls'];
+        disable_monitoring = true;
+        returncodes {
+          SPAMHAUS_SBL_URL = "127.0.0.2";
+        }
+      }
+    }
+  '';
+
+  services.rspamd.locals."rbl_group.conf".text = ''
+    symbols = {
+      "SPAMHAUS_ZEN" { weight = 7.0; }
+      "SH_AUTHBL_RECEIVED" { weight = 4.0; }
+      "RBL_DBL_SPAM" { weight = 7.0; }
+      "RBL_DBL_PHISH" { weight = 7.0; }
+      "RBL_DBL_MALWARE" { weight = 7.0; }
+      "RBL_DBL_BOTNET" { weight = 7.0; }
+      "RBL_DBL_ABUSED_SPAM" { weight = 3.0; }
+      "RBL_DBL_ABUSED_PHISH" { weight = 3.0; }
+      "RBL_DBL_ABUSED_MALWARE" { weight = 3.0; }
+      "RBL_DBL_ABUSED_BOTNET" { weight = 3.0; }
+      "RBL_ZRD_VERY_FRESH_DOMAIN" { weight = 7.0; }
+      "RBL_ZRD_FRESH_DOMAIN" { weight = 4.0; }
+      "ZRD_VERY_FRESH_DOMAIN" { weight = 7.0; }
+      "ZRD_FRESH_DOMAIN" { weight = 4.0; }
+      "SH_EMAIL_DBL" { weight = 7.0; }
+      "SH_EMAIL_DBL_ABUSED" { weight = 7.0; }
+      "SH_EMAIL_ZRD_VERY_FRESH_DOMAIN" { weight = 7.0; }
+      "SH_EMAIL_ZRD_FRESH_DOMAIN" { weight = 4.0; }
+      "RBL_DBL_DONT_QUERY_IPS" { weight = 0.0; }
+      "RBL_ZRD_DONT_QUERY_IPS" { weight = 0.0; }
+      "SH_EMAIL_ZRD_DONT_QUERY_IPS" { weight = 0.0; }
+      "SH_EMAIL_DBL_DONT_QUERY_IPS" { weight = 0.0; }
+      "DBL" { weight = 0.0; description = "DBL unknown result"; groups = ["spamhaus"]; }
+      "DBL_SPAM" { weight = 7.0; description = "DBL uribl spam"; groups = ["spamhaus"]; }
+      "DBL_PHISH" { weight = 7.0; description = "DBL uribl phishing"; groups = ["spamhaus"]; }
+      "DBL_MALWARE" { weight = 7.0; description = "DBL uribl malware"; groups = ["spamhaus"]; }
+      "DBL_BOTNET" { weight = 7.0; description = "DBL uribl botnet C&C domain"; groups = ["spamhaus"]; }
+      "DBLABUSED_SPAM_FULLURLS" { weight = 5.5; description = "DBL uribl abused legit spam"; groups = ["spamhaus"]; }
+      "DBLABUSED_PHISH_FULLURLS" { weight = 5.5; description = "DBL uribl abused legit phish"; groups = ["spamhaus"]; }
+      "DBLABUSED_MALWARE_FULLURLS" { weight = 5.5; description = "DBL uribl abused legit malware"; groups = ["spamhaus"]; }
+      "DBLABUSED_BOTNET_FULLURLS" { weight = 5.5; description = "DBL uribl abused legit botnet"; groups = ["spamhaus"]; }
+      "DBL_ABUSE" { weight = 5.5; description = "DBL uribl abused legit spam"; groups = ["spamhaus"]; }
+      "DBL_ABUSE_REDIR" { weight = 1.5; description = "DBL uribl abused spammed redirector domain"; groups = ["spamhaus"]; }
+      "DBL_ABUSE_PHISH" { weight = 5.5; description = "DBL uribl abused legit phish"; groups = ["spamhaus"]; }
+      "DBL_ABUSE_MALWARE" { weight = 5.5; description = "DBL uribl abused legit malware"; groups = ["spamhaus"]; }
+      "DBL_ABUSE_BOTNET" { weight = 5.5; description = "DBL uribl abused legit botnet C&C"; groups = ["spamhaus"]; }
+      "DBL_PROHIBIT" { weight = 0.0; description = "DBL uribl IP queries prohibited!"; groups = ["spamhaus"]; }
+      "DBL_BLOCKED_OPENRESOLVER" { weight = 0.0; description = "Spamhaus open resolver warning"; groups = ["spamhaus"]; }
+      "DBL_BLOCKED" { weight = 0.0; description = "Spamhaus query limit exceeded"; groups = ["spamhaus"]; }
+      "SPAMHAUS_ZEN_URIBL" { weight = 0.0; description = "Spamhaus ZEN URIBL: Filtered result"; groups = ["spamhaus"]; }
+      "URIBL_SBL" { weight = 6.5; description = "Domain in body resolves to SBL IP"; one_shot = true; groups = ["spamhaus"]; }
+      "URIBL_SBL_CSS" { weight = 6.5; description = "Domain in body resolves to SBL CSS IP"; one_shot = true; groups = ["spamhaus"]; }
+      "URIBL_PBL" { weight = 0.01; description = "Domain in body resolves to PBL IP"; one_shot = true; groups = ["spamhaus"]; }
+      "URIBL_DROP" { weight = 6.5; description = "Domain in body resolves to DROP IP"; one_shot = true; groups = ["spamhaus"]; }
+      "URIBL_XBL" { weight = 5.0; description = "Domain in body resolves to XBL IP"; one_shot = true; groups = ["spamhaus"]; }
+      "SPAMHAUS_SBL_URL" { weight = 6.5; description = "Numeric URL in body listed in SBL"; one_shot = true; groups = ["spamhaus"]; }
+    }
+  '';
+
   services.rspamd.extraConfig = lib.mkAfter ''
 settings {
   local {
@@ -311,3 +517,4 @@ settings {
 }
   '';
 }
+
