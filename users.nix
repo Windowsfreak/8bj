@@ -77,6 +77,10 @@ in
       isSystemUser = true;
       home = "/var/leben";
       group = "leben";
+      packages = with pkgs; [
+        imagemagick
+        libwebp
+      ];
     };
     uponly = {
       isSystemUser = true;
