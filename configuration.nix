@@ -20,6 +20,7 @@
     ./freellmapi.nix
     ./dawarich.nix
     ./uponly-api.nix
+    ./backup.nix
 
     ./paranoia.nix
   ];
