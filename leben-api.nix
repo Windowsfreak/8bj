@@ -24,7 +24,7 @@ in {
       Restart = "always";
       PrivateTmp = true;
       ProtectSystem = "full";
-      MemoryMax = "1G";
+      MemoryMax = "2G";
     };
   };
 
