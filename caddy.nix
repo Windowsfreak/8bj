@@ -375,6 +375,21 @@ let
       Access-Control-Allow-Methods "GET, OPTIONS"
       Access-Control-Allow-Headers "Content-Type"
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
@@ -409,6 +424,21 @@ let
       Access-Control-Allow-Methods "GET, OPTIONS"
       Access-Control-Allow-Headers "Content-Type"
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
@@ -435,6 +465,21 @@ let
 
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
@@ -461,6 +506,21 @@ let
 
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
@@ -487,6 +547,21 @@ let
 
       php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
@@ -593,6 +668,21 @@ let
     handle @phpFiles {
       respond "Access denied" 403
     }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
     handle {
       file_server
       try_files {path} /index.html
