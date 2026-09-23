@@ -65,7 +65,7 @@ Based on the live filesystem inspection of `8bj.de` (total footprint ~45 GB unco
 | Category | Specific Paths | Notes & Details |
 | :--- | :--- | :--- |
 | **System & Secrets** | • `/etc/nixos`<br>• `/var/config`<br>• `/var/dkim`<br>• `/var/sieve`<br>• `/etc/dovecot` | Cryptographic keys, secrets (`vaultwarden.env`, `nextcloud-secrets.json`, etc.), mail passwords. |
-| **Custom Go/Node Services** | • `/var/aurumtax`<br>• `/var/tagtax`<br>• `/var/hypetax`<br>• `/var/uebtax`<br>• `/var/leben`<br>• `/var/uponly`<br>• `/var/dpv`<br>• `/var/freellmapi` | Includes `storage/jobs`, `uploads/clubs`, `usd.xml`, `chf.xml`, `crypto_rates.csv`, `ars.json`, `config.yml`, `uponly.db`, `zoom_accounts.db`, `freeapi.db`. *(Compiler caches `/var/*/go` and `.cache` are excluded).* |
+| **Custom Go/Node Services** | • `/var/aurumtax`<br>• `/var/tagtax`<br>• `/var/hypetax`<br>• `/var/uebtax`<br>• `/var/polartax`<br>• `/var/leben`<br>• `/var/uponly`<br>• `/var/dpv`<br>• `/var/freellmapi` | Includes `storage/jobs`, `uploads/clubs`, `usd.xml`, `chf.xml`, `crypto_rates.csv`, `ars.json`, `config.yml`, `uponly.db`, `zoom_accounts.db`, `freeapi.db`. *(Compiler caches `/var/*/go` and `.cache` are excluded).* |
 | **Web Roots & Reports** | • `/var/www` | Includes WordPress (`alica`), EspoCRM (`espocrm`, `espocollin`), static sites (`8bj`, `rbh`, `kohlhof`), and **`/var/www/pdf`** (AurumTax client invoice/report PDFs). |
 | **User Data & Mail** | • `/var/vmail` (~5.1 GB)<br>• `/var/lib/nextcloud` (~4.4 GB)<br>• `/home/bjoern` (~900 MB) | Dovecot Maildir boxes, Nextcloud file storage, user home directory. *(Jupyter workspace `/srv/jupyter` is excluded).* |
 | **App State & Databases** | • `/var/lib/snappymail`<br>• `/var/lib/dawarich`<br>• `/var/lib/changedetection`<br>• `/var/lib/minecraft`<br>• `/var/lib/private/factorio`<br>• `/var/lib/private/listmonk` | SnappyMail contacts/prefs, Dawarich attachments, monitor data, game worlds/saves. |
@@ -211,6 +211,7 @@ in
       "/var/tagtax"
       "/var/hypetax"
       "/var/uebtax"
+      "/var/polartax"
       "/var/leben"
       "/var/uponly"
       "/var/dpv"

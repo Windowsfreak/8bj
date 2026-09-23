@@ -70,6 +70,7 @@ in
       "/var/tagtax"
       "/var/hypetax"
       "/var/uebtax"
+      "/var/polartax"
       "/var/leben"
       "/var/uponly"
       "/var/dpv"

@@ -567,6 +567,47 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfilePolar = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/polartax/polartax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/polartax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfileFreellmapi = ''
     header /* {
       -Server
@@ -815,6 +856,9 @@ in {
       };
       virtualHosts."uebtax.8bj.de" = {
         extraConfig = caddyfileUeb;
+      };
+      virtualHosts."polartax.8bj.de" = {
+        extraConfig = caddyfilePolar;
       };
       virtualHosts."llm.8bj.de" = {
         extraConfig = caddyfileFreellmapi;
