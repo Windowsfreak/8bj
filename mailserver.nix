@@ -279,6 +279,11 @@ Tel.: 040-6552347 | Fax: 040-65590732";
     prompt = "Analyze this email strictly as a spam detector given the email message, subject, FROM and url domains. Your recipient lives in Hamburg, Germany, runs a business, kindergarden, parkour organisation, live music performance and trades cryptocurrencies. Evaluate spam probability (0-1). Output ONLY 3 lines:\n1. Numeric score (0.00-1.00)\n2. One-sentence reason citing strongest red flag\n3. Primary concern category if found from the list: malware, phishing, marketing, scam";
     reason_header = "X-GPT-Reason";
   '';
+
+  services.rspamd.locals."greylist.conf".text = ''
+    timeout = 40s;
+  '';
+
   services.rspamd.locals."arc.conf".text = ''
     # Use the existing simple-nixos-mailserver DKIM keys
     path = "/var/dkim/$domain.$selector.key";
