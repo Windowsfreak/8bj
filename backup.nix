@@ -106,6 +106,7 @@ in
       "/var/lib/docker"           # Rebuilt declaratively
       "/var/lib/private/ollama"   # Downloadable model weights
       "/var/lib/dovecot/indices"  # Rebuildable FTS search index
+      "/var/www/di/db"
 
       # Raw DB directories (replaced by atomic dumps in /var/backup-staging)
       "/var/lib/mysql"

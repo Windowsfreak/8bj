@@ -81,6 +81,7 @@ Based on the live filesystem inspection of `8bj.de` (total footprint ~45 GB unco
 | `/var/lib/dovecot/indices` | Full-Text Search (FTS) index cache (~4.9 GB). Auto-regenerates from Maildir when queried. |
 | `/var/vmail-backup-2025-12-09` & `/var/db/*backup*` | Stale manual backup directories (~4.5 GB). |
 | `/var/log` | Systemd journal and service logs. |
+| `/var/www/di/db` | Excluded database directory under web root. |
 | `/var/lib/mysql`, `/var/lib/postgresql`, `/var/db/arangodb` | Raw running database directories are replaced by clean, atomic dumps in `/var/backup-staging`. |
 
 ---
@@ -245,6 +246,7 @@ in
       "/var/lib/docker"
       "/var/lib/private/ollama"
       "/var/lib/dovecot/indices"
+      "/var/www/di/db"
       
       # Raw DB directories (replaced by atomic dumps in /var/backup-staging)
       "/var/lib/mysql"
