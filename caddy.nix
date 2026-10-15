@@ -290,6 +290,9 @@ let
       -Server
     }
     header Strict-Transport-Security max-age=63072000
+    header /db/* {
+      Cache-Control "public, max-age=2592000, immutable"
+    }
     encode zstd gzip
     root * /var/www/di
     file_server
