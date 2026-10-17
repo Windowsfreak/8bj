@@ -14,7 +14,7 @@ The purpose of this file is to collect troubleshooting knowledge over time.
 ### php-fpm
 - available via socket
 
-### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, UPOnly)
+### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, Sonic, UPOnly)
 These services run natively as systemd daemons, communicating with Caddy via Unix sockets and using ArangoDB, PostgreSQL, or SQLite as their backend.
 - **DPV**:
   - Code directories: `/var/dpv/api` (DPV1/DPV2), `/var/dpv/zoom` (Zoom), `/var/dpv/dpv` (Membership).
@@ -41,6 +41,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/polartax/polartax` (Frontend is in `/var/polartax/polartax/frontend`).
   - Service: `polartax.service` (socket `/run/polartax/apiserver.sock`).
   - Run under user `polartax`.
+- **Sonic**:
+  - Code directory: `/var/sonic/sonic` (Frontend is in `/var/sonic/sonic/frontend`).
+  - Service: `sonic.service` (socket `/run/sonic/apiserver.sock`).
+  - Run under user `sonic`.
 - **Leben**:
   - Code directory: `/var/leben/leben` (Frontend is in `/var/leben/leben/frontend`).
   - Service: `leben.service` (socket `/run/leben/apiserver.sock`).
@@ -49,13 +53,14 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/uponly/uponly`.
   - Service: `uponly.service` (socket `/run/uponly/apiserver.sock`).
   - Run under user `uponly`.
-  ### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, UPOnly, FreeLLMAPI)
+  ### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, Sonic, UPOnly, FreeLLMAPI)
 - **In-Tree Configs & Storage**: Several services store critical live state, upload folders, currency caches, and SQLite databases in their local directories:
   - **AurumTax**: `/var/aurumtax/aurumtax` (Frontend in `/frontend`, storage in `/storage/jobs`, rates in `usd.xml`, `chf.xml`, `ars.json`, `crypto_rates.csv`, config in `config.yml`). Generated PDFs are served from `/var/www/pdf`.
   - **TagTax**: `/var/tagtax/tagtax` (Storage in `/storage/jobs`, rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **HypeTax**: `/var/hypetax/hypetax` (Storage in `/storage/jobs`, generated reports in `/report/`, rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **UebTax**: `/var/uebtax/uebtax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **PolarTax**: `/var/polartax/polartax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
+  - **Sonic**: `/var/sonic/sonic` (Frontend in `/frontend`, data/cache in `/data`, scripts in `/scripts`).
   - **Leben**: `/var/leben/leben` (Frontend in `/frontend`, config in `config.yml`, Postgres backend).
   - **UPOnly**: `/var/uponly/uponly` (SQLite DB in `/var/uponly/uponly/uponly.db`).
   - **DPV & Zoom**: `/var/dpv` (DPV membership in `/dpv`, uploads in `/dpv/uploads/clubs`, Zoom service in `/zoom` with SQLite DB in `/zoom/zoom_accounts.db`, account configs in `account-1.json`, `account-2.json`, API in `/api`).
@@ -222,7 +227,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ### Unique File Locations & State Inventory (For Backups):
 - `/etc/nixos` (NixOS configuration repository)
 - `/var/config` (secrets and configurations: vaultwarden, nextcloud, mail, redis, wireguard, listmonk, freellmapi, wordpress, dawarich)
-- `/var/aurumtax`, `/var/tagtax`, `/var/hypetax`, `/var/uebtax`, `/var/polartax`, `/var/leben`, `/var/uponly`, `/var/dpv`, `/var/freellmapi` (Go/Node services, configs, XML exchange rates, SQLite DBs, storage/jobs folders; exclude `/var/*/go` and `.cache`)
+- `/var/aurumtax`, `/var/tagtax`, `/var/hypetax`, `/var/uebtax`, `/var/polartax`, `/var/sonic`, `/var/leben`, `/var/uponly`, `/var/dpv`, `/var/freellmapi` (Go/Node services, configs, XML exchange rates, SQLite DBs, storage/jobs folders; exclude `/var/*/go` and `.cache`)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, alica, espocrm, espocollin, and `/var/www/pdf` for generated AurumTax documents)
 - `/var/vmail` (Dovecot Maildir data)
 - `/var/lib/nextcloud` (Nextcloud data directory)

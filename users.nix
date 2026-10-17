@@ -26,6 +26,7 @@ in
     hypetax = {};
     uebtax = {};
     polartax = {};
+    sonic = {};
     leben = {};
     freellmapi = {};
     uponly = {};
@@ -78,6 +79,15 @@ in
       isSystemUser = true;
       home = "/var/polartax";
       group = "polartax";
+    };
+    sonic = {
+      isSystemUser = true;
+      home = "/var/sonic";
+      group = "sonic";
+      packages = with pkgs; [
+        nodejs
+        chromium
+      ];
     };
     leben = {
       isSystemUser = true;
