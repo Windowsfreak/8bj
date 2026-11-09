@@ -21,6 +21,30 @@ let
     header Strict-Transport-Security max-age=63072000
     encode zstd gzip
     root * /var/www/rbh
+
+    # Block PHP execution in upload, media, and cache directories
+    @uploadPhp path /images/*.php /media/*.php /attachments/*.php /phocadownload/*.php /cache/*.php /tmp/*.php /dokumente/*.php /tpm/*
+    respond @uploadPhp "Access denied" 403
+
+    # Block sensitive system files, internal engine code, and legacy XML-RPC
+    @forbidden {
+      path /configuration.php*
+      path /CHANGELOG.php
+      path /INSTALL.php
+      path /COPYRIGHT.php
+      path /CREDITS.php
+      path /LICENSE.php
+      path /LICENSES.php
+      path /htaccess.txt
+      path /.htaccess
+      path /xmlrpc/*
+      path /includes/*.php
+      path /libraries/*
+      path /language/*
+      path /templates/*.php
+    }
+    respond @forbidden 404
+
     php_fastcgi unix/${config.services.phpfpm.pools.php5.socket} {
     }
     file_server
@@ -611,6 +635,47 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileCt3 = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/ct3tax/ct3tax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/ct3tax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfileSonic = ''
     header /* {
       -Server
@@ -904,6 +969,9 @@ in {
       virtualHosts."polartax.8bj.de" = {
         extraConfig = caddyfilePolar;
       };
+      virtualHosts."ct3tax.8bj.de" = {
+        extraConfig = caddyfileCt3;
+      };
       virtualHosts."sonic.8bj.de" = {
         extraConfig = caddyfileSonic;
       };
@@ -936,6 +1004,9 @@ in {
         display_errors = "stderr";
         log_errors = true;
         error_log = "/var/log/php/php.log";
+        ; Mitigate CVE-2026-109618 & CVE-2026-109619
+        session.upload_progress.enabled = 0
+        session.use_strict_mode = 1
         upload_max_filesize = "512M";
         post_max_size = "512M";
         memory_limit = "512M";
@@ -957,6 +1028,8 @@ in {
           settings = {
             "listen.owner" = config.services.caddy.user;
             "listen.group" = config.services.caddy.group;
+            "php_admin_flag[session.upload_progress.enabled]" = "off";
+            "php_admin_flag[session.use_strict_mode]" = "on";
             "pm" = "dynamic";
             "pm.max_children" = 32;
             "pm.max_requests" = 500;
@@ -972,6 +1045,8 @@ in {
           settings = {
             "listen.owner" = config.services.caddy.user;
             "listen.group" = config.services.caddy.group;
+            "php_admin_flag[session.upload_progress.enabled]" = "off";
+            "php_admin_flag[session.use_strict_mode]" = "on";
             "pm" = "dynamic";
             "pm.max_children" = 32;
             "pm.max_requests" = 500;
@@ -981,6 +1056,34 @@ in {
           };
         };
       };
+    };
+  };
+  systemd.services.phpfpm-php5 = {
+    serviceConfig = {
+      ProtectSystem = lib.mkForce "strict";
+      ProtectHome = true;
+      PrivateTmp = true;
+      NoNewPrivileges = true;
+      ReadWritePaths = [
+        "/var/www/rbh/cache"
+        "/var/www/rbh/tmp"
+        "/var/www/rbh/images/stories"
+        "/var/log/php"
+        "/run/phpfpm"
+      ];
+      InaccessiblePaths = [
+        "/var/config"
+        "/var/www/pdf"
+        "/var/www/alica"
+        "/var/www/espocrm"
+        "/var/www/espocollin"
+        "/var/www/8bj"
+        "/var/www/kohlhof"
+        "/var/www/leben"
+        "/etc/nixos"
+        "/root"
+        "/home"
+      ];
     };
   };
   systemd.services.espocrm-cron = {

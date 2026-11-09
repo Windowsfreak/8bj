@@ -11,7 +11,7 @@ in
   security.doas = {
     enable = true;
     extraConfig = ''
-      permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart dovecot2.service
+      permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart dovecot.service
       permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix-setup.service
       permit nopass dpv as root cmd /run/current-system/sw/bin/systemctl args restart postfix.service
     '';
@@ -26,6 +26,7 @@ in
     hypetax = {};
     uebtax = {};
     polartax = {};
+    ct3tax = {};
     sonic = {};
     leben = {};
     freellmapi = {};
@@ -35,6 +36,7 @@ in
     php = {};
     rbh = {};
     minecraft = {};
+    pdfwriters = {};
     www-data = {
       gid = 82;
     };
@@ -43,6 +45,7 @@ in
     caddy = {
       isSystemUser = true;
       home = "/var/lib/caddy";
+      extraGroups = ["pdfwriters"];
     };
     dpv = {
       isSystemUser = true;
@@ -59,26 +62,37 @@ in
       isSystemUser = true;
       home = "/var/aurumtax";
       group = "aurumtax";
+      extraGroups = ["pdfwriters"];
     };
     tagtax = {
       isSystemUser = true;
       home = "/var/tagtax";
       group = "tagtax";
+      extraGroups = ["pdfwriters"];
     };
     hypetax = {
       isSystemUser = true;
       home = "/var/hypetax";
       group = "hypetax";
+      extraGroups = ["pdfwriters"];
     };
     uebtax = {
       isSystemUser = true;
       home = "/var/uebtax";
       group = "uebtax";
+      extraGroups = ["pdfwriters"];
     };
     polartax = {
       isSystemUser = true;
       home = "/var/polartax";
       group = "polartax";
+      extraGroups = ["pdfwriters"];
+    };
+    ct3tax = {
+      isSystemUser = true;
+      home = "/var/ct3tax";
+      group = "ct3tax";
+      extraGroups = ["pdfwriters"];
     };
     sonic = {
       isSystemUser = true;
