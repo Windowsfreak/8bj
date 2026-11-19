@@ -17,6 +17,7 @@
     ./hypetax-api.nix
     ./uebtax-api.nix
     ./polartax-api.nix
+    ./ct3tax-api.nix
     ./sonic-api.nix
     ./leben-api.nix
     ./freellmapi.nix
@@ -114,6 +115,14 @@
             BASE_URL = "https://monitor.8bj.de";  # Deine Domain
           };
           dependsOn = [ "selenium-chrome" ];
+        };
+        byparr = {
+          image = "ghcr.io/thephaseless/byparr:latest";
+          ports = [ "127.0.0.1:8191:8191" ];
+          environment = {
+            LOG_LEVEL = "INFO";
+          };
+          extraOptions = [ "--memory=1500m" ];
         };
       };
     };
