@@ -45,6 +45,10 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/ct3tax/ct3tax` (Frontend is in `/var/ct3tax/ct3tax/frontend`).
   - Service: `ct3tax.service` (socket `/run/ct3tax/apiserver.sock`).
   - Run under user `ct3tax`.
+- **BetaTax**:
+  - Code directory: `/var/betax/betax` (Frontend is in `/var/betax/betax/frontend`).
+  - Service: `betax.service` (socket `/run/betax/apiserver.sock`).
+  - Run under user `betax`.
 - **Sonic**:
   - Code directory: `/var/sonic/sonic` (Frontend is in `/var/sonic/sonic/frontend`).
   - Service: `sonic.service` (socket `/run/sonic/apiserver.sock`).
@@ -57,7 +61,7 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - Code directory: `/var/uponly/uponly`.
   - Service: `uponly.service` (socket `/run/uponly/apiserver.sock`).
   - Run under user `uponly`.
-  ### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, Ct3Tax, Sonic, UPOnly, FreeLLMAPI)
+  ### Go / Custom APIs (DPV, AurumTax, HypeTax, TagTax, UebTax, PolarTax, Ct3Tax, BetaTax, Sonic, UPOnly, FreeLLMAPI)
 - **In-Tree Configs & Storage**: Several services store critical live state, upload folders, currency caches, and SQLite databases in their local directories:
   - **AurumTax**: `/var/aurumtax/aurumtax` (Frontend in `/frontend`, storage in `/storage/jobs`, rates in `usd.xml`, `chf.xml`, `ars.json`, `crypto_rates.csv`, config in `config.yml`). Generated PDFs are served from `/var/www/pdf`.
   - **TagTax**: `/var/tagtax/tagtax` (Storage in `/storage/jobs`, rates in `usd.xml`, `chf.xml`, config in `config.yml`).
@@ -65,6 +69,7 @@ These services run natively as systemd daemons, communicating with Caddy via Uni
   - **UebTax**: `/var/uebtax/uebtax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **PolarTax**: `/var/polartax/polartax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **Ct3Tax**: `/var/ct3tax/ct3tax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
+  - **BetaTax**: `/var/betax/betax` (Rates in `usd.xml`, `chf.xml`, config in `config.yml`).
   - **Sonic**: `/var/sonic/sonic` (Frontend in `/frontend`, data/cache in `/data`, scripts in `/scripts`).
   - **Leben**: `/var/leben/leben` (Frontend in `/frontend`, config in `config.yml`, Postgres backend).
   - **UPOnly**: `/var/uponly/uponly` (SQLite DB in `/var/uponly/uponly/uponly.db`).
@@ -232,7 +237,7 @@ Public.Teamfolder.* user==member1@example.com lrwstipekxa
 ### Unique File Locations & State Inventory (For Backups):
 - `/etc/nixos` (NixOS configuration repository)
 - `/var/config` (secrets and configurations: vaultwarden, nextcloud, mail, redis, wireguard, listmonk, freellmapi, wordpress, dawarich)
-- `/var/aurumtax`, `/var/tagtax`, `/var/hypetax`, `/var/uebtax`, `/var/polartax`, `/var/ct3tax`, `/var/sonic`, `/var/leben`, `/var/uponly`, `/var/dpv`, `/var/freellmapi` (Go/Node services, configs, XML exchange rates, SQLite DBs, storage/jobs folders; exclude `/var/*/go` and `.cache`)
+- `/var/aurumtax`, `/var/tagtax`, `/var/hypetax`, `/var/uebtax`, `/var/polartax`, `/var/ct3tax`, `/var/betax`, `/var/sonic`, `/var/leben`, `/var/uponly`, `/var/dpv`, `/var/freellmapi` (Go/Node services, configs, XML exchange rates, SQLite DBs, storage/jobs folders; exclude `/var/*/go` and `.cache`)
 - `/var/www` (web roots for 8bj, rbh, kohlhof, wordpress, id, di, alica, espocrm, espocollin, and `/var/www/pdf` for generated AurumTax documents)
 - `/var/vmail` (Dovecot Maildir data)
 - `/var/lib/nextcloud` (Nextcloud data directory)

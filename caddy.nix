@@ -676,6 +676,47 @@ let
       try_files {path} /index.html
     }
   '';
+  caddyfileBeta = ''
+    header /* {
+      -Server
+    }
+    header Strict-Transport-Security max-age=63072000
+    encode zstd gzip
+    root * /var/betax/betax/frontend
+    handle /api/* {
+      reverse_proxy * unix//run/betax/apiserver.sock
+    }
+    @phpDir {
+      path /php /php/*
+    }
+    handle @phpDir {
+      @notPhp {
+        not path_regexp \.php$
+      }
+      respond @notPhp "Access denied" 403
+
+      php_fastcgi unix/${config.services.phpfpm.pools.php.socket}
+    }
+    @staticCode {
+      path *.css *.js
+    }
+    header @staticCode Cache-Control "public, max-age=300, stale-while-revalidate=86400"
+
+    @staticMedia {
+      path *.ico *.gif *.jpg *.jpeg *.png *.svg *.webp *.avif *.woff *.woff2 *.ttf *.eot
+    }
+    header @staticMedia Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
+
+    @html {
+      path *.html /
+    }
+    header @html Cache-Control "no-cache"
+
+    handle {
+      file_server
+      try_files {path} /index.html
+    }
+  '';
   caddyfileSonic = ''
     header /* {
       -Server
@@ -971,6 +1012,9 @@ in {
       };
       virtualHosts."ct3tax.8bj.de" = {
         extraConfig = caddyfileCt3;
+      };
+      virtualHosts."betax.8bj.de" = {
+        extraConfig = caddyfileBeta;
       };
       virtualHosts."sonic.8bj.de" = {
         extraConfig = caddyfileSonic;

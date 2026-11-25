@@ -18,6 +18,7 @@
     ./uebtax-api.nix
     ./polartax-api.nix
     ./ct3tax-api.nix
+    ./betax-api.nix
     ./sonic-api.nix
     ./leben-api.nix
     ./freellmapi.nix
@@ -262,6 +263,7 @@
     "d /run/uebtax 0755 uebtax uebtax - -"
     "d /run/polartax 0755 polartax polartax - -"
     "d /run/ct3tax 0755 ct3tax ct3tax - -"
+    "d /run/betax 0755 betax betax - -"
     "d /run/sonic 0755 sonic sonic - -"
     "d /run/leben 0755 leben leben - -"
     "d /run/uponly 0755 uponly uponly - -"

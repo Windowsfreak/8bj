@@ -72,6 +72,7 @@ in
       "/var/uebtax"
       "/var/polartax"
       "/var/ct3tax"
+      "/var/betax"
       "/var/sonic"
       "/var/leben"
       "/var/uponly"

@@ -27,6 +27,7 @@ in
     uebtax = {};
     polartax = {};
     ct3tax = {};
+    betax = {};
     sonic = {};
     leben = {};
     freellmapi = {};
@@ -92,6 +93,12 @@ in
       isSystemUser = true;
       home = "/var/ct3tax";
       group = "ct3tax";
+      extraGroups = ["pdfwriters"];
+    };
+    betax = {
+      isSystemUser = true;
+      home = "/var/betax";
+      group = "betax";
       extraGroups = ["pdfwriters"];
     };
     sonic = {
