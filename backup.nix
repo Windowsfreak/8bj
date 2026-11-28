@@ -25,7 +25,8 @@ let
     echo "[4/4] Safely backing up SQLite databases..."
     for db in /var/uponly/uponly/uponly.db \
               /var/dpv/zoom/zoom_accounts.db \
-              /var/freellmapi/freellmapi/server/data/freeapi.db; do
+              /var/freellmapi/freellmapi/server/data/freeapi.db \
+              /var/trade/trade/storage/trade.db; do
       if [ -f "$db" ]; then
         ${pkgs.sqlite}/bin/sqlite3 "$db" ".backup '$STAGING/sqlite/$(basename "$db")'" 2>/dev/null || cp "$db" "$STAGING/sqlite/"
       fi
@@ -73,6 +74,7 @@ in
       "/var/polartax"
       "/var/ct3tax"
       "/var/betax"
+      "/var/trade"
       "/var/sonic"
       "/var/leben"
       "/var/uponly"

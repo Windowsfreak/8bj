@@ -28,6 +28,7 @@ in
     polartax = {};
     ct3tax = {};
     betax = {};
+    trade = {};
     sonic = {};
     leben = {};
     freellmapi = {};
@@ -99,6 +100,12 @@ in
       isSystemUser = true;
       home = "/var/betax";
       group = "betax";
+      extraGroups = ["pdfwriters"];
+    };
+    trade = {
+      isSystemUser = true;
+      home = "/var/trade";
+      group = "trade";
       extraGroups = ["pdfwriters"];
     };
     sonic = {
