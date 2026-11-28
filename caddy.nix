@@ -727,6 +727,9 @@ let
     handle /api/* {
       reverse_proxy * unix//run/trade/apiserver.sock
     }
+    handle /r/* {
+      reverse_proxy * unix//run/trade/apiserver.sock
+    }
     @phpDir {
       path /php /php/*
     }
